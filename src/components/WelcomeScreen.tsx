@@ -1,9 +1,15 @@
-import React from "react";
+import React from "react"
 
-import dungeonEntrance from '../assets/dungeon/entrance.png';
-import './WelcomeScreen.css';
+import { useNavigate } from "react-router-dom"
+import dungeonEntrance from "../assets/dungeon/entrance.png"
+import "./WelcomeScreen.css"
 
-const WelcomeScreen: React.FC<void> = () => {
+const WelcomeScreen: React.FC = () => {
+	const navigate = useNavigate()
+	const handleStartGame = () => {
+		navigate("/dungeon/")
+	}
+
 	return (
 		<div className="welcome-screen-bg">
 			<img
@@ -15,12 +21,12 @@ const WelcomeScreen: React.FC<void> = () => {
 				<h1>Dungeon of Shadows</h1>
 			</div>
 			<div className="welcome-screen-buttons">
-				<button>Start game</button>
+				<button onClick={handleStartGame}>Start game</button>
 				<button>Create character</button>
 				<button>Load character</button>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default WelcomeScreen;
+export default WelcomeScreen
