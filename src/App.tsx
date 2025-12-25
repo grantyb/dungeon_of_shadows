@@ -4,6 +4,7 @@ import introductionMusic from "./assets/dungeon/introduction.m4a"
 import DungeonEntrance from "./components/DungeonEntrance"
 import { AnimatedRoutes } from "./components/Routing/AnimatedRoute"
 import WelcomeScreen from "./components/WelcomeScreen"
+import Combat from "./components/Combat"
 
 function App() {
 	useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
 		<AnimatedRoutes durationMs={500}>
 			<Route path="/" element={<WelcomeScreen />} />
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
+			<Route path="/attack-wizard/" element={<Combat foe="wizard" />} />
 		</AnimatedRoutes>
 	)
 }

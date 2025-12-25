@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=MedievalSharp&display=swap");
+@import "./welcome.css";
+@import "./layout.css";
 
 :root {
-	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: "MedievalSharp", cursive, fantasy, serif;
 	line-height: 1.5;
 	font-weight: 400;
 
@@ -60,15 +62,6 @@ button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
 }
 
-.backdrop {
-	background: rgba(0, 0, 0, 1);
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-}
-
 .route-fade {
 	opacity: 1;
 	transition: opacity 200ms ease;
@@ -77,3 +70,4 @@ button:focus-visible {
 .route-fade.out {
 	opacity: 0;
 }
+

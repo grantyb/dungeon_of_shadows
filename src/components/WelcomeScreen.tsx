@@ -2,29 +2,50 @@ import React from "react"
 
 import { useNavigate } from "react-router-dom"
 import dungeonEntrance from "../assets/dungeon/entrance.png"
-import "./WelcomeScreen.css"
+import Conversation from "./Conversation"
 
 const WelcomeScreen: React.FC = () => {
 	const navigate = useNavigate()
+
+	const [showIntroduction, setShowIntroduction] = React.useState(false)
+
 	const handleStartGame = () => {
-		navigate("/dungeon/")
+		setShowIntroduction(true)
 	}
 
 	return (
-		<div className="welcome-screen-bg">
-			<img
-				src={dungeonEntrance}
-				alt="Dungeon Entrance"
-				className="welcome-screen-img"
-			/>
-			<div className="welcome-screen-title">
+		<div className="background-image">
+			<img src={dungeonEntrance} alt="Dungeon Entrance" />
+			<div className="main-title">
 				<h1>Dungeon of Shadows</h1>
 			</div>
-			<div className="welcome-screen-buttons">
-				<button onClick={handleStartGame}>Start game</button>
-				<button>Create character</button>
-				<button>Load character</button>
-			</div>
+			{!showIntroduction && (
+				<div className="home-screen-buttons">
+					<button onClick={handleStartGame}>Start game</button>
+					<button>Create character</button>
+					<button>Load character</button>
+				</div>
+			)}
+			{showIntroduction && (
+				<Conversation left={5} width={30} top={20}>
+					<p>
+						You stand before the ominous entrance of the Dungeon of
+						Shadows, a place whispered about in legends and feared
+						by many.
+					</p>
+					<p>
+						The air is thick with anticipation as you clutch your
+						gear, ready to face whatever challenges lie within. With
+						a deep breath, you prepare to step forward into the dank
+						and foreboding darkness.
+						<div className="conversation-controls">
+							<button onClick={() => navigate("/dungeon/")}>
+								Enter the dungeon
+							</button>
+						</div>
+					</p>
+				</Conversation>
+			)}
 		</div>
 	)
 }
