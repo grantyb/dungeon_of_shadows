@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import WelcomeScreen from "./components/WelcomeScreen";
 import DungeonEntrance from "./components/DungeonEntrance";
-import "./components/PageTurn.css";
 
 const AppWithTransition: React.FC = () => {
   const [screen, setScreen] = useState<'welcome' | 'dungeon'>('welcome');
