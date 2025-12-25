@@ -1,7 +1,8 @@
-import AppWithTransition from './AppWithTransition';
 
 import introductionMusic from './assets/dungeon/introduction.m4a';
 import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import WelcomeScreen from './components/WelcomeScreen';
 
 function App() {
 	useEffect(() => {
@@ -22,7 +23,11 @@ function App() {
 				source.start();
 			});
 	}, []);
-	return <AppWithTransition />;
+	return (
+		<Routes>
+			<Route path="/" element={<WelcomeScreen />} />
+		</Routes>
+	);
 }
 
 export default App;

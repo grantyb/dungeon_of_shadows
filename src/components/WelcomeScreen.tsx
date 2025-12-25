@@ -1,15 +1,9 @@
 import React from "react";
 
-
-import './WelcomeScreen.css';
 import dungeonEntrance from '../assets/dungeon/entrance.png';
+import './WelcomeScreen.css';
 
-
-interface WelcomeScreenProps {
-	onStartGame?: () => void;
-}
-
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStartGame }) => {
+const WelcomeScreen: React.FC<void> = () => {
 	return (
 		<div className="welcome-screen-bg">
 			<img
@@ -21,7 +15,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStartGame }) => {
 				<h1>Dungeon of Shadows</h1>
 			</div>
 			<div className="welcome-screen-buttons">
-				<button onClick={onStartGame}>Start game</button>
+				<button>Start game</button>
 				<button>Create character</button>
 				<button>Load character</button>
 			</div>
