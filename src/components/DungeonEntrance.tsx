@@ -1,6 +1,6 @@
 import React from "react";
 import "./WelcomeScreen.css";
-import entranceImg from "../assets/dungeon/entrance.png";
+import entranceImg from "../assets/dungeon/wizard.png";
 
 const DungeonEntrance: React.FC = () => {
   return (
