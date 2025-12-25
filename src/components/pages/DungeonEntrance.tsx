@@ -1,16 +1,14 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
-import entranceImg from "../assets/dungeon/wizard.png"
-import Conversation from "./Conversation"
+import { useNavigate } from "react-router-dom";
+import Conversation from "../Conversation";
+import StandardPage from "../StandardPage";
+import img from "../../assets/dungeon/wizard.png";
 
-const DungeonEntrance: React.FC = () => {
-	const navigate = useNavigate()
+export const DungeonEntrance = () => {
+	
+	const navigate = useNavigate();
+
 	return (
-		<div className="background-image">
-			<img src={entranceImg} alt="Dungeon Entrance" />
-			<div className="main-title">
-				<h1>Dungeon Entrance</h1>
-			</div>
+		<StandardPage backgroundImage={img} title="Dungeon Entrance">
 			<Conversation left={5} width={45} top={15}>
 				<p>
 					The foul smell of damp stone, death and decay wafts out from
@@ -45,8 +43,6 @@ const DungeonEntrance: React.FC = () => {
 					</div>
 				</p>
 			</Conversation>
-		</div>
+		</StandardPage>
 	)
 }
-
-export default DungeonEntrance

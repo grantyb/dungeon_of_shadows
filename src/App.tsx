@@ -1,10 +1,14 @@
 import { useEffect } from "react"
 import { Route } from "react-router-dom"
-import introductionMusic from "./assets/dungeon/introduction.m4a"
-import DungeonEntrance from "./components/DungeonEntrance"
+import Combat from "./components/Combat"
 import { AnimatedRoutes } from "./components/Routing/AnimatedRoute"
 import WelcomeScreen from "./components/WelcomeScreen"
-import Combat from "./components/Combat"
+
+import introductionMusic from "./assets/dungeon/introduction.m4a"
+import wizard from "./assets/foes/wizard.png"
+
+import { DungeonEntrance } from "./components/pages/DungeonEntrance"
+import { GreetWizard } from "./components/pages/GreetWizard"
 
 function App() {
 	useEffect(() => {
@@ -22,7 +26,6 @@ function App() {
 				source.buffer = buffer
 				source.loop = true
 				source.connect(gainNode)
-				console.log("Starting music")
 				source.start()
 			})
 
@@ -41,7 +44,17 @@ function App() {
 		<AnimatedRoutes durationMs={500}>
 			<Route path="/" element={<WelcomeScreen />} />
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
-			<Route path="/attack-wizard/" element={<Combat foe="wizard" />} />
+			<Route
+				path="/attack-wizard/"
+				element={
+					<Combat
+						foe="wizard"
+						title="Combat with the Wizard"
+						backgroundImage={wizard}
+					/>
+				}
+			/>
+			<Route path="/greet-wizard/" element={<GreetWizard />} />
 		</AnimatedRoutes>
 	)
 }
