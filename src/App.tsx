@@ -9,9 +9,9 @@ function App() {
 	useEffect(() => {
 		const ctx = new AudioContext()
 		const gainNode = ctx.createGain()
-		gainNode.gain.value = 0.1 // 50%
+		gainNode.gain.value = 0.1 // 10%
 		gainNode.connect(ctx.destination)
-		let source
+		let source: AudioBufferSourceNode | undefined
 
 		fetch(introductionMusic)
 			.then((r) => r.arrayBuffer())
@@ -24,6 +24,17 @@ function App() {
 				console.log("Starting music")
 				source.start()
 			})
+
+		return () => {
+			if (source) {
+				try {
+					source.stop()
+				} catch {
+					// ignore
+				}
+			}
+			ctx.close()
+		}
 	}, [])
 	return (
 		<AnimatedRoutes durationMs={500}>
