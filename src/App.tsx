@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import React, { useRef, useState } from "react"
 import { Route } from "react-router-dom"
 import Combat from "./components/Combat"
 import { AnimatedRoutes } from "./components/Routing/AnimatedRoute"
@@ -10,48 +10,90 @@ import wizard from "./assets/foes/wizard.png"
 import { DungeonEntrance } from "./components/pages/DungeonEntrance"
 import { GreetWizard } from "./components/pages/GreetWizard"
 import CharacterCreationScreen from "./components/CharacterCreationScreen"
+import MuteIcon from "./components/icons/MuteIcon"
+import UnmuteIcon from "./components/icons/UnmuteIcon"
 
 function App() {
-	useEffect(() => {
-		const ctx = new AudioContext()
-		const gainNode = ctx.createGain()
-		gainNode.gain.value = 0.1 // 10%
-		gainNode.connect(ctx.destination)
-		let source: AudioBufferSourceNode | undefined
+	const [audioEnabled, setAudioEnabled] = useState(false)
+	const ctxRef = useRef<AudioContext | null>(null)
+	const sourceRef = useRef<AudioBufferSourceNode | null>(null)
+	const gainNodeRef = useRef<GainNode | null>(null)
+	const bufferRef = useRef<AudioBuffer | null>(null)
 
+	// Load audio buffer once
+	React.useEffect(() => {
 		fetch(introductionMusic)
 			.then((r) => r.arrayBuffer())
-			.then((b) => ctx.decodeAudioData(b))
-			.then((buffer) => {
-				source = ctx.createBufferSource()
-				source.buffer = buffer
-				source.loop = true
-				source.connect(gainNode)
-				source.start()
+			.then((b) => {
+				if (!ctxRef.current) ctxRef.current = new window.AudioContext()
+				return ctxRef.current.decodeAudioData(b)
 			})
-
+			.then((buffer) => {
+				bufferRef.current = buffer
+			})
 		return () => {
-			if (source) {
-				try {
-					source.stop()
-				} catch {
-					// ignore
-				}
+			try {
+				sourceRef.current?.stop()
+			} catch {
+				// Ignore errors on stop
 			}
-			ctx.close()
+			ctxRef.current?.close()
 		}
 	}, [])
+
+	// Play or pause audio on toggle
+	React.useEffect(() => {
+		if (!audioEnabled) {
+			try {
+				sourceRef.current?.stop()
+			} catch {
+				// Ignore errors on stop
+			}
+			sourceRef.current = null
+			return
+		}
+		if (!bufferRef.current) return
+		if (!ctxRef.current) ctxRef.current = new window.AudioContext()
+		if (!gainNodeRef.current) {
+			gainNodeRef.current = ctxRef.current.createGain()
+			gainNodeRef.current.gain.value = 0.1
+			gainNodeRef.current.connect(ctxRef.current.destination)
+		}
+		const source = ctxRef.current.createBufferSource()
+		source.buffer = bufferRef.current
+		source.loop = true
+		source.connect(gainNodeRef.current)
+		source.start()
+		sourceRef.current = source
+	}, [audioEnabled])
+
 	return (
-		<AnimatedRoutes durationMs={500}>
-			<Route path="/" element={<WelcomeScreen />} />
-			<Route path="/create-character" element={<CharacterCreationScreen />} />
-			<Route path="/dungeon/" element={<DungeonEntrance />} />
-			<Route
-				path="/attack-wizard/"
-				element={<Combat foe="wizard" backgroundImage={wizard} />}
-			/>
-			<Route path="/greet-wizard/" element={<GreetWizard />} />
-		</AnimatedRoutes>
+		<div className="app-container">
+			<AnimatedRoutes durationMs={500}>
+				<Route path="/" element={<WelcomeScreen />} />
+				<Route
+					path="/create-character"
+					element={<CharacterCreationScreen />}
+				/>
+				<Route path="/dungeon/" element={<DungeonEntrance />} />
+				<Route
+					path="/attack-wizard/"
+					element={<Combat foe="wizard" backgroundImage={wizard} />}
+				/>
+				<Route path="/greet-wizard/" element={<GreetWizard />} />
+			</AnimatedRoutes>
+			<button
+				className="music-toggle"
+				aria-label={audioEnabled ? "Pause music" : "Play music"}
+				onClick={() => setAudioEnabled((v) => !v)}
+			>
+				{audioEnabled ? (
+					<UnmuteIcon width={24} height={24} />
+				) : (
+					<MuteIcon width={24} height={24} />
+				)}
+			</button>
+		</div>
 	)
 }
 

@@ -1,3 +1,27 @@
+.app-container {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+
+	.music-toggle {
+		position: fixed;
+		top: 20px;
+		right: 20px;
+		background: rgba(30,30,30,0.85);
+		border: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		&:hover {
+			background: rgba(50,50,50,0.85);
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
 .backdrop {
 	background: rgba(0, 0, 0, 1);
 	position: fixed;
