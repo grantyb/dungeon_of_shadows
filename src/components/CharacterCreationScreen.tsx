@@ -1,13 +1,28 @@
-import React from "react"
+import React, { useState } from "react"
 
-import { useNavigate } from "react-router-dom"
-import dungeonEntrance from "../assets/dungeon/entrance.png"
+import warriorImage from "../assets/character/warrior.png"
+import wizardImage from "../assets/character/wizard.png"
+import rogueImage from "../assets/character/rogue.png"
 
 const CharacterCreationScreen: React.FC = () => {
-	const navigate = useNavigate()
+	const [characterClass, setCharacterClass] = useState<string>("warrior")
+
+	const selectClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		setCharacterClass(event.target.value)
+	}
+
+	const image =
+		characterClass === "mage"
+			? wizardImage
+			: characterClass === "rogue"
+			? rogueImage
+			: warriorImage
 
 	return (
-		<div className="background-image" style={{ backgroundImage: `url(${dungeonEntrance})` }}>
+		<div
+			className="background-image"
+			style={{ backgroundImage: `url(${image})` }}
+		>
 			<div className="main-title">
 				<h1>Create Character</h1>
 			</div>
@@ -19,14 +34,15 @@ const CharacterCreationScreen: React.FC = () => {
 					</label>
 					<label>
 						Class:
-						<select name="class">
-							<option disabled>Select…</option>
+						<select name="class" onChange={selectClass}>
 							<option value="warrior">Warrior</option>
 							<option value="mage">Mage</option>
 							<option value="rogue">Rogue</option>
 						</select>
 					</label>
-					<button type="submit" tabIndex={0}>Create Character</button>
+					<button type="submit" tabIndex={0}>
+						Create Character
+					</button>
 				</form>
 			</div>
 		</div>
