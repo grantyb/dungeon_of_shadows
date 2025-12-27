@@ -35,10 +35,10 @@ export const DungeonEntrance = () => {
 					revealing a face marked by deep lines of sorrow and eyes
 					that hold a glimmer of hope amidst the despair.
 					<div className="conversation-controls">
-						<button onClick={() => navigate("/greet-wizard/")}>
+						<button tabIndex={0} onClick={() => navigate("/greet-wizard/")}>
 							Greet the wizard
 						</button>
-						<button onClick={() => navigate("/attack-wizard/")}>
+						<button tabIndex={0} onClick={() => navigate("/attack-wizard/")}>
 							Attack
 						</button>
 					</div>

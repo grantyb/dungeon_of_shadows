@@ -23,9 +23,9 @@ const WelcomeScreen: React.FC = () => {
 			</div>
 			{!showIntroduction && (
 				<div className="home-screen-buttons">
-					<button onClick={handleStartGame}>Start game</button>
-					<button>Create character</button>
-					<button>Load character</button>
+					<button tabIndex={0} onClick={handleStartGame}>Start game</button>
+					<button tabIndex={0} onClick={() => navigate('/create-character')}>Create character</button>
+					<button tabIndex={0}>Load character</button>
 				</div>
 			)}
 			{showIntroduction && (
@@ -41,7 +41,7 @@ const WelcomeScreen: React.FC = () => {
 						a deep breath, you prepare to step forward into the dank
 						and foreboding darkness.
 						<div className="conversation-controls">
-							<button onClick={() => navigate("/dungeon/")}>
+							<button tabIndex={0} onClick={() => navigate("/dungeon/")}>
 								Enter the dungeon
 							</button>
 						</div>

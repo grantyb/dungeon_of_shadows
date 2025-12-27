@@ -32,10 +32,10 @@ export const GreetWizard = () => {
 					Perhaps thou art stout enough to succeed where I have
 					failed?”
 					<div className="conversation-controls">
-						<button onClick={() => navigate("/proceed/")}>
+						<button tabIndex={0} onClick={() => navigate("/proceed/")}>
 							Agree to help
 						</button>
-						<button onClick={() => navigate("/attack-wizard/")}>
+						<button tabIndex={0} onClick={() => navigate("/attack-wizard/")}>
 							Attack
 						</button>
 					</div>

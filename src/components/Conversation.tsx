@@ -26,8 +26,8 @@ const Conversation: React.FC<ConversationProps> = ({ width, children }) => {
 			{childArray.slice(0, revealedCount)}
 			{!allRevealed && (
 				<div className="conversation-controls">
-					<button onClick={handleContinue}>Continue</button>
-					<button onClick={handleSkip}>Skip</button>
+					<button tabIndex={0} onClick={handleContinue}>Continue</button>
+					<button tabIndex={0} onClick={handleSkip}>Skip</button>
 				</div>
 			)}
 		</div>
