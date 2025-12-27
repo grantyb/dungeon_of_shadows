@@ -1,0 +1,15 @@
+{
+"version": "2.0.0",
+	"tasks": [
+		{
+		"label": "Start Dev Server",
+		"type": "shell",
+		"command": "$HOME/.nvm/nvm-exec pnpm dev",
+		"group": {
+			"kind": "build",
+			"isDefault": true
+		},
+		"problemMatcher": []
+		}
+	]
+}
