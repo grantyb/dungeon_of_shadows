@@ -14,10 +14,12 @@ const WelcomeScreen: React.FC = () => {
 	}
 
 	return (
-		<div className="background-image">
-			<img src={dungeonEntrance} alt="Dungeon Entrance" />
+		<div
+			className="background-image"
+			style={{ backgroundImage: `url(${dungeonEntrance})` }}
+		>
 			<div className="main-title">
-				<h1>Dungeon of Shadows</h1>
+				<h1>The Dungeon of Shadows</h1>
 			</div>
 			{!showIntroduction && (
 				<div className="home-screen-buttons">
@@ -27,7 +29,7 @@ const WelcomeScreen: React.FC = () => {
 				</div>
 			)}
 			{showIntroduction && (
-				<Conversation left={5} width={30} top={20}>
+				<Conversation width={30}>
 					<p>
 						You stand before the ominous entrance of the Dungeon of
 						Shadows, a place whispered about in legends and feared

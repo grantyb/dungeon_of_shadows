@@ -46,13 +46,7 @@ function App() {
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
 			<Route
 				path="/attack-wizard/"
-				element={
-					<Combat
-						foe="wizard"
-						title="Combat with the Wizard"
-						backgroundImage={wizard}
-					/>
-				}
+				element={<Combat foe="wizard" backgroundImage={wizard} />}
 			/>
 			<Route path="/greet-wizard/" element={<GreetWizard />} />
 		</AnimatedRoutes>

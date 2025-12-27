@@ -15,43 +15,34 @@
 	height: 100vh;
 	overflow: hidden;
 	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	img {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-		object-fit: cover;
-		object-position: center;
-		pointer-events: none;
-		user-select: none;
-	}
+	flex-direction: column;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 
 .main-title {
-	position: absolute;
-	top: 3vh;
-	left: 3vw;
 	color: #fff;
 	text-shadow: 0 2px 8px #000, 0 0 2px #222;
-	
+	display: inline-block;
 	h1 {
-		margin: 0;
-		font-size: 3rem;
+		margin: 5%;
+		font-size: min(3rem, 7.5vw);
 		letter-spacing: 0.1em;
 	}
 }
 
 
 .conversation {
+	margin-left: 5%;
+	margin-bottom: 5%;
 	background-color: rgba(20, 20, 20, 0.9);
 	padding: 1rem;
 	border-radius: 1rem;
 	box-shadow: 0 2px 8px #0008;
+	max-height: 80%;
+	overflow-y: scroll;
 
 	p {
 		margin-top: 0;
@@ -64,6 +55,7 @@
 	.conversation-controls {
 		display: flex;
 		justify-content: flex-end;
+		flex-wrap: wrap;
 		button {
 			margin-top: 1rem;
 			margin-right: 10px;

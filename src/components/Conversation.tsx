@@ -2,13 +2,11 @@ import React, { useState } from "react"
 import type { ReactNode } from "react"
 
 interface ConversationProps {
-	left: number
-	top: number
 	width: number
 	children: ReactNode[] | ReactNode
 }
 
-const Conversation: React.FC<ConversationProps> = ({ left, top, width, children }) => {
+const Conversation: React.FC<ConversationProps> = ({ width, children }) => {
 	// Normalize children to array
 	const childArray = React.Children.toArray(children)
 	const [revealedCount, setRevealedCount] = useState(1)
@@ -24,7 +22,7 @@ const Conversation: React.FC<ConversationProps> = ({ left, top, width, children 
 	const allRevealed = revealedCount >= childArray.length
 
 	return (
-		<div className="conversation" style={{ position: "absolute", left: `${left}%`, width: `${width}%`, top: `${top}%` }}>
+		<div className="conversation" style={{ maxWidth: `${width}%` }}>
 			{childArray.slice(0, revealedCount)}
 			{!allRevealed && (
 				<div className="conversation-controls">

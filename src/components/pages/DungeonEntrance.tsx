@@ -9,7 +9,7 @@ export const DungeonEntrance = () => {
 
 	return (
 		<StandardPage backgroundImage={img} title="Dungeon Entrance">
-			<Conversation left={5} width={45} top={15}>
+			<Conversation width={45}>
 				<p>
 					The foul smell of damp stone, death and decay wafts out from
 					the dark corridors.
@@ -25,14 +25,15 @@ export const DungeonEntrance = () => {
 				</p>
 				<p>
 					A forlorn figure sits astride a creaking wooden chair in the
-					middle of the room, cloaked in tattered and damp robes. Lost
-					in thought, they study a crumbling, ancient scroll. With a
-					start, they look up.
+					middle of the room, cloaked in tattered and damp robes; his
+					gnarled staff clearly identifies him as a wizard. Lost in
+					thought, he studies a crumbling, ancient scroll. With a
+					start, he looks up.
 				</p>
 				<p>
-					As you step closer, the man - a wizard - slowly rises from
-					his chair, revealing a face marked by deep lines of sorrow
-					and eyes that hold a glimmer of hope amidst the despair.
+					As you step closer, the man slowly rises from his chair,
+					revealing a face marked by deep lines of sorrow and eyes
+					that hold a glimmer of hope amidst the despair.
 					<div className="conversation-controls">
 						<button onClick={() => navigate("/greet-wizard/")}>
 							Greet the wizard

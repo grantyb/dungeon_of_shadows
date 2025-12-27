@@ -5,14 +5,20 @@ interface StandardPageProps extends React.PropsWithChildren {
 	title: string
 }
 
-const StandardPage: React.FC<StandardPageProps> = (props) => {
+const StandardPage: React.FC<StandardPageProps> = ({
+	backgroundImage,
+	title,
+	children,
+}) => {
 	return (
-		<div className="background-image">
-			<img src={props.backgroundImage} alt={props.title} />
+		<div
+			className="background-image"
+			style={{ backgroundImage: `url(${backgroundImage})` }}
+		>
 			<div className="main-title">
-				<h1>{props.title}</h1>
+				<h1>{title}</h1>
 			</div>
-			{props.children}
+			{children}
 		</div>
 	)
 }
