@@ -9,6 +9,7 @@ import wizard from "./assets/foes/wizard.png"
 
 import { DungeonEntrance } from "./components/pages/DungeonEntrance"
 import { GreetWizard } from "./components/pages/GreetWizard"
+import CharacterCreationScreen from "./components/CharacterCreationScreen"
 
 function App() {
 	useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
 	return (
 		<AnimatedRoutes durationMs={500}>
 			<Route path="/" element={<WelcomeScreen />} />
+			<Route path="/create-character" element={<CharacterCreationScreen />} />
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
 			<Route
 				path="/attack-wizard/"

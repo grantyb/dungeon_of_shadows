@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=MedievalSharp&display=swap");
 @import "./welcome.css";
 @import "./layout.css";
+@import "./character-creation.css";
 
 :root {
 	font-family: "MedievalSharp", cursive, fantasy, serif;
