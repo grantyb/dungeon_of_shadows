@@ -12,6 +12,8 @@ import { GreetWizard } from "./components/pages/GreetWizard"
 import CharacterCreationScreen from "./components/CharacterCreationScreen"
 import MuteIcon from "./components/icons/MuteIcon"
 import UnmuteIcon from "./components/icons/UnmuteIcon"
+import { HelpWizard } from "./components/pages/HelpWizard"
+import { Dungeon } from "./components/pages/Dungeon"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -81,6 +83,8 @@ function App() {
 					element={<Combat foe="wizard" backgroundImage={wizard} />}
 				/>
 				<Route path="/greet-wizard/" element={<GreetWizard />} />
+				<Route path="/proceed/" element={<HelpWizard />} />
+				<Route path="/tunnels/" element={<Dungeon />} />
 			</AnimatedRoutes>
 			<button
 				className="music-toggle"
