@@ -1,86 +1,32 @@
 import React, { useState } from "react"
 
-import humanMaleWarriorImage from "../assets/character/warrior.png"
-import humanMaleWizardImage from "../assets/character/wizard.png"
-import humanMaleRogueImage from "../assets/character/rogue.png"
-import elfMaleWarriorImage from "../assets/character/warrior.png"
-import elfMaleWizardImage from "../assets/character/wizard.png"
-import elfMaleRogueImage from "../assets/character/rogue.png"
-import dwarfMaleWarriorImage from "../assets/character/warrior.png"
-import dwarfMaleWizardImage from "../assets/character/wizard.png"
-import dwarfMaleRogueImage from "../assets/character/rogue.png"
-
-import humanFemaleWarriorImage from "../assets/character/warrior.png"
-import humanFemaleWizardImage from "../assets/character/wizard.png"
-import humanFemaleRogueImage from "../assets/character/rogue.png"
-import elfFemaleWarriorImage from "../assets/character/warrior.png"
-import elfFemaleWizardImage from "../assets/character/wizard.png"
-import elfFemaleRogueImage from "../assets/character/rogue.png"
-import dwarfFemaleWarriorImage from "../assets/character/warrior.png"
-import dwarfFemaleWizardImage from "../assets/character/wizard.png"
-import dwarfFemaleRogueImage from "../assets/character/rogue.png"
-
-const images = {
-	human: {
-		male: {
-			warrior: humanMaleWarriorImage,
-			wizard: humanMaleWizardImage,
-			rogue: humanMaleRogueImage,
-		},
-		female: {
-			warrior: humanFemaleWarriorImage,
-			wizard: humanFemaleWizardImage,
-			rogue: humanFemaleRogueImage,
-		},
-	},
-	elf: {
-		male: {
-			warrior: elfMaleWarriorImage,
-			wizard: elfMaleWizardImage,
-			rogue: elfMaleRogueImage,
-		},
-		female: {
-			warrior: elfFemaleWarriorImage,
-			wizard: elfFemaleWizardImage,
-			rogue: elfFemaleRogueImage,
-		},
-	},
-	dwarf: {
-		male: {
-			warrior: dwarfMaleWarriorImage,
-			wizard: dwarfMaleWizardImage,
-			rogue: dwarfMaleRogueImage,
-		},
-		female: {
-			warrior: dwarfFemaleWarriorImage,
-			wizard: dwarfFemaleWizardImage,
-			rogue: dwarfFemaleRogueImage,
-		},
-	},
-}
-
-type CharacterClass = "warrior" | "wizard" | "rogue"
-type CharacterRace = "human" | "elf" | "dwarf"
-type CharacterGender = "male" | "female"
+import {
+	images,
+	type CharacterClass,
+	type CharacterGender,
+	type CharacterRace,
+} from "../data/character-images"
 
 const CharacterCreationScreen: React.FC = () => {
-	const [characterRace, setCharacterRace] = useState<string>("human")
-	const [characterGender, setCharacterGender] = useState<string>("male")
-	const [characterClass, setCharacterClass] = useState<string>("warrior")
+	const [characterRace, setCharacterRace] = useState<CharacterRace>("human")
+	const [characterGender, setCharacterGender] =
+		useState<CharacterGender>("male")
+	const [characterClass, setCharacterClass] =
+		useState<CharacterClass>("warrior")
 
 	const selectRace = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setCharacterRace(event.target.value)
+		setCharacterRace(event.target.value as CharacterRace)
 	}
 
 	const selectGender = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setCharacterGender(event.target.value)
+		setCharacterGender(event.target.value as CharacterGender)
 	}
 
 	const selectClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setCharacterClass(event.target.value)
+		setCharacterClass(event.target.value as CharacterClass)
 	}
 
-	const image = images[characterRace as CharacterRace][characterGender as CharacterGender][characterClass as CharacterClass]
+	const image = images[characterRace][characterGender][characterClass]
 
 	return (
 		<div
