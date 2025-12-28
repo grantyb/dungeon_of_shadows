@@ -14,6 +14,7 @@ import MuteIcon from "./components/icons/MuteIcon"
 import UnmuteIcon from "./components/icons/UnmuteIcon"
 import { HelpWizard } from "./components/pages/HelpWizard"
 import { Dungeon } from "./components/pages/Dungeon"
+import { Wave } from "./components/pages/three-tunnels/Wave"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -85,6 +86,8 @@ function App() {
 				<Route path="/greet-wizard/" element={<GreetWizard />} />
 				<Route path="/proceed/" element={<HelpWizard />} />
 				<Route path="/tunnels/" element={<Dungeon />} />
+				<Route path="/tunnels/wave/" element={<Wave />} />
+			
 			</AnimatedRoutes>
 			<button
 				className="music-toggle"

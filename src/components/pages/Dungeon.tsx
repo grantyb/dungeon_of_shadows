@@ -7,7 +7,7 @@ export const Dungeon = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="Proclarus the Wise">
+		<StandardPage backgroundImage={img} title="The Three Tunnels">
 			<Conversation width={35}>
 				<p>
 					There are three tunnels in the corner behind Proclarus.
@@ -19,17 +19,17 @@ export const Dungeon = () => {
 					and a wave.
 				</p>
 				<p>
-					Whitch tunnel do you dare take?
+					Which tunnel do you dare take?
 					
 					<div className="conversation-controls">
 						<button tabIndex={0} onClick={() => navigate("/proceed/")}>
-							skull
+							Skull
 						</button>
 						<button tabIndex={0} onClick={() => navigate("/attack-wizard/")}>
-							flame
+							Flame
 						</button>
-						<button tabIndex={0} onClick={() => navigate("/attack-wizard/")}>
-							wave
+						<button tabIndex={0} onClick={() => navigate("/tunnels/wave/")}>
+							Wave
 						</button>
 					</div>
 				</p>
