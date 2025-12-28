@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import Conversation from "../Conversation";
 import StandardPage from "../StandardPage";
-import img from "../../assets/dungeon/greet-wizard.png";
+import img from "../../assets/dungeon/tunnels/the-three-tunnels.png";
 
-export const Dungeon = () => {
+export const TheThreeTunnels = () => {
 	const navigate = useNavigate()
 
 	return (
 		<StandardPage backgroundImage={img} title="The Three Tunnels">
-			<Conversation width={35}>
+			<Conversation width={35} top={25}>
 				<p>
 					There are three tunnels in the corner behind Proclarus.
 				</p>
