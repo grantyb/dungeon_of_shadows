@@ -3,6 +3,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import dungeonEntrance from "../assets/dungeon/entrance.png"
 import Conversation from "./Conversation"
+import Button from "./Button"
 
 const WelcomeScreen: React.FC = () => {
 	const navigate = useNavigate()
@@ -23,9 +24,17 @@ const WelcomeScreen: React.FC = () => {
 			</div>
 			{!showIntroduction && (
 				<div className="home-screen-buttons">
-					<button tabIndex={0} onClick={handleStartGame}>Start game</button>
-					<button tabIndex={0} onClick={() => navigate('/create-character')}>Create character</button>
-					<button tabIndex={0}>Load character</button>
+					<Button onClick={handleStartGame} label="Start game" />
+					<Button
+						onClick={() => navigate("/create-character")}
+						label="Create character"
+					/>
+					<Button
+						label="Load character"
+						onClick={() =>
+							alert("Load character feature coming soon!")
+						}
+					/>
 				</div>
 			)}
 			{showIntroduction && (
@@ -41,9 +50,10 @@ const WelcomeScreen: React.FC = () => {
 						a deep breath, you prepare to step forward into the dank
 						and foreboding darkness.
 						<div className="conversation-controls">
-							<button tabIndex={0} onClick={() => navigate("/dungeon/")}>
-								Enter the dungeon
-							</button>
+							<Button
+								onClick={() => navigate("/dungeon/")}
+								label="Enter the dungeon"
+							/>
 						</div>
 					</p>
 				</Conversation>

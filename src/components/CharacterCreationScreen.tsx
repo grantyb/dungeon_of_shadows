@@ -6,6 +6,7 @@ import {
 	type CharacterGender,
 	type CharacterRace,
 } from "../data/character-images"
+import Button from "./Button"
 
 const CharacterCreationScreen: React.FC = () => {
 	const [characterRace, setCharacterRace] = useState<CharacterRace>("human")
@@ -34,7 +35,7 @@ const CharacterCreationScreen: React.FC = () => {
 			style={{ backgroundImage: `url(${image})` }}
 		>
 			<div className="main-title">
-				<h1>Create Character</h1>
+				<h1>Create character</h1>
 			</div>
 			<div className="character-creation-form">
 				<form>
@@ -65,9 +66,7 @@ const CharacterCreationScreen: React.FC = () => {
 							<option value="rogue">Rogue</option>
 						</select>
 					</label>
-					<button type="submit" tabIndex={0}>
-						Create Character
-					</button>
+					<Button type="submit" label="Create character" />
 				</form>
 			</div>
 		</div>

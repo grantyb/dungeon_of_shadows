@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
-import StandardPage from "../../StandardPage"
+import Button from "../../Button"
 import Conversation from "../../Conversation"
+import StandardPage from "../../StandardPage"
 
 export const WaveDeeper = () => {
 	const navigate = useNavigate()
@@ -19,18 +20,14 @@ export const WaveDeeper = () => {
 				<p>
 					Do you wish to follow the river deeper into the cavern?
 					<div className="conversation-controls">
-						<button
-							tabIndex={0}
+						<Button
+							label="No"
 							onClick={() => navigate("/tunnels/")}
-						>
-							No
-						</button>
-						<button
-							tabIndex={0}
+						/>
+						<Button
+							label="Yes"
 							onClick={() => navigate("/attack-wizard/")}
-						>
-							Yes
-						</button>
+						/>
 					</div>
 				</p>
 			</Conversation>

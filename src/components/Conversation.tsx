@@ -1,5 +1,6 @@
-import React, { useState } from "react"
 import type { CSSProperties, ReactNode } from "react"
+import React, { useState } from "react"
+import Button from "./Button"
 
 interface ConversationProps {
 	top?: number
@@ -37,12 +38,8 @@ const Conversation: React.FC<ConversationProps> = ({
 			{childArray.slice(0, revealedCount)}
 			{!allRevealed && (
 				<div className="conversation-controls">
-					<button tabIndex={0} onClick={handleContinue}>
-						Continue
-					</button>
-					<button tabIndex={0} onClick={handleSkip}>
-						Skip
-					</button>
+					<Button onClick={handleContinue} label="Continue" />
+					<Button onClick={handleSkip} label="Skip" />
 				</div>
 			)}
 		</div>

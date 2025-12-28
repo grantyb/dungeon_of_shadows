@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Conversation from "../Conversation";
 import StandardPage from "../StandardPage";
 import img from "../../assets/dungeon/wizard.png";
+import Button from "../Button"
 
 export const DungeonEntrance = () => {
 	
@@ -35,12 +36,14 @@ export const DungeonEntrance = () => {
 					revealing a face marked by deep lines of sorrow and eyes
 					that hold a glimmer of hope amidst the despair.
 					<div className="conversation-controls">
-						<button tabIndex={0} onClick={() => navigate("/greet-wizard/")}>
-							Greet the wizard
-						</button>
-						<button tabIndex={0} onClick={() => navigate("/attack-wizard/")}>
-							Attack
-						</button>
+						<Button
+							label="Greet the wizard"
+							onClick={() => navigate("/greet-wizard/")}
+						/>
+						<Button
+							label="Attack"
+							onClick={() => navigate("/attack-wizard/")}
+						/>
 					</div>
 				</p>
 			</Conversation>

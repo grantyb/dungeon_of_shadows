@@ -15,6 +15,7 @@ import UnmuteIcon from "./components/icons/UnmuteIcon"
 import { HelpWizard } from "./components/pages/HelpWizard"
 import { TheThreeTunnels } from "./components/pages/TheThreeTunnels"
 import { Wave } from "./components/pages/three-tunnels/Wave"
+import Button from "./components/Button"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -88,7 +89,8 @@ function App() {
 				<Route path="/tunnels/" element={<TheThreeTunnels />} />
 				<Route path="/tunnels/wave/" element={<Wave />} />
 			</AnimatedRoutes>
-			<button
+			<Button
+				label=""
 				className="music-toggle"
 				aria-label={audioEnabled ? "Pause music" : "Play music"}
 				onClick={() => setAudioEnabled((v) => !v)}
@@ -98,7 +100,7 @@ function App() {
 				) : (
 					<MuteIcon width={24} height={24} />
 				)}
-			</button>
+			</Button>
 		</div>
 	)
 }

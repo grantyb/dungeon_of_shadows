@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Conversation from "../Conversation";
 import StandardPage from "../StandardPage";
 import img from "../../assets/dungeon/greet-wizard.png";
+import Button from "../Button"
 
 export const GreetWizard = () => {
 	const navigate = useNavigate()
@@ -32,12 +33,14 @@ export const GreetWizard = () => {
 					Perhaps thou art stout enough to succeed where I have
 					failed?”
 					<div className="conversation-controls">
-						<button tabIndex={0} onClick={() => navigate("/proceed/")}>
-							Agree to help
-						</button>
-						<button tabIndex={0} onClick={() => navigate("/attack-wizard/")}>
-							Attack
-						</button>
+						<Button
+							label="Agree to help"
+							onClick={() => navigate("/proceed/")}
+						/>
+						<Button
+							label="Attack"
+							onClick={() => navigate("/attack-wizard/")}
+						/>
 					</div>
 				</p>
 			</Conversation>
