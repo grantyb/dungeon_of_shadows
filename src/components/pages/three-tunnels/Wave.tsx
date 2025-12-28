@@ -21,7 +21,7 @@ export const Wave = () => {
 					<div className="conversation-controls">
 						<button
 							tabIndex={0}
-							onClick={() => navigate("/proceed/")}
+							onClick={() => navigate("/tunnels/")}
 						>
 							No
 						</button>
