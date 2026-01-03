@@ -1,21 +1,22 @@
+import Combat from "components/Combat"
+import { AnimatedRoutes } from "components/Routing/AnimatedRoute"
+import WelcomeScreen from "components/WelcomeScreen"
 import React, { useRef, useState } from "react"
 import { Route } from "react-router-dom"
-import Combat from "./components/Combat"
-import { AnimatedRoutes } from "./components/Routing/AnimatedRoute"
-import WelcomeScreen from "./components/WelcomeScreen"
 
-import introductionMusic from "./assets/dungeon/introduction.m4a"
-import wizard from "./assets/foes/wizard.png"
+import introductionMusic from "assets/dungeon/introduction.m4a"
+import wizard from "assets/foes/wizard.png"
 
-import { DungeonEntrance } from "./components/pages/DungeonEntrance"
-import { GreetWizard } from "./components/pages/GreetWizard"
-import CharacterCreationScreen from "./components/CharacterCreationScreen"
-import MuteIcon from "./components/icons/MuteIcon"
-import UnmuteIcon from "./components/icons/UnmuteIcon"
-import { HelpWizard } from "./components/pages/HelpWizard"
-import { TheThreeTunnels } from "./components/pages/TheThreeTunnels"
-import { Wave } from "./components/pages/three-tunnels/Wave"
-import Button from "./components/Button"
+import Button from "components/Button"
+import CharacterCreationScreen from "components/CharacterCreationScreen"
+import MuteIcon from "components/icons/MuteIcon"
+import UnmuteIcon from "components/icons/UnmuteIcon"
+import { DungeonEntrance } from "components/pages/DungeonEntrance"
+import { GreetWizard } from "components/pages/GreetWizard"
+import { HelpWizard } from "components/pages/HelpWizard"
+import { TheThreeTunnels } from "components/pages/TheThreeTunnels"
+import { Wave } from "components/pages/three-tunnels/Wave"
+import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -88,6 +89,7 @@ function App() {
 				<Route path="/proceed/" element={<HelpWizard />} />
 				<Route path="/tunnels/" element={<TheThreeTunnels />} />
 				<Route path="/tunnels/wave/" element={<Wave />} />
+				<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
 			</AnimatedRoutes>
 			<Button
 				label=""

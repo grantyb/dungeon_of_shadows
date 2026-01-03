@@ -5,8 +5,8 @@ import {
 	type CharacterClass,
 	type CharacterGender,
 	type CharacterRace,
-} from "../data/character-images"
-import Button from "./Button"
+} from "data/character-images"
+import Button from "components/Button"
 
 const CharacterCreationScreen: React.FC = () => {
 	const [characterRace, setCharacterRace] = useState<CharacterRace>("human")

@@ -24,6 +24,15 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 		"exactOptionalPropertyTypes": true,
+
+		/* Path alias for absolute imports from src */
+		"baseUrl": "./src",
+		"paths": {
+			"*": ["*"],
+			"src/*": ["*"],
+			"@/*": ["*"],
+			"@src/*": ["*"]
+		}
 	},
 	"include": ["src"]
 }

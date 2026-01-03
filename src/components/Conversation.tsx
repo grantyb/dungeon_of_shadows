@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react"
 import React, { useState } from "react"
-import Button from "./Button"
+import Button from "components/Button"
 
 interface ConversationProps {
 	top?: number
@@ -31,7 +31,7 @@ const Conversation: React.FC<ConversationProps> = ({
 		maxWidth: `${width}%`,
 	}
 	if (top !== undefined) {
-		style.marginTop = `${top}%`
+		style.marginTop = `${top}vh`
 	}
 	return (
 		<div className="conversation" style={style}>

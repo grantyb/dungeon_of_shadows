@@ -1,32 +1,29 @@
-import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
-import Button from "../../Button"
-import Conversation from "../../Conversation"
-import StandardPage from "../../StandardPage"
+import img from "assets/dungeon/tunnels/wave-symbol.png"
+import Button from "components/Button"
+import Conversation from "components/Conversation"
+import StandardPage from "components/StandardPage"
+import { useNavigate } from "react-router-dom"
 
 export const WaveDeeper = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The Three Tunnels">
+		<StandardPage backgroundImage={img} title="The Roaring River">
 			<Conversation width={20}>
-				<p>You choose the tunnel marked with a wave.</p>
+				<p>You enter the rushing underground current.</p>
 				<p>
-					As you proceed, the sound of rushing water grows louder, and
-					soon you find yourself in a vast underground cavern filled
-					with a roaring river. The walls glisten with moisture, and
-					the air is cool and damp.
+					The current throws you throughout the small tunnel. You are
+					thrown against the rocky walls, After what felt like an
+					eternity the current slows down, finally depositing you onto
+					another rocky shore within a vast cavern.
 				</p>
 				<p>
-					Do you wish to follow the river deeper into the cavern?
+					Do you dare explore the cavern further?
 					<div className="conversation-controls">
-						<Button
-							label="No"
-							onClick={() => navigate("/tunnels/")}
-						/>
+						<Button label="No" onClick={() => navigate()} />
 						<Button
 							label="Yes"
-							onClick={() => navigate("/attack-wizard/")}
+							onClick={() => alert("Not implemented yet")}
 						/>
 					</div>
 				</p>

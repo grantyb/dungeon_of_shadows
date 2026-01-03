@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
-import Button from "../../Button"
-import Conversation from "../../Conversation"
-import StandardPage from "../../StandardPage"
+import img from "assets/dungeon/tunnels/wave-symbol.png"
+import Button from "components/Button"
+import Conversation from "components/Conversation"
+import StandardPage from "components/StandardPage"
 
 export const Wave = () => {
 	const navigate = useNavigate()
@@ -26,7 +26,7 @@ export const Wave = () => {
 						/>
 						<Button
 							label="Yes"
-							onClick={() => alert("Not implemented yet")}
+							onClick={() => navigate("/tunnels/wave-deeper/")}
 						/>
 					</div>
 				</p>

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Conversation from "../Conversation";
-import StandardPage from "../StandardPage";
-import img from "../../assets/dungeon/wizard.png";
-import Button from "../Button"
+import Conversation from "components/Conversation"
+import StandardPage from "components/StandardPage"
+import img from "assets/dungeon/wizard.png"
+import Button from "components/Button"
 
 export const DungeonEntrance = () => {
 	

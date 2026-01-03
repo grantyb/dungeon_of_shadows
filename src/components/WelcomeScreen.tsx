@@ -1,9 +1,9 @@
 import React from "react"
 
 import { useNavigate } from "react-router-dom"
-import dungeonEntrance from "../assets/dungeon/entrance.png"
-import Conversation from "./Conversation"
-import Button from "./Button"
+import dungeonEntrance from "assets/dungeon/entrance.png"
+import Conversation from "components/Conversation"
+import Button from "components/Button"
 
 const WelcomeScreen: React.FC = () => {
 	const navigate = useNavigate()
