@@ -66,7 +66,7 @@ const CharacterCreationScreen: React.FC = () => {
 							<option value="rogue">Rogue</option>
 						</select>
 					</label>
-					<Button type="submit" label="Create character" />
+					<Button type="submit" label="Save character" />
 				</form>
 			</div>
 		</div>
