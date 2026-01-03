@@ -24,13 +24,17 @@ export const TheThreeTunnels = () => {
 							label="Skull"
 							onClick={() => alert("Not implemented yet")}
 						/>
-						<Button
-							label="Flame"
-							onClick={() => navigate("/tunnels/flame/")}
-						/>
+						
+					
+
 						<Button
 							label="Wave"
 							onClick={() => navigate("/tunnels/wave/")}
+						/>
+							<Button
+							label="Flame"
+							onClick={() => navigate("/tunnels/flame/")}
+						/>
 						/>
 					</div>
 				</p>
