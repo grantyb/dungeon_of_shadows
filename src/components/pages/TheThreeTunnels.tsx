@@ -26,7 +26,7 @@ export const TheThreeTunnels = () => {
 						/>
 						<Button
 							label="Flame"
-							onClick={() => alert("Not implemented yet")}
+							onClick={() => navigate("/tunnels/flame/")}
 						/>
 						<Button
 							label="Wave"
