@@ -20,7 +20,7 @@ export const WaveDeeper = () => {
 				<p>
 					Do you dare explore the cavern further?
 					<div className="conversation-controls">
-						<Button label="No" onClick={() => navigate()} />
+						<Button label="No" onClick={() => alert("not implemented yet")} />
 						<Button
 							label="Yes"
 							onClick={() => alert("Not implemented yet")}
