@@ -3,7 +3,7 @@ import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 
-export const Wave = () => {
+export const Flame = () => {
 	const navigate = useNavigate()
 
 	return (

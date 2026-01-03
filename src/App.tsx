@@ -17,6 +17,8 @@ import { HelpWizard } from "components/pages/HelpWizard"
 import { TheThreeTunnels } from "components/pages/TheThreeTunnels"
 import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
+import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
+import { Flame } from "components/pages/three-tunnels/Flame"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -90,9 +92,11 @@ function App() {
 				<Route path="/tunnels/" element={<TheThreeTunnels />} />
 				<Route path="/tunnels/wave/" element={<Wave />} />
 				<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
+				<Route path="/tunnels/wave-deeper2/" element={<WaveDeeperII />} />
+				<Route path="/tunnels/flame/" element={<Flame />} />
 			</AnimatedRoutes>
 			<Button
-				label=""
+				label=""	
 				className="music-toggle"
 				aria-label={audioEnabled ? "Pause music" : "Play music"}
 				onClick={() => setAudioEnabled((v) => !v)}
