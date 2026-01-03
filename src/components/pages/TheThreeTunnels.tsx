@@ -14,8 +14,8 @@ export const TheThreeTunnels = () => {
 				<p>
 					As you move through the shallow waters of the chamber, you
 					notice that each tunnel is marked with a distinct symbol
-					carved into the stone above its entrance: a skull, a flame,
-					and a wave.
+					carved into the stone above its entrance: a skull, a wave,
+					and a flame.
 				</p>
 				<p>
 					Which tunnel do you dare take?
@@ -35,7 +35,7 @@ export const TheThreeTunnels = () => {
 							label="Flame"
 							onClick={() => navigate("/tunnels/flame/")}
 						/>
-						/>
+						
 					</div>
 				</p>
 			</Conversation>
