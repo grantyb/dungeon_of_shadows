@@ -92,7 +92,7 @@ function App() {
 				<Route path="/tunnels/" element={<TheThreeTunnels />} />
 				<Route path="/tunnels/wave/" element={<Wave />} />
 				<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
-				<Route path="/tunnels/wave-deeper2/" element={<WaveDeeperII />} />
+				<Route path="/tunnels/wave-deeperII/" element={<WaveDeeperII />} />
 				<Route path="/tunnels/flame/" element={<Flame />} />
 			</AnimatedRoutes>
 			<Button
