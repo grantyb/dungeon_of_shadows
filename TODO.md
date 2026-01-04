@@ -13,3 +13,8 @@
 
 * skull page
 * flame deeper
+
+### dungeon code
+
+* wave deeper chest
+* make flame protection orb work
