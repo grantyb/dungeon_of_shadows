@@ -4,7 +4,7 @@ import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import { useNavigate } from "react-router-dom"
 
-export const Chest = () => {
+export const Orb = () => {
 	const navigate = useNavigate()
 
 	return (

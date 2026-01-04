@@ -21,7 +21,7 @@ export const Chest = () => {
 						<Button label="No" onClick={() => navigate("/tunnels/Wave-deeper/")} />
 						<Button
 							label="Yes"
-							onClick={() => alert("Not implemented yet")}
+							onClick={() => navigate("/tunnels/orb/")}
 						/>
 					</div>
 				</p>
