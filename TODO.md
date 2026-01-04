@@ -26,3 +26,8 @@
 
 * Save character
 * Load character
+
+### Housekeeping
+
+* rename cavern.tsx
+* rename vision.tsx
