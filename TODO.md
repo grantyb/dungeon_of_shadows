@@ -8,6 +8,9 @@
 * Wave deeper chest(closed)
 * skull tunnel entrance
 * flame deeper
+* portal
+* fake proclaruss
+
 
 ### dungeon pages
 
