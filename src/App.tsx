@@ -19,6 +19,7 @@ import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { Flame } from "components/pages/three-tunnels/Flame"
+import { Chest } from "components/pages/three-tunnels/Chest"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -94,6 +95,7 @@ function App() {
 				<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
 				<Route path="/tunnels/wave-deeperII/" element={<WaveDeeperII />} />
 				<Route path="/tunnels/flame/" element={<Flame />} />
+				<Route path="/tunnels/chest/" element={<Chest />} />
 			</AnimatedRoutes>
 			<Button
 				label=""	
