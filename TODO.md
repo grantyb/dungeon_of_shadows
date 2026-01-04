@@ -21,3 +21,8 @@
 
 * wave deeper chest
 * make flame protection orb work
+
+### Features
+
+* Save character
+* Load character
