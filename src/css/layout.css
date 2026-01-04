@@ -22,6 +22,18 @@
 	}
 }
 
+.button-group {
+	display: grid;
+	grid-template-columns: repeat(var(--num-buttons), 1fr);
+	gap: 1rem;
+
+	button {
+		text-wrap-mode: nowrap;
+		display: block;
+		text-align: center;
+	}
+}
+
 .backdrop {
 	background: rgba(0, 0, 0, 1);
 	position: fixed;

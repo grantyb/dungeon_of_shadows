@@ -7,6 +7,8 @@ import {
 	type CharacterRace,
 } from "data/character-images"
 import Button from "components/Button"
+import { useNavigate } from "react-router-dom"
+import ButtonGroup from "./ButtonGroup"
 
 const CharacterCreationScreen: React.FC = () => {
 	const [characterRace, setCharacterRace] = useState<CharacterRace>("human")
@@ -14,6 +16,7 @@ const CharacterCreationScreen: React.FC = () => {
 		useState<CharacterGender>("male")
 	const [characterClass, setCharacterClass] =
 		useState<CharacterClass>("warrior")
+	const navigate = useNavigate()
 
 	const selectRace = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setCharacterRace(event.target.value as CharacterRace)
@@ -35,7 +38,7 @@ const CharacterCreationScreen: React.FC = () => {
 			style={{ backgroundImage: `url(${image})` }}
 		>
 			<div className="main-title">
-				<h1>Create character</h1>
+				<h1>Create character</h1>				
 			</div>
 			<div className="character-creation-form">
 				<form>
@@ -66,7 +69,10 @@ const CharacterCreationScreen: React.FC = () => {
 							<option value="rogue">Rogue</option>
 						</select>
 					</label>
-					<Button type="submit" label="Save character" />
+					<ButtonGroup>
+						<Button label="Cancel" onClick={() => navigate("/")} />
+						<Button type="submit" label="Save character" />
+					</ButtonGroup>
 				</form>
 			</div>
 		</div>
