@@ -27,8 +27,8 @@ export const Vision = () => {
 					"the tunnel really bright and warm-the path 
 					that lead to endless calm"
 				</p>
-					"you feel a strange sensation as you are 
-					transported back to your phisycal body"
+					you feel a strange sensation as you are 
+					transported back to your phisycal body.
 				<p>
 					
 					<div className="conversation-controls">

@@ -7,7 +7,7 @@ export const Flame = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The Three Tunnels">
+		<StandardPage backgroundImage={img} title="The Flame">
 			<Conversation width={20}>
 				<p>You choose the tunnel marked with a Flame.</p>
 				<p>

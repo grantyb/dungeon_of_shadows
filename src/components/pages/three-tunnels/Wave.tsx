@@ -8,7 +8,7 @@ export const Wave = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The Three Tunnels">
+		<StandardPage backgroundImage={img} title="The Wave">
 			<Conversation width={20}>
 				<p>You choose the tunnel marked with a wave.</p>
 				<p>
