@@ -23,6 +23,11 @@ export const Flame = () => {
 				<p>
 					You have perished in the flames.
 				</p>
+
+				<button 
+					onClick={() => navigate("/")}>Restart
+				</button>
+
 			
 					
 					

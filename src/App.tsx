@@ -21,6 +21,8 @@ import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { Flame } from "components/pages/three-tunnels/Flame"
 import { Chest } from "components/pages/three-tunnels/Chest"
 import { Orb } from "components/pages/three-tunnels/Orb"
+import { Cavern } from "components/pages/three-tunnels/cavern"
+import { Vision } from "components/pages/three-tunnels/vision"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -97,7 +99,9 @@ function App() {
 				<Route path="/tunnels/wave-deeperII/" element={<WaveDeeperII />} />
 				<Route path="/tunnels/flame/" element={<Flame />} />
 				<Route path="/tunnels/chest/" element={<Chest />} />
-				<Route path="/tunnels/orb/" element={<Orb/>} />
+				<Route path="/tunnels/orb/" element={<Orb />} />
+				<Route path="/tunnels/cavern/" element={<Cavern />} />
+				<Route path="/tunnels/vision/" element={<Vision />} />
 
 			</AnimatedRoutes>
 			<Button

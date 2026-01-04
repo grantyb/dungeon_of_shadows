@@ -28,7 +28,7 @@ export const Orb = () => {
 						<Button label="No" onClick={() => alert("not implemented yet")} />
 						<Button
 							label="Yes"
-							onClick={() => alert("Not implemented yet")}
+							onClick={() => navigate("/tunnels/cavern/")}
 						/>
 					</div>
 				</p>
