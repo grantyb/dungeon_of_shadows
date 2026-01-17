@@ -4,30 +4,27 @@ import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import { useNavigate } from "react-router-dom"
 
-export const Dry = () => {
+export const East = () => {
 	const navigate = useNavigate()
 
 	return (
 		<StandardPage backgroundImage={img} title="The orb">
 			<Conversation width={20}>
-				<p>you wake up in the same cavern as before.</p>
+				<p>you chose to walk east through the tunnel.</p>
 				<p>
-					you understand what the shiny orb is.
+					the tunnel is still damp and a bit slippery,
+					but you manage to keep your balance.
 				</p>
 				<p>
-					its an orb of Fire protection.
+					after walking for a while you come across an arc.
 				</p>
 				<p>
-					you still ponder on how to escape, you look to the river and see
-					that the whole river seems to be drained of it's water.
-				</p>
-				<p>
-					
-					which way would you like to explore?
-					
+					you enter and it takes you back to the room where Proclarus
+					is still muttering strange words on his small wooden chair.
+				
 					<div className="conversation-controls">
-						<Button label="West" onClick={() => alert("not implemented yet")} />
-							<Button label="East" onClick={() => navigate("/tunnels/east/")} />
+						<Button label="continue" onClick={() => navigate("/tunnels/")} />
+							
 					</div>
 				</p>
 			</Conversation>

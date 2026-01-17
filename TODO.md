@@ -26,7 +26,7 @@
 
 * Save character
 * Load character
-* combat
+* combat attack options
 
 ### Housekeeping
 
@@ -34,5 +34,3 @@
 * rename vision.tsx
 
 ### puzzles
-
-* exit of wave
