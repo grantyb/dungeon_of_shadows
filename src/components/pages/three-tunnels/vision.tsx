@@ -32,7 +32,7 @@ export const Vision = () => {
 				<p>
 					
 					<div className="conversation-controls">
-						<Button label="Continue" onClick={() => alert("not implemented yet")} />
+						<Button label="Continue" onClick={() => navigate("/tunnels/dry")} />
 					</div>
 				</p>
 			</Conversation>

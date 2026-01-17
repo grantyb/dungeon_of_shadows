@@ -23,6 +23,7 @@ import { Chest } from "components/pages/three-tunnels/Chest"
 import { Orb } from "components/pages/three-tunnels/Orb"
 import { Cavern } from "components/pages/three-tunnels/cavern"
 import { Vision } from "components/pages/three-tunnels/vision"
+import { Dry } from "components/pages/three-tunnels/dry"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -102,6 +103,7 @@ function App() {
 				<Route path="/tunnels/orb/" element={<Orb />} />
 				<Route path="/tunnels/cavern/" element={<Cavern />} />
 				<Route path="/tunnels/vision/" element={<Vision />} />
+				<Route path="/tunnels/dry/" element={<Dry/>} />
 
 			</AnimatedRoutes>
 			<Button

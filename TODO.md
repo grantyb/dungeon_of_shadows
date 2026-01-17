@@ -26,8 +26,13 @@
 
 * Save character
 * Load character
+* combat
 
 ### Housekeeping
 
 * rename cavern.tsx
 * rename vision.tsx
+
+### puzzles
+
+* exit of wave
