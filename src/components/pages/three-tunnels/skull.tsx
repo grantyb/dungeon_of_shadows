@@ -1,14 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";
 
 export const Skull = () => {
-	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The Flame">
+		<StandardPage backgroundImage={img} title="The Skull">
 			<Conversation width={20}>
 				<p>You choose the tunnel marked with a Skull.</p>
 				<p>

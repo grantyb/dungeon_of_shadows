@@ -8,7 +8,7 @@ export const TheThreeTunnels = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The Three Tunnels">
+		<StandardPage backgroundImage={img} title="The three tunnels">
 			<Conversation width={35} top={25}>
 				<p>There are three tunnels in the corner behind Proclarus.</p>
 				<p>
