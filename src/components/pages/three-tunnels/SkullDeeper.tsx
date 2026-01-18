@@ -5,7 +5,7 @@ import Conversation from "../../Conversation"
 import Button from "components/Button";
 import { useNavigate } from "react-router-dom";
 
-export const Skull = () => {
+export const SkullDeeper = () => {
 	const navigate = useNavigate()
 	return (
 		<StandardPage backgroundImage={img} title="The Skull">
