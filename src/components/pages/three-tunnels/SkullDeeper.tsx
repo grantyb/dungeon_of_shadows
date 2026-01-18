@@ -30,7 +30,11 @@ export const SkullDeeper = () => {
 				<p>you grip to the floor as your waist is inside the doorway, but the damp
 					slippery brick betrays you, and you are pulled through the archway.
 				</p>
-
+				<p>
+					you find yourself in a gray void there is nothing but endless grayness.
+				</p>
+					you have perished in the void.
+				
 
 				<div className="conversation-controls">
 						<Button label="restart" onClick={() => navigate("/")} />
