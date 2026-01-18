@@ -22,7 +22,7 @@ export const TheThreeTunnels = () => {
 					<div className="conversation-controls">
 						<Button
 							label="Skull"
-							onClick={() => alert("Not implemented yet")}
+							onClick={() => navigate("/tunnels/skull/")}
 						/>
 						
 					

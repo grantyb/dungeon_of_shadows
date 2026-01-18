@@ -25,6 +25,7 @@ import { Cavern } from "components/pages/three-tunnels/cavern"
 import { Vision } from "components/pages/three-tunnels/vision"
 import { Dry } from "components/pages/three-tunnels/dry"
 import { East } from "components/pages/three-tunnels/East"
+import { Skull } from "components/pages/three-tunnels/skull"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -106,6 +107,7 @@ function App() {
 				<Route path="/tunnels/vision/" element={<Vision />} />
 				<Route path="/tunnels/dry/" element={<Dry/>} />
 				<Route path="/tunnels/east/" element={<East/>} />
+				<Route path="/tunnels/skull/" element={<Skull/>} />
 
 			</AnimatedRoutes>
 			<Button
