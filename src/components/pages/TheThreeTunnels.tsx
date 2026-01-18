@@ -24,9 +24,6 @@ export const TheThreeTunnels = () => {
 							label="Skull"
 							onClick={() => navigate("/tunnels/skull/")}
 						/>
-						
-					
-
 						<Button
 							label="Wave"
 							onClick={() => navigate("/tunnels/wave/")}

@@ -14,12 +14,12 @@
 
 ### dungeon pages
 
-* skull page
+* skull deeper
 * flame deeper
 
 ### dungeon code
 
-* wave deeper chest
+
 * make flame protection orb work
 
 ### Features
@@ -34,3 +34,5 @@
 * rename vision.tsx
 
 ### puzzles
+
+* flame protection

@@ -23,7 +23,8 @@ export const Skull = () => {
 				</p>
 
 				<div className="conversation-controls">
-						<Button label="Continue" onClick={() => alert("not implemented yet")} />
+						<Button label="yes" onClick={() => alert("not implemented yet")} />
+							<Button label="no" onClick={() => alert("not implemented yet")} />
 					</div>
 					
 						
