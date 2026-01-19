@@ -43,8 +43,7 @@ const CharacterCreationScreen: React.FC = () => {
 		setCharacterRecord((prev) => ({ ...prev, name }))
 	}
 
-	const saveCharacter = (e) => {
-		e.preventDefault()
+	const saveCharacter = () => {
 		if (characterRecord.name.trim() === "") {
 			toast.error("Please enter a character name.")
 			return
