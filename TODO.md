@@ -16,6 +16,7 @@
 
 * flame deeper
 
+
 ### dungeon code
 
 * make flame protection orb work
@@ -35,3 +36,12 @@
 ### puzzles
 
 * flame protection
+
+### brainstorming
+
+* what is behind the flames?
+
+### concepts
+
+
+### monster concepts
