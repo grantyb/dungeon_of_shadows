@@ -22,7 +22,7 @@ export const SkullDeeper = () => {
 				</p>
 				<p>
 					at the end of the staircase is a faint light, you can just make
-					 out the shape of an arched doorway pulsate with an eerie yellow glow.
+					out the shape of an arched doorway pulsate with an eerie yellow glow.
 				</p>
 				<p>
 					the arc seems to sing, it attracts you-it pulls you in with extreme force.
