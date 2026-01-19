@@ -18,14 +18,10 @@ export const Skull = () => {
 				<p>
 					as you look down the staircase a damp forbidding darkness swallows the light
 					
-				</p>
-				<p>
-					do you dare to descend the staircase?
-				</p>
+				</p>f
 
 				<div className="conversation-controls">
-						<Button label="yes" onClick={() => navigate("/tunnel/SkullDeeper/")} />
-							<Button label="no" onClick={() => alert("not implemented yet")} />
+						<Button label="enter" onClick={() => navigate("/tunnel/SkullDeeper/")} />
 					</div>
 					
 						
