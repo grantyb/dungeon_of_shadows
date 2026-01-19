@@ -18,7 +18,7 @@ export const Skull = () => {
 				<p>
 					as you look down the staircase a damp forbidding darkness swallows the light
 					
-				</p>f
+				</p>
 
 				<div className="conversation-controls">
 						<Button label="enter" onClick={() => navigate("/tunnels/skullDeeper/")} />
