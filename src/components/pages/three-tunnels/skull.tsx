@@ -2,9 +2,10 @@ import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";
+import { useNavigate } from "react-router-dom";
 
 export const Skull = () => {
-
+	const navigate = useNavigate()
 	return (
 		<StandardPage backgroundImage={img} title="The Skull">
 			<Conversation width={20}>
@@ -23,7 +24,7 @@ export const Skull = () => {
 				</p>
 
 				<div className="conversation-controls">
-						<Button label="yes" onClick={() => alert("not implemented yet")} />
+						<Button label="yes" onClick={() => navigate("/tunnel/SkullDeeper/")} />
 							<Button label="no" onClick={() => alert("not implemented yet")} />
 					</div>
 					
