@@ -19,7 +19,7 @@ export const HelpWizard = () => {
 					“Please, take this scroll with thee. It contains valuable
 					knowledge that will aid thee on thy quest throughout the
 					dungeon.”
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button
 							label="Take the scroll"
 							onClick={() =>
@@ -31,7 +31,7 @@ export const HelpWizard = () => {
 							label="Attack"
 							onClick={() => navigate("/attack-wizard/")}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

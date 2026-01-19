@@ -25,7 +25,7 @@ export const Orb = () => {
 				</p>
 				<p>
 					Do you take the orb out of the chest?
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button
 							label="No"
 							onClick={() => alert("not implemented yet")}
@@ -37,7 +37,7 @@ export const Orb = () => {
 								navigate("/tunnels/cavern/")
 							}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

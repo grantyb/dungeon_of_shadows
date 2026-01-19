@@ -19,7 +19,7 @@ export const TheThreeTunnels = () => {
 				</p>
 				<p>
 					Which tunnel do you dare take?
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button
 							label="Skull"
 							onClick={() => navigate("/tunnels/skull/")}
@@ -33,7 +33,7 @@ export const TheThreeTunnels = () => {
 							onClick={() => navigate("/tunnels/flame/")}
 						/>
 						
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

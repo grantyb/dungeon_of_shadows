@@ -35,7 +35,7 @@ export const DungeonEntrance = () => {
 					As you step closer, the man slowly rises from his chair,
 					revealing a face marked by deep lines of sorrow and eyes
 					that hold a glimmer of hope amidst the despair.
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button
 							label="Greet the wizard"
 							onClick={() => navigate("/greet-wizard/")}
@@ -44,7 +44,7 @@ export const DungeonEntrance = () => {
 							label="Attack"
 							onClick={() => navigate("/attack-wizard/")}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

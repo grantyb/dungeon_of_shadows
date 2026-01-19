@@ -1,11 +1,14 @@
 import React from "react"
 
-import { useNavigate } from "react-router-dom"
 import dungeonEntrance from "assets/dungeon/entrance.png"
-import Conversation from "components/Conversation"
 import Button from "components/Button"
+import Conversation from "components/Conversation"
+import { character } from "data/character-data"
+import { useNavigate } from "react-router-dom"
+import { useSignal } from "@preact/signals-react"
 
-const WelcomeScreen: React.FC = () => {
+const WelcomeScreen = () => {
+	useSignal();
 	const navigate = useNavigate()
 
 	const [showIntroduction, setShowIntroduction] = React.useState(false)
@@ -13,7 +16,7 @@ const WelcomeScreen: React.FC = () => {
 	const handleStartGame = () => {
 		setShowIntroduction(true)
 	}
-
+	
 	return (
 		<div
 			className="background-image"
@@ -24,7 +27,9 @@ const WelcomeScreen: React.FC = () => {
 			</div>
 			{!showIntroduction && (
 				<div className="home-screen-buttons">
-					<Button onClick={handleStartGame} label="Start game" />
+					{(character.value) && (
+						<Button onClick={handleStartGame} label="Start game" />
+					)}
 					<Button
 						onClick={() => navigate("/create-character")}
 						label="Create character"
@@ -49,12 +54,12 @@ const WelcomeScreen: React.FC = () => {
 						gear, ready to face whatever challenges lie within. With
 						a deep breath, you prepare to step forward into the dank
 						and foreboding darkness.
-						<div className="conversation-controls">
+						<span className="conversation-controls">
 							<Button
 								onClick={() => navigate("/dungeon/")}
 								label="Enter the dungeon"
 							/>
-						</div>
+						</span>
 					</p>
 				</Conversation>
 			)}

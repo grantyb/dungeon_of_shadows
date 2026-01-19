@@ -25,10 +25,10 @@ export const Dry = () => {
 					
 					which way would you like to explore?
 					
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="West" onClick={() => navigate("/tunnels/west/")} />
 							<Button label="East" onClick={() => navigate("/tunnels/east/")} />
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

@@ -21,10 +21,9 @@ export const West = () => {
 				<p>
 					you turn back around and head East
 				
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="ok" onClick={() => navigate("/tunnels/east/")} />
-							
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

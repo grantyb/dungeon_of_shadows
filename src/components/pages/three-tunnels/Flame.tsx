@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
-import StandardPage from "../../StandardPage"
-import Conversation from "../../Conversation"
+import img from "../../../assets/dungeon/tunnels/wave-symbol.png";
+import Conversation from "../../Conversation";
+import StandardPage from "../../StandardPage";
+import { identifyItem, inventoryContains } from "data/character-data";
 
 export const Flame = () => {
 	const navigate = useNavigate()
 
+	const youSurvived = inventoryContains("FireOrb");
+	
 	return (
 		<StandardPage backgroundImage={img} title="The Flame">
 			<Conversation width={20}>
@@ -14,19 +17,38 @@ export const Flame = () => {
 					As you proceed, the sound ofa crackling fire grows louder, and
 					soon you find yourself in a vast underground cavern filled
 					with dancing flames. The walls glow with heat.
-					
 				</p>
-				<p>
-					You try to escape but the fire is too intense, trapping you
-					inside the cavern.
-				</p>
-				<p>
-					You have perished in the flames.
-				</p>
+				{youSurvived ? (<>
+					<p>
+						You try to escape but the fire is too intense, trapping you
+						inside the cavern.
+					</p>
+					<p>
+						Your orb glows brightly, and a protective barrier forms around you,
+						shielding you from the flames. You safely make your way out of the cavern.
+					</p>
+					<p>
+						You have survived the flames!
+					</p>
 
-				<button 
-					onClick={() => navigate("/")}>Restart
-				</button>
+					<button 
+						onClick={() => identifyItem("FireOrb") && navigate("/")}>Continue
+					</button>
+
+				</>) : (<>
+
+					<p>
+						You try to escape but the fire is too intense, trapping you
+						inside the cavern.
+					</p>
+					<p>
+						You have perished in the flames.
+					</p>
+
+					<button 
+						onClick={() => navigate("/")}>Restart
+					</button>
+				</>)}
 
 			
 					

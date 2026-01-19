@@ -17,13 +17,13 @@ export const Chest = () => {
 				</p>
 				<p>
 					Do you dare open the chest?
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="No" onClick={() => navigate("/tunnels/Wave-deeper/")} />
 						<Button
 							label="Yes"
 							onClick={() => navigate("/tunnels/orb/")}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

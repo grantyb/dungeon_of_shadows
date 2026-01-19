@@ -163,6 +163,35 @@ export const addToInventory = (itemId: InventoryItemId) => {
 	saveCharacterToLocalStorage(character.value)
 	toast.success(`${InventoryItem[itemId].unidentified.name} added to inventory.`)
 	return true
-
 }
 
+export const inventoryContains = (itemId: InventoryItemId): boolean => {
+	if (!character.value) {
+		return false
+	}
+	return character.value.inventory.some((item) => item.id === itemId)
+}
+
+export const visit = (sceneId: string) => {
+	if (!character.value) {
+		return false
+	}
+	if (!character.value.visitedScenes.includes(sceneId)) {
+		character.value.visitedScenes.push(sceneId)
+		saveCharacterToLocalStorage(character.value)
+	}
+	return true
+}
+
+export const identifyItem = (itemId: InventoryItemId) => {
+	if (!character.value) {
+		return false
+	}
+	const itemIndex = character.value.inventory.findIndex((item) => item.id === itemId)
+	if (itemIndex === -1) {
+		return false
+	}
+	character.value.inventory[itemIndex].identified = true
+	saveCharacterToLocalStorage(character.value)
+	return true
+}

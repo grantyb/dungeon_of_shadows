@@ -34,9 +34,9 @@ export const Cavern = () => {
 				<p>
 					you feel a strange sensation as you are transported
 					to another place.
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="Continue" onClick={() => navigate("/tunnels/vision")} />
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

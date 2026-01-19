@@ -19,13 +19,13 @@ export const WaveDeeperII = () => {
 				</p>
 				<p>
 					Do you dare explore the cavern further?
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="No" onClick={() => navigate("/tunnels/Wave-deeperII/")} />
 						<Button
 							label="Yes"
 							onClick={() => alert("Not implemented yet")}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

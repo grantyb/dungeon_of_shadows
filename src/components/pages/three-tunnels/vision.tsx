@@ -27,13 +27,12 @@ export const Vision = () => {
 					"the tunnel really bright and warm-the path 
 					that lead to endless calm"
 				</p>
+				<p>
 					you feel a strange sensation as you are 
 					transported back to your phisycal body.
-				<p>
-					
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="Continue" onClick={() => navigate("/tunnels/dry")} />
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

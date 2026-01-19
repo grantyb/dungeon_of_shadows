@@ -1,6 +1,7 @@
+import Button from "components/Button"
+import { character, visit } from "data/character-data"
 import type { CSSProperties, ReactNode } from "react"
 import React, { useState } from "react"
-import Button from "components/Button"
 
 interface ConversationProps {
 	top?: number
@@ -13,7 +14,7 @@ const Conversation: React.FC<ConversationProps> = ({
 	width,
 	children,
 }) => {
-	// Normalize children to array
+	const alreadyVisited = (character.value?.visitedScenes || []).includes(window.location.pathname)
 	const childArray = React.Children.toArray(children)
 	const [revealedCount, setRevealedCount] = useState(1)
 
@@ -25,7 +26,13 @@ const Conversation: React.FC<ConversationProps> = ({
 		setRevealedCount(childArray.length)
 	}
 
-	const allRevealed = revealedCount >= childArray.length
+	const allRevealed = alreadyVisited || revealedCount >= childArray.length
+
+	if (!alreadyVisited && allRevealed) {
+		visit(window.location.pathname)
+	}
+
+	const storySoFar = allRevealed ? childArray : childArray.slice(0, revealedCount)
 
 	const style: CSSProperties = {
 		maxWidth: `${width}%`,
@@ -35,12 +42,12 @@ const Conversation: React.FC<ConversationProps> = ({
 	}
 	return (
 		<div className="conversation" style={style}>
-			{childArray.slice(0, revealedCount)}
+			{storySoFar}
 			{!allRevealed && (
-				<div className="conversation-controls">
+				<span className="conversation-controls">
 					<Button onClick={handleContinue} label="Continue" />
 					<Button onClick={handleSkip} label="Skip" />
-				</div>
+				</span>
 			)}
 		</div>
 	)

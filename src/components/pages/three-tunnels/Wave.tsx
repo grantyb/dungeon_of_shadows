@@ -19,7 +19,7 @@ export const Wave = () => {
 				</p>
 				<p>
 					Do you wish to follow the river deeper into the cavern?
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button
 							label="No"
 							onClick={() => navigate("/tunnels/")}
@@ -28,7 +28,7 @@ export const Wave = () => {
 							label="Yes"
 							onClick={() => navigate("/tunnels/wave-deeper/")}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

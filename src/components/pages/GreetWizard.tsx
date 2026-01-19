@@ -32,7 +32,7 @@ export const GreetWizard = () => {
 					“Alas, I am grown too frail to face the dangers therein.
 					Perhaps thou art stout enough to succeed where I have
 					failed?”
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button
 							label="Agree to help"
 							onClick={() => navigate("/proceed/")}
@@ -41,7 +41,7 @@ export const GreetWizard = () => {
 							label="Attack"
 							onClick={() => navigate("/attack-wizard/")}
 						/>
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

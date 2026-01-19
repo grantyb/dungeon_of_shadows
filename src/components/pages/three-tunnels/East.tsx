@@ -22,10 +22,10 @@ export const East = () => {
 					you enter and it takes you back to the room where Proclarus
 					is still muttering strange words on his small wooden chair.
 				
-					<div className="conversation-controls">
+					<span className="conversation-controls">
 						<Button label="continue" onClick={() => navigate("/tunnels/")} />
 							
-					</div>
+					</span>
 				</p>
 			</Conversation>
 		</StandardPage>

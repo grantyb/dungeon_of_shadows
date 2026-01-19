@@ -36,10 +36,9 @@ export const SkullDeeper = () => {
 					you have perished in the void.
 				
 
-				<div className="conversation-controls">
-						<Button label="restart" onClick={() => navigate("/")} />
-							
-					</div>
+				<span className="conversation-controls">
+					<Button label="restart" onClick={() => navigate("/")} />	
+				</span>
 					
 						
 

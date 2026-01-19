@@ -28,7 +28,8 @@ import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
-import { ToastContainer, Zoom } from "react-toastify"
+import { toast, ToastContainer, Zoom } from "react-toastify"
+import { character } from "data/character-data"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -39,6 +40,14 @@ function App() {
 
 	// Load audio buffer once
 	React.useEffect(() => {
+
+		if (!character.value) {
+			toast.info("No character loaded. Please create a character to start the game.")
+		} else {
+			toast.success(`Welcome back, ${character.value.name}!`, { toastId: "welcome-back" })
+		}
+
+
 		fetch(introductionMusic)
 			.then((r) => r.arrayBuffer())
 			.then((b) => {
@@ -84,6 +93,45 @@ function App() {
 		sourceRef.current = source
 	}, [audioEnabled])
 
+	const routes = character.value ? (
+		<>
+			<Route path="/" element={<WelcomeScreen />} />
+			<Route
+				path="/create-character"
+				element={<CharacterCreationScreen />}
+			/>
+			<Route path="/dungeon/" element={<DungeonEntrance />} />
+			<Route
+				path="/attack-wizard/"
+				element={<Combat foe="wizard" backgroundImage={wizard} />}
+			/>
+			<Route path="/greet-wizard/" element={<GreetWizard />} />
+			<Route path="/proceed/" element={<HelpWizard />} />
+			<Route path="/tunnels/" element={<TheThreeTunnels />} />
+			<Route path="/tunnels/wave/" element={<Wave />} />
+			<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
+			<Route path="/tunnels/wave-deeperII/" element={<WaveDeeperII />} />
+			<Route path="/tunnels/flame/" element={<Flame />} />
+			<Route path="/tunnels/chest/" element={<Chest />} />
+			<Route path="/tunnels/orb/" element={<Orb />} />
+			<Route path="/tunnels/cavern/" element={<Cavern />} />
+			<Route path="/tunnels/vision/" element={<Vision />} />
+			<Route path="/tunnels/dry/" element={<Dry/>} />
+			<Route path="/tunnels/east/" element={<East/>} />
+			<Route path="/tunnels/skull/" element={<Skull/>} />
+			<Route path="/tunnels/skullDeeper/" element={<SkullDeeper/>} />
+			<Route path="/tunnels/west/" element={<West/>} />
+		</>
+	) : (
+		<>
+			<Route
+				path="/create-character"
+				element={<CharacterCreationScreen />}
+			/>
+			<Route path="/*" element={<WelcomeScreen/>} />
+		</>
+	)
+
 	return (
 		<div className="app-container">
 			<ToastContainer
@@ -96,33 +144,7 @@ function App() {
 				transition={Zoom}
 			/>
 			<AnimatedRoutes durationMs={500}>
-				<Route path="/" element={<WelcomeScreen />} />
-				<Route
-					path="/create-character"
-					element={<CharacterCreationScreen />}
-				/>
-				<Route path="/dungeon/" element={<DungeonEntrance />} />
-				<Route
-					path="/attack-wizard/"
-					element={<Combat foe="wizard" backgroundImage={wizard} />}
-				/>
-				<Route path="/greet-wizard/" element={<GreetWizard />} />
-				<Route path="/proceed/" element={<HelpWizard />} />
-				<Route path="/tunnels/" element={<TheThreeTunnels />} />
-				<Route path="/tunnels/wave/" element={<Wave />} />
-				<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
-				<Route path="/tunnels/wave-deeperII/" element={<WaveDeeperII />} />
-				<Route path="/tunnels/flame/" element={<Flame />} />
-				<Route path="/tunnels/chest/" element={<Chest />} />
-				<Route path="/tunnels/orb/" element={<Orb />} />
-				<Route path="/tunnels/cavern/" element={<Cavern />} />
-				<Route path="/tunnels/vision/" element={<Vision />} />
-				<Route path="/tunnels/dry/" element={<Dry/>} />
-				<Route path="/tunnels/east/" element={<East/>} />
-				<Route path="/tunnels/skull/" element={<Skull/>} />
-				<Route path="/tunnels/skullDeeper/" element={<SkullDeeper/>} />
-				<Route path="/tunnels/west/" element={<West/>} />
-
+				{routes}
 			</AnimatedRoutes>
 			<Button
 				label=""	
