@@ -10,7 +10,7 @@ export const West = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The orb">
 			<Conversation width={20}>
-				<p>you chose to walk west through the tunnel.</p>
+				<p>you walk west through the tunnel.</p>
 				<p>
 					the tunnel is still damp and a bit slippery,
 					but you manage to keep your balance.
