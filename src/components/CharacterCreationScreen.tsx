@@ -1,17 +1,17 @@
 import React, { useState } from "react"
 
+import Button from "components/Button"
 import {
-	images,
 	DefaultCharacterRecord,
+	images,
+	saveCharacterToLocalStorage,
 	type CharacterClass,
 	type CharacterGender,
 	type CharacterRace,
-	saveCharacterToLocalStorage,
 } from "data/character-data"
-import Button from "components/Button"
 import { useNavigate } from "react-router-dom"
-import ButtonGroup from "./ButtonGroup"
 import { toast } from "react-toastify"
+import ButtonGroup from "./ButtonGroup"
 
 const CharacterCreationScreen: React.FC = () => {
 	const [characterRecord, setCharacterRecord] = useState(

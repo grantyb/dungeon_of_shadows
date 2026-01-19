@@ -3,6 +3,7 @@ import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import img from "assets/dungeon/greet-wizard.png"
 import Button from "components/Button"
+import { addToInventory } from "data/character-data"
 
 export const HelpWizard = () => {
 	const navigate = useNavigate()
@@ -21,7 +22,10 @@ export const HelpWizard = () => {
 					<div className="conversation-controls">
 						<Button
 							label="Take the scroll"
-							onClick={() => navigate("/tunnels/")}
+							onClick={() =>
+								addToInventory("Scroll") &&
+								navigate("/tunnels/")
+							}
 						/>
 						<Button
 							label="Attack"

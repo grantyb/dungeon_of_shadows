@@ -17,15 +17,51 @@ import dwarfFemaleWarriorImage from "assets/character/dwarf-female-warrior.png"
 import dwarfFemaleWizardImage from "assets/character/dwarf-female-wizard.png"
 import dwarfFemaleRogueImage from "assets/character/dwarf-female-rogue.png"
 import { signal } from "@preact/signals-react"
+import { toast } from "react-toastify"
+import type { JSX } from "react"
 
 export type CharacterRace = "human" | "elf" | "dwarf"
 export type CharacterGender = "male" | "female"
 export type CharacterClass = "warrior" | "wizard" | "rogue"
 
-export type InventoryItem = {
-	id: string
+export type InventoryItemType = {
 	name: string
-	quantity: number
+	description: JSX.Element
+}
+
+export const InventoryItem: Record<string, { unidentified: InventoryItemType, identified: InventoryItemType }> = {
+	"Scroll": {
+		unidentified: {
+			name: "Ancient Scroll",
+			description: <p>A scroll given to you by Proclarus the Wise.</p>,
+		},
+		identified: {
+			name: "Map of the Dungeon",
+			description: <>
+				<p>A scroll given to you by Proclarus the Wise.</p>
+				<p>Contains valuable knowledge about the dungeon.</p>
+			</>,
+		}
+	},
+	"FireOrb": {
+		unidentified: {
+			name: "Glowing Orb",
+			description: <p>A mystical orb.</p>,
+		},
+		identified: {
+			name: "Orb of Fire Protection",
+			description: <>
+				<p>A mystical orb pulsating with fiery energy.</p>
+				<p>It protects the bearer from fire-based attacks.</p>
+			</>,
+		}
+	}
+}
+
+export type InventoryItemId = keyof typeof InventoryItem
+
+export type InventoryItem = {
+	id: InventoryItemId
 	identified: boolean
 }
 
@@ -100,6 +136,7 @@ export const saveCharacterToLocalStorage = (characterRecord: CharacterRecord) =>
 		allCharacterNames.sort()
 		localStorage.setItem("allCharacterNames", JSON.stringify(allCharacterNames))
 	}
+	character.value = characterRecord
 }
 
 const currentCharacterName = localStorage.getItem("currentCharacterName")
@@ -107,4 +144,25 @@ const currentCharacterJSON = currentCharacterName
 	? localStorage.getItem(currentCharacterName)
 	: undefined
 export const character = signal<CharacterRecord | undefined>(currentCharacterJSON ? JSON.parse(currentCharacterJSON) as CharacterRecord : undefined)
+
+export const addToInventory = (itemId: InventoryItemId) => {
+	if (!character.value) {
+		toast.error("No character loaded!")
+		return true
+	}
+	const existingItem = character.value.inventory.find((item) => item.id === itemId)
+	if (existingItem) {
+		if (existingItem.identified) {
+			toast.info(`${InventoryItem[itemId].identified.name} is already in your inventory.`)
+		} else {
+			toast.info(`${InventoryItem[itemId].unidentified.name} is already in your inventory.`)
+		}
+		return true
+	}
+	character.value.inventory.push({ id: itemId, identified: false })
+	saveCharacterToLocalStorage(character.value)
+	toast.success(`${InventoryItem[itemId].unidentified.name} added to inventory.`)
+	return true
+
+}
 
