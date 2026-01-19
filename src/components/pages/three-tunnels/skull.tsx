@@ -21,7 +21,7 @@ export const Skull = () => {
 				</p>f
 
 				<div className="conversation-controls">
-						<Button label="enter" onClick={() => navigate("/tunnel/SkullDeeper/")} />
+						<Button label="enter" onClick={() => navigate("/tunnel/skullDeeper/")} />
 					</div>
 					
 						
