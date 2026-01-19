@@ -15,19 +15,20 @@ import { DungeonEntrance } from "components/pages/DungeonEntrance"
 import { GreetWizard } from "components/pages/GreetWizard"
 import { HelpWizard } from "components/pages/HelpWizard"
 import { TheThreeTunnels } from "components/pages/TheThreeTunnels"
+import { Cavern } from "components/pages/three-tunnels/cavern"
+import { Chest } from "components/pages/three-tunnels/Chest"
+import { Dry } from "components/pages/three-tunnels/dry"
+import { East } from "components/pages/three-tunnels/East"
+import { Flame } from "components/pages/three-tunnels/Flame"
+import { Orb } from "components/pages/three-tunnels/Orb"
+import { Skull } from "components/pages/three-tunnels/skull"
+import { SkullDeeper } from "components/pages/three-tunnels/SkullDeeper"
+import { Vision } from "components/pages/three-tunnels/vision"
 import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
-import { Flame } from "components/pages/three-tunnels/Flame"
-import { Chest } from "components/pages/three-tunnels/Chest"
-import { Orb } from "components/pages/three-tunnels/Orb"
-import { Cavern } from "components/pages/three-tunnels/cavern"
-import { Vision } from "components/pages/three-tunnels/vision"
-import { Dry } from "components/pages/three-tunnels/dry"
-import { East } from "components/pages/three-tunnels/East"
-import { Skull } from "components/pages/three-tunnels/skull"
-import { SkullDeeper } from "components/pages/three-tunnels/SkullDeeper"
 import { West } from "components/pages/three-tunnels/West"
+import { ToastContainer, Zoom } from "react-toastify"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -85,6 +86,15 @@ function App() {
 
 	return (
 		<div className="app-container">
+			<ToastContainer
+				position="top-center"
+				stacked
+				hideProgressBar
+				closeOnClick
+				pauseOnHover
+				theme="dark"
+				transition={Zoom}
+			/>
 			<AnimatedRoutes durationMs={500}>
 				<Route path="/" element={<WelcomeScreen />} />
 				<Route

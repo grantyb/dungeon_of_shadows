@@ -2,49 +2,91 @@ import React, { useState } from "react"
 
 import {
 	images,
+	DefaultCharacterRecord,
 	type CharacterClass,
 	type CharacterGender,
 	type CharacterRace,
-} from "data/character-images"
+	saveCharacterToLocalStorage,
+} from "data/character-data"
 import Button from "components/Button"
 import { useNavigate } from "react-router-dom"
 import ButtonGroup from "./ButtonGroup"
+import { toast } from "react-toastify"
 
 const CharacterCreationScreen: React.FC = () => {
-	const [characterRace, setCharacterRace] = useState<CharacterRace>("human")
-	const [characterGender, setCharacterGender] =
-		useState<CharacterGender>("male")
-	const [characterClass, setCharacterClass] =
-		useState<CharacterClass>("warrior")
+	const [characterRecord, setCharacterRecord] = useState(
+		DefaultCharacterRecord
+	)
 	const navigate = useNavigate()
 
 	const selectRace = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setCharacterRace(event.target.value as CharacterRace)
+		setCharacterRecord((prev) => ({
+			...prev,
+			race: event.target.value as CharacterRace,
+		}))
 	}
 
 	const selectGender = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setCharacterGender(event.target.value as CharacterGender)
+		setCharacterRecord((prev) => ({
+			...prev,
+			gender: event.target.value as CharacterGender,
+		}))
 	}
 
 	const selectClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setCharacterClass(event.target.value as CharacterClass)
+		setCharacterRecord((prev) => ({
+			...prev,
+			characterClass: event.target.value as CharacterClass,
+		}))
+	}
+	const setCharacterName = (name: string) => {
+		setCharacterRecord((prev) => ({ ...prev, name }))
 	}
 
-	const image = images[characterRace][characterGender][characterClass]
+	const saveCharacter = (e) => {
+		e.preventDefault()
+		if (characterRecord.name.trim() === "") {
+			toast.error("Please enter a character name.")
+			return
+		}
+		const existingCharacterRecord = localStorage.getItem(
+			characterRecord.name
+		)
+		if (existingCharacterRecord) {
+			if (
+				!confirm(
+					`A character named ${characterRecord.name} already exists. Would you like to overwrite it?`
+				)
+			) {
+				return
+			}
+		}
+		saveCharacterToLocalStorage(characterRecord)
+		navigate("/")
+		toast.success("Character saved successfully!")
+	}
 
+	const image =
+		images[characterRecord.race][characterRecord.gender][
+			characterRecord.characterClass
+		]
 	return (
 		<div
 			className="background-image"
 			style={{ backgroundImage: `url(${image})` }}
 		>
 			<div className="main-title">
-				<h1>Create character</h1>				
+				<h1>Create character</h1>
 			</div>
 			<div className="character-creation-form">
 				<form>
 					<label>
 						Character Name:
-						<input type="text" name="name" />
+						<input
+							type="text"
+							value={characterRecord.name}
+							onChange={(e) => setCharacterName(e.target.value)}
+						/>
 					</label>
 					<label>
 						Race:
@@ -71,7 +113,10 @@ const CharacterCreationScreen: React.FC = () => {
 					</label>
 					<ButtonGroup>
 						<Button label="Cancel" onClick={() => navigate("/")} />
-						<Button type="submit" label="Save character" />
+						<Button
+							label="Save character"
+							onClick={saveCharacter}
+						/>
 					</ButtonGroup>
 				</form>
 			</div>
