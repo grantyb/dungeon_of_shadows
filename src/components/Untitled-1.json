@@ -1,0 +1,12 @@
+{
+    "name": "Luke",
+    "race": "human",
+    "gender": "male",
+    "characterClass": "warrior",
+    "inventory": [],
+    "visitedScenes": [
+        "/",
+        "/dungeon/"
+    ],
+    "hitPoints": 100
+}

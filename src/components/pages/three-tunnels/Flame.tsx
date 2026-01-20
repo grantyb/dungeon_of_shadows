@@ -28,7 +28,7 @@ export const Flame = () => {
 						shielding you from the flames. You safely make your way out of the cavern.
 					</p>
 					<p>
-						You have survived the flames!
+						you reach a corridor at the end of the cavern, you enter the small arched hallway.
 					</p>
 
 					<button 
