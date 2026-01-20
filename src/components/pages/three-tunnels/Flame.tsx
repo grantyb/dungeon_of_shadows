@@ -32,7 +32,7 @@ export const Flame = () => {
 					</p>
 
 					<button 
-						onClick={() => identifyItem("FireOrb") && navigate("/")}>Continue
+						onClick={() => identifyItem("FireOrb") && navigate("/tunnels/flame-deeper")}>Continue
 					</button>
 
 				</>) : (<>

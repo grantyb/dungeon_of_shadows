@@ -26,7 +26,8 @@
 
 * Save character
 * Load character
-* combat attack options
+* combat attack option
+* inventory visual bar >five slots<
 
 ### Housekeeping
 
@@ -45,3 +46,7 @@
 
 
 ### monster concepts
+
+* plasma
+* arachnogiant
+* port
