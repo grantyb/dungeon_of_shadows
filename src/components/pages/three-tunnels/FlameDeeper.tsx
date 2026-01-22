@@ -12,13 +12,10 @@ export const FlameDeeper = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The Flame">
 			<Conversation width={20}>
-				<p>You enter the tunnel and see 3 doors-one on the left and two on the right.</p>
-				<p>
-					you ponder which door to choose.
-				</p>
-				
 					<p>
-						finally you decide which door to go through.
+						You enter the tunnel and see 3 doors-one on the left and two on the right.</p>
+					<p>
+						you ponder which door to choose.
 					</p>
 					<p>
 						which door do you pick?
@@ -29,11 +26,11 @@ export const FlameDeeper = () => {
 					</button>
 
 					<button
-						onClick={() => alert("not implemented yet")}>right door one
+						onClick={() => alert("not implemented yet")}>right door 1
 					</button>
 
 					<button
-						onClick={() => alert("not implemented yet")}>right door two
+						onClick={() => alert("not implemented yet")}>right door 2
 					</button>
 
 			
