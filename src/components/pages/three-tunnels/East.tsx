@@ -19,7 +19,7 @@ export const East = () => {
 					after walking for a while you come across an arc.
 				</p>
 				<p>
-					you enter and it takes you back to the room where Proclarus
+					you enter and it takes you back to the room where Gol-Ink
 					is still muttering strange words on his small wooden chair.
 				
 					<span className="conversation-controls">

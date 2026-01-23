@@ -33,12 +33,12 @@ export const InventoryItem: Record<string, { unidentified: InventoryItemType, id
 	"Scroll": {
 		unidentified: {
 			name: "Ancient Scroll",
-			description: <p>A scroll given to you by Proclarus the Wise.</p>,
+			description: <p>A scroll given to you by Gol-Ink the Wise.</p>,
 		},
 		identified: {
 			name: "Map of the Dungeon",
 			description: <>
-				<p>A scroll given to you by Proclarus the Wise.</p>
+				<p>A scroll given to you by Gol-Ink the Wise.</p>
 				<p>Contains valuable knowledge about the dungeon.</p>
 			</>,
 		}

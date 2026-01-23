@@ -9,7 +9,7 @@ export const HelpWizard = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="Proclarus the Wise">
+		<StandardPage backgroundImage={img} title="Gol-Ink the Wise">
 			<Conversation width={35}>
 				<p>
 					“My thanks, brave adventurer” the wizard says, he bows in

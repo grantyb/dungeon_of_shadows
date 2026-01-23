@@ -9,7 +9,7 @@ export const GreetWizard = () => {
 	// TODO: Add more dialogue
 
 	return (
-		<StandardPage backgroundImage={img} title="Proclarus the Wise">
+		<StandardPage backgroundImage={img} title="Gol-Ink the Wise">
 			<Conversation width={35}>
 				<p>
 					“Ah, a visitor,” the wizard says, his voice raspy yet

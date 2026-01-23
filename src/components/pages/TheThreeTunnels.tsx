@@ -10,7 +10,7 @@ export const TheThreeTunnels = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The three tunnels">
 			<Conversation width={35} top={25}>
-				<p>There are three tunnels in the corner behind Proclarus.</p>
+				<p>There are three tunnels in the corner behind Gol-Ink.</p>
 				<p>
 					As you move through the shallow waters of the chamber, you
 					notice that each tunnel is marked with a distinct symbol

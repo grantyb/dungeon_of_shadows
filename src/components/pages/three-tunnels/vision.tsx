@@ -12,7 +12,7 @@ export const Vision = () => {
 			<Conversation width={20}>
 				<p>as you jump in a figure forms in front of you.</p>
 				<p>
-					it is Proclarus, he looks at you with a sad expression.
+					it is Gol-Ink, he looks at you with a sad expression.
 				</p>
 				<p>
 					this world does not seem to exist,

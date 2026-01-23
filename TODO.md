@@ -9,7 +9,7 @@
 * skull tunnel entrance
 * flame deeper
 * portal
-* fake proclaruss
+* fake Gol-Inks
 
 
 ### dungeon pages
