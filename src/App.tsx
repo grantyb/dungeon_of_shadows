@@ -31,6 +31,8 @@ import { West } from "components/pages/three-tunnels/West"
 import { toast, ToastContainer, Zoom } from "react-toastify"
 import { character } from "data/character-data"
 import { FlameDeeper } from "components/pages/three-tunnels/FlameDeeper"
+import { RightOne } from "components/pages/three-tunnels/RightOne"
+import { RightTwo } from "components/pages/three-tunnels/RightTwo"
 
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
@@ -123,6 +125,8 @@ function App() {
 			<Route path="/tunnels/skullDeeper/" element={<SkullDeeper/>} />
 			<Route path="/tunnels/west/" element={<West/>} />
 			<Route path="/tunnels/flame-deeper/" element={<FlameDeeper/>} />
+			<Route path="/tunnels/right-one/" element={<RightOne/>} />
+			<Route path="/tunnels/right-two/" element={<RightTwo/>} />
 
 		</>
 	) : (

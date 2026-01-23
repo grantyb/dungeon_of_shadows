@@ -9,7 +9,7 @@
 * skull tunnel entrance
 * flame deeper
 * portal
-* fake Gol-Inks
+* fake Gol-Ink
 
 
 ### dungeon pages
