@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/flame-symbol.png";
+import deadImage from "../../../assets/dungeon/tunnels/flame-deeper-dead.png";
+import survivedImage from "../../../assets/dungeon/tunnels/flame-deeper-survive.png";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
 import { identifyItem, inventoryContains } from "data/character-data";
@@ -10,7 +11,7 @@ export const Flame = () => {
 	const youSurvived = inventoryContains("FireOrb");
 	
 	return (
-		<StandardPage backgroundImage={img} title="The Flame">
+		<StandardPage backgroundImage={youSurvived ? survivedImage : deadImage} title="The Flame">
 			<Conversation width={20}>
 				<p>You choose the tunnel marked with a Flame.</p>
 				<p>
