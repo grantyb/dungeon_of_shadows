@@ -10,7 +10,7 @@ export const LeftDoor = () => {
 	
 	
 	return (
-		<StandardPage backgroundImage={img} title="The doors">
+		<StandardPage backgroundImage={img} title="The Plasma beast">
 			<Conversation width={20}>
 					<p>
 						You enter the tunnel on the left.</p>
