@@ -1,8 +1,5 @@
 ### Images
 
-* skull tunnel entrance
-* flame deeper
-
 
 ### dungeon pages
 
