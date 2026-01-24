@@ -34,6 +34,7 @@ import { FlameDeeper } from "components/pages/three-tunnels/FlameDeeper"
 import { RightOne } from "components/pages/three-tunnels/RightOne"
 import { RightTwo } from "components/pages/three-tunnels/RightTwo"
 import { LeftDoor } from "components/pages/three-tunnels/LeftDoor"
+import { Plasma } from "components/pages/three-tunnels/Plasma"
 function App() {
 	const [audioEnabled, setAudioEnabled] = useState(false)
 	const ctxRef = useRef<AudioContext | null>(null)
@@ -128,6 +129,7 @@ function App() {
 			<Route path="/tunnels/right-one/" element={<RightOne/>} />
 			<Route path="/tunnels/right-two/" element={<RightTwo/>} />
 			<Route path="/tunnels/left-door/" element={<LeftDoor/>} />
+			<Route path="/tunnels/plasma/" element={<Plasma/>} />
 
 		</>
 	) : (

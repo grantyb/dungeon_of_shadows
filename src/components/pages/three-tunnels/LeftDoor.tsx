@@ -29,7 +29,7 @@ export const LeftDoor = () => {
 					</p>
 
 					<button 
-						onClick={() => alert("attack features coming soon")}>start turn
+						onClick={() => navigate("/tunnels/plasma/")}>start turn
 					</button>
 					
 			</Conversation>
