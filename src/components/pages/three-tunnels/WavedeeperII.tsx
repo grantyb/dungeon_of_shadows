@@ -22,7 +22,7 @@ export const WaveDeeperII = () => {
 					<span className="conversation-controls">
 						<Button
 							label="okay"
-							onClick={() => alert("Not implemented yet")}
+							onClick={() => navigate("/tunnels/chest/")}
 						/>
 					</span>
 				</p>
