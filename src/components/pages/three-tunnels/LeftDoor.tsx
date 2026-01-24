@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/wave-symbol.png";
+import img from "../../../assets/dungeon/tunnels/plasma-beast.png";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
-import { identifyItem, inventoryContains } from "data/character-data";
 
 export const LeftDoor = () => {
 	const navigate = useNavigate()
