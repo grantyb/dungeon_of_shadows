@@ -100,4 +100,14 @@
 		}
 	}
 
+	.combat-controls {
+		display: flex;
+		justify-content: space-evenly;
+		gap: 1rem;
+		flex-wrap: wrap;
+		button {
+			margin-top: 1rem;
+		}
+	}
+
 }
