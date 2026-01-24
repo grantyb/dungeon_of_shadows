@@ -13,7 +13,7 @@
 
 ### dungeon pages
 
-* flame deeper
+* the end
 
 
 ### dungeon code
@@ -37,13 +37,13 @@
 
 ### brainstorming
 
-* what is behind the flames?
+
 
 ### concepts
 
 
 ### monster concepts
 
-* plasma
+* plasma beast
 * arachnogiant
 * port
