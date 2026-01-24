@@ -22,7 +22,7 @@ export const FlameDeeper = () => {
 					</p>
 
 					<button 
-						onClick={() => alert("not implemented yet")}>Left Door
+						onClick={() => navigate("/tunnels/left-door/")}>Left Door
 					</button>
 
 					<button
