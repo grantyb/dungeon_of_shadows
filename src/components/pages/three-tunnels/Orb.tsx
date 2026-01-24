@@ -9,7 +9,7 @@ export const Orb = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The calm cavern">
+		<StandardPage backgroundImage={img} title="The Shiny Orb">
 			<Conversation width={20}>
 				<p>you slowly approach the chest.</p>
 				<p>
