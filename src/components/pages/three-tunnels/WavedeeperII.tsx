@@ -18,11 +18,10 @@ export const WaveDeeperII = () => {
 					another rocky shore within a vast cavern.
 				</p>
 				<p>
-					Do you dare explore the cavern further?
+					 you explore the cavern 
 					<span className="conversation-controls">
-						<Button label="No" onClick={() => navigate("/tunnels/Wave-deeperII/")} />
 						<Button
-							label="Yes"
+							label="okay"
 							onClick={() => alert("Not implemented yet")}
 						/>
 					</span>
