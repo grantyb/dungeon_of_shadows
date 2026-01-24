@@ -15,10 +15,10 @@ export const FlameDeeper = () => {
 					<p>
 						You enter the tunnel and see 3 doors-one on the left and two on the right.</p>
 					<p>
-						you ponder which door to choose.
+						You ponder which door to choose.
 					</p>
 					<p>
-						which door do you pick?
+						Which door do you pick?
 					</p>
 
 					<button 
@@ -26,11 +26,11 @@ export const FlameDeeper = () => {
 					</button>
 
 					<button
-						onClick={() => navigate("/tunnels/right-one/")}>right door 1
+						onClick={() => navigate("/tunnels/right-one/")}>Right Door 1
 					</button>
 
 					<button
-						onClick={() => navigate("/tunnels/right-two/")}>right door 2
+						onClick={() => navigate("/tunnels/right-two/")}>Right Door 2
 					</button>
 
 			

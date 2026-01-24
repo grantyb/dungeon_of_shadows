@@ -14,18 +14,18 @@ export const LeftDoor = () => {
 					<p>
 						You enter the tunnel on the left.</p>
 					<p>
-						you walk a long way down the mysterious tunnel.
+						You walk a long way down the mysterious tunnel.
 					</p>
 					<p>
-						you find yourself in a giant room filled with fire,
+						You find yourself in a giant room filled with fire,
 						you look up and see a huge mouth seeming to be hungry for your flesh
 					</p>
 					<p>
-						the creature pounces at you,but you manage to dodge its attack
+						The creature pounces at you,but you manage to dodge its attack
 						in time.
 					</p>
 					<p>
-						it is now your turn to attack
+						It is now your turn to attack
 					</p>
 
 					<button 

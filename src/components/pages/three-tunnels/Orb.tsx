@@ -11,27 +11,24 @@ export const Orb = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The Shiny Orb">
 			<Conversation width={20}>
-				<p>you slowly approach the chest.</p>
+				<p>You slowly approach the chest.</p>
 				<p>
-					when you arrive you try to open the chest but the lid is too
+					When you arrive you try to open the chest but the lid is too
 					heavy.
 				</p>
 				<p>
-					after what feels like hours you finally manage to pry the
+					After what feels like hours you finally manage to pry the
 					lid open.
 				</p>
 				<p>
-					inside you find a shiny orb pulsating with magical energy.
+					Inside you find a shiny orb pulsating with magical energy.
 				</p>
 				<p>
-					Do you take the orb out of the chest?
+					 You take the orb.
 					<span className="conversation-controls">
+						
 						<Button
-							label="No"
-							onClick={() => alert("not implemented yet")}
-						/>
-						<Button
-							label="Yes"
+							label="Continue"
 							onClick={() =>
 								addToInventory("FireOrb") &&
 								navigate("/tunnels/cavern/")

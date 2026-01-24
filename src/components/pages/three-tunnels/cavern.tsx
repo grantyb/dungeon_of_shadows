@@ -8,31 +8,31 @@ export const Cavern = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The orb">
+		<StandardPage backgroundImage={img} title="The Portal">
 			<Conversation width={20}>
-				<p>the orb pulsates in your hands
-					vibrating your whole body intensly.</p>
+				<p>The orb pulsates in your hands
+					vibrating your whole body intensely.</p>
 				<p>
-					you pocket the orb and turn to leave the cavern.
+					You pocket the orb and turn to leave the cavern.
 				</p>
 				<p>
-					but then you realise that the current takes you only deeper
+					But then you realise that the current takes you only deeper
 					West throughout the cavern.
 				</p>
 				<p>
-					you turn around  and begin to put your head on your knees
+					You turn around  and begin to put your head on your knees
 					to think what to do next.
 				</p>
 				<p>
-					suddenly a purple light glows in the corner of your eye,
+					Suddenly a purple light glows in the corner of your eye,
 					you look up and see a massive hole in the floor of
 					the cavern filled with a swirling purple liquid.
 				</p>
 				<p>
-					you jump into the portal without hesitation.
+					You jump into the portal without hesitation.
 				</p>
 				<p>
-					you feel a strange sensation as you are transported
+					You feel a strange sensation as you are transported
 					to another place.
 					<span className="conversation-controls">
 						<Button label="Continue" onClick={() => navigate("/tunnels/vision")} />

@@ -10,10 +10,10 @@ export const Chest = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The calm cavern">
 			<Conversation width={20}>
-				<p>as you search the cavern a shiny gold chest 
+				<p>As you search the cavern a shiny gold chest 
 					catches your eye.</p>
 				<p>
-					you turn to the chest and go closer
+					You turn to the chest and go closer
 				</p>
 				<p>
 					Do you dare open the chest?

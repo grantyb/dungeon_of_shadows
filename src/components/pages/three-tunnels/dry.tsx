@@ -10,20 +10,20 @@ export const Dry = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The orb">
 			<Conversation width={20}>
-				<p>you wake up in the same cavern as before.</p>
+				<p>You wake up in the same cavern as before.</p>
 				<p>
-					you understand what the shiny orb is.
+					You understand what the shiny orb is.
 				</p>
 				<p>
-					its an orb of Fire protection.
+					It's an orb of Fire protection.
 				</p>
 				<p>
-					you still ponder on how to escape, you look to the river and see
-					that the whole river seems to be drained of it's water.
+					You still ponder on how to escape, you look to the river and see
+					that the whole river seems to be drained of its water.
 				</p>
 				<p>
 					
-					which way would you like to explore?
+					Which way would you like to explore?
 					
 					<span className="conversation-controls">
 						<Button label="West" onClick={() => navigate("/tunnels/west/")} />
