@@ -1,11 +1,7 @@
 ### Images
 
-* scroll
-* combat
 * skull tunnel entrance
 * flame deeper
-* portal
-* fake Gol-Ink
 
 
 ### dungeon pages
@@ -14,6 +10,8 @@
 
 
 ### dungeon code
+
+
 
 ### Features
 
