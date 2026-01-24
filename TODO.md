@@ -1,6 +1,5 @@
 ### Images
 
-* Flame tunnel entrance
 * Wave Deeper river
 * scroll
 * combat
@@ -19,12 +18,9 @@
 
 ### dungeon code
 
-* make flame protection orb work
--MUST DO
-
 ### Features
 
-* Save character
+
 * Load character
 * combat attack option
 * inventory visual bar >five slots<
@@ -36,7 +32,8 @@
 
 ### puzzles
 
-* flame protection
+* grammar
+
 
 ### brainstorming
 
