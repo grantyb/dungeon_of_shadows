@@ -32,9 +32,11 @@ export const Flame = () => {
 						You reach a corridor at the end of the cavern, you enter the small arched hallway.
 					</p>
 
-					<button 
-						onClick={() => identifyItem("FireOrb") && navigate("/tunnels/flame-deeper")}>Continue
-					</button>
+					<span className="conversation-controls">
+						<button 
+							onClick={() => identifyItem("FireOrb") && navigate("/tunnels/flame-deeper")}>Continue
+						</button>
+					</span>
 
 				</>) : (<>
 

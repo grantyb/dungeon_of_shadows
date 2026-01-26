@@ -6,8 +6,6 @@ import StandardPage from "../../StandardPage";
 export const LeftDoor = () => {
 	const navigate = useNavigate()
 
-	
-	
 	return (
 		<StandardPage backgroundImage={img} title="The Plasma beast">
 			<Conversation width={20}>
@@ -26,12 +24,16 @@ export const LeftDoor = () => {
 					</p>
 					<p>
 						It is now your turn to attack
+						<span className="conversation-controls">
+							<button 
+								onClick={() => alert("attack features coming soon")}>Start turn
+							</button>
+						</span>
 					</p>
 
-					<button 
+					<button
 						onClick={() => navigate("/tunnels/plasma/")}>start turn
 					</button>
-					
 			</Conversation>
 		</StandardPage>
 	)

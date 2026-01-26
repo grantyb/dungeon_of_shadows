@@ -1,4 +1,4 @@
-import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
+import img from "../../../assets/dungeon/tunnels/skull-symbol.png"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";
@@ -11,17 +11,15 @@ export const Skull = () => {
 			<Conversation width={20}>
 				<p>You choose the tunnel marked with a Skull.</p>
 				<p>
-					at the end of the tunnel you find yourself in a small underground cavern,
+					At the end of the tunnel you find yourself in a small underground cavern,
 					in the center is a staircase that leads downwards.
-					
 				</p>
 				<p>
-					as you look down the staircase a damp forbidding darkness swallows the light
-					
+					As you look down the staircase a damp forbidding darkness swallows the light
 				</p>
 
 				<span className="conversation-controls">
-					<Button label="enter" onClick={() => navigate("/tunnels/skullDeeper/")} />
+					<Button label="Enter" onClick={() => navigate("/tunnels/skullDeeper/")} />
 				</span>	
 			</Conversation>
 		</StandardPage>

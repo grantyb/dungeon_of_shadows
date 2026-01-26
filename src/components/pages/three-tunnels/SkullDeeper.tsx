@@ -1,5 +1,5 @@
 
-import img from "../../../assets/dungeon/tunnels/wave-symbol.png"
+import img from "../../../assets/dungeon/tunnels/stairs.png"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";
@@ -10,41 +10,35 @@ export const SkullDeeper = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The Skull">
 			<Conversation width={20}>
-				<p>as you descend the staircase, the air grows colder and more humid.</p>
+				<p>As you descend the staircase, the air grows colder and more humid.</p>
 				<p>
-					light from above fades away, and you find yourself enveloped in darkness.
+					Light from above fades away, and you find yourself enveloped in darkness.
 					
 				</p>
 				<p>
-					your footsteps echo softly against the stone walls, and the sound of dripping water
+					Your footsteps echo softly against the stone walls, and the sound of dripping water
 					echoes around the staircase.
 					
 				</p>
 				<p>
-					at the end of the staircase is a faint light, you can just make
+					At the end of the staircase is a faint light, you can just make
 					out the shape of an arched doorway pulsate with an eerie yellow glow.
 				</p>
 				<p>
-					the arc seems to sing, it attracts you-it pulls you in with extreme force.
+					The arc seems to sing, it attracts you-it pulls you in with extreme force.
 				</p>
-				<p>you grip to the floor as your waist is inside the doorway, but the damp
+				<p>You grip to the floor as your waist is inside the doorway, but the damp
 					slippery brick betrays you, and you are pulled through the archway.
 				</p>
 				<p>
-					you find yourself in a gray void there is nothing but endless grayness.
+					You find yourself in a gray void there is nothing but endless grayness.
 				</p>
-					you have perished in the void.
-				
-
-				<span className="conversation-controls">
-					<Button label="restart" onClick={() => navigate("/")} />	
-				</span>
-					
-						
-
-			
-					
-					
+				<p>
+					You have perished in the void.
+					<span className="conversation-controls">
+						<Button label="Restart" onClick={() => navigate("/")} />
+					</span>
+				</p>
 			</Conversation>
 		</StandardPage>
 	)
