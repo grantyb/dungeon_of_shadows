@@ -26,14 +26,10 @@ export const LeftDoor = () => {
 						It is now your turn to attack
 						<span className="conversation-controls">
 							<button 
-								onClick={() => alert("attack features coming soon")}>Start turn
+								onClick={() => navigate("/tunnels/plasma/")}>Start turn
 							</button>
 						</span>
 					</p>
-
-					<button
-						onClick={() => navigate("/tunnels/plasma/")}>start turn
-					</button>
 			</Conversation>
 		</StandardPage>
 	)
