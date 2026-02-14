@@ -1,10 +1,11 @@
 import React from "react"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
+import type { FoeId } from "data/foe-data"
 
 interface CombatProps extends React.PropsWithChildren {
 	backgroundImage: string
-	foe: string
+	foe: FoeId
 }
 
 // TODO : Expand combat system
