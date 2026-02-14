@@ -4,7 +4,7 @@
 ### dungeon pages
 
 * the end
-
+* the gate-keyLocked
 
 ### dungeon code
 
@@ -12,8 +12,6 @@
 
 ### Features
 
-
-* Load character
 * combat attack option
 * inventory visual bar >five slots<
 
