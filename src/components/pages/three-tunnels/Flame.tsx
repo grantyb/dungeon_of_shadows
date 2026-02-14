@@ -15,7 +15,7 @@ export const Flame = () => {
 			<Conversation width={20}>
 				<p>You choose the tunnel marked with a Flame.</p>
 				<p>
-					As you proceed, the sound ofa crackling fire grows louder, and
+					As you proceed, the sound of a crackling fire grows louder, and
 					soon you find yourself in a vast underground cavern filled
 					with dancing flames. The walls glow with heat.
 				</p>
