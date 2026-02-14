@@ -27,9 +27,9 @@ const WelcomeScreen = () => {
 			</div>
 			{!showIntroduction && (
 				<div className="home-screen-buttons">
-					<p>
+					<h2>
 						Forest of Shadows-coming soon!
-					</p>
+					</h2>
 					{(character.value) && (
 						<Button onClick={handleStartGame} label="Start game" />
 					)}
