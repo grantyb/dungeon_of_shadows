@@ -100,15 +100,9 @@ function App() {
 	const routes = character.value ? (
 		<>
 			<Route path="/" element={<WelcomeScreen />} />
-			<Route
-				path="/create-character"
-				element={<CharacterCreationScreen />}
-			/>
+			<Route path="/create-character" element={<CharacterCreationScreen />} />
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
-			<Route
-				path="/attack-wizard/"
-				element={<Combat foe="wizard" backgroundImage={wizard} />}
-			/>
+			<Route path="/attack-wizard/" element={<Combat foe="wizard" backgroundImage={wizard} />} />
 			<Route path="/greet-wizard/" element={<GreetWizard />} />
 			<Route path="/proceed/" element={<HelpWizard />} />
 			<Route path="/tunnels/" element={<TheThreeTunnels />} />
@@ -130,14 +124,10 @@ function App() {
 			<Route path="/tunnels/right-two/" element={<RightTwo/>} />
 			<Route path="/tunnels/left-door/" element={<LeftDoor/>} />
 			<Route path="/tunnels/plasma/" element={<Plasma/>} />
-
 		</>
 	) : (
 		<>
-			<Route
-				path="/create-character"
-				element={<CharacterCreationScreen />}
-			/>
+			<Route path="/create-character" element={<CharacterCreationScreen />} />
 			<Route path="/*" element={<WelcomeScreen/>} />
 		</>
 	)
@@ -157,7 +147,7 @@ function App() {
 				{routes}
 			</AnimatedRoutes>
 			<Button
-				label=""	
+				label=""
 				className="music-toggle"
 				aria-label={audioEnabled ? "Pause music" : "Play music"}
 				onClick={() => setAudioEnabled((v) => !v)}
