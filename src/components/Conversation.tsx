@@ -28,7 +28,7 @@ const Conversation: React.FC<ConversationProps> = ({
 
 	const allRevealed = alreadyVisited || revealedCount >= childArray.length
 
-	if (!alreadyVisited && allRevealed) {
+	if (allRevealed) {
 		visit(window.location.pathname)
 	}
 

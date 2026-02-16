@@ -71,6 +71,7 @@ export type CharacterRecord = {
 	gender: CharacterGender
 	characterClass: CharacterClass
 	inventory: InventoryItem[]
+	currentScene?: string
 	visitedScenes: string[]
 	hitPoints: number
 }
@@ -176,10 +177,11 @@ export const visit = (sceneId: string) => {
 	if (!character.value) {
 		return false
 	}
+	character.value.currentScene = sceneId
 	if (!character.value.visitedScenes.includes(sceneId)) {
 		character.value.visitedScenes.push(sceneId)
-		saveCharacterToLocalStorage(character.value)
 	}
+	saveCharacterToLocalStorage(character.value)
 	return true
 }
 
