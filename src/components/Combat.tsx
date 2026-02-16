@@ -20,12 +20,12 @@ const Combat: React.FC<CombatProps> = ({ foe, backgroundImage, children }) => {
 				<h1>Combat with {foe}</h1>
 			</div>
 			<Conversation width={20}>
-				<p>You are now in combat with {foe}!</p>
+				<p>It is your time to strike {foe}!</p>
 				<p>Choose your action:
 					<span className="combat-controls">
-						<Button onClick={() => alert("Combat system coming soon!")} label={"dash"}></Button>
-						<Button onClick={() => alert("Combat system coming soon!")} label={"dodge"}></Button>
-						<Button onClick={() => alert("Combat system coming soon!")} label={"defend"}></Button>
+						<Button onClick={() => alert("Combat system coming very soon!")} label={"dash"}></Button>
+						<Button onClick={() => alert("Combat system coming very soon!")} label={"dodge"}></Button>
+						<Button onClick={() => alert("Combat system coming very soon!")} label={"defend"}></Button>
 					</span>
 				</p>
 			</Conversation>

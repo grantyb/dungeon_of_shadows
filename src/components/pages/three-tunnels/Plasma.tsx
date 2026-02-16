@@ -12,7 +12,7 @@ export const Plasma = () => {
 		<StandardPage backgroundImage={img} title="The Plasma beast">
 			<Conversation width={20}>
 					<p>
-						It is your time to strike the Plasma beast.</p>
+						It is your time to strike the plasma beast.</p>
 					<p>
 						You have three options to attack with
 					</p>
