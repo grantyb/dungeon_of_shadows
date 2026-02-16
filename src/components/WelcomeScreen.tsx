@@ -39,9 +39,7 @@ const WelcomeScreen = () => {
 					/>
 					<Button
 						label="Load character"
-						onClick={() =>
-							alert("Load character feature coming soon!")
-						}
+						onClick={() => navigate("/load-character")}
 					/>
 				</div>
 			)}

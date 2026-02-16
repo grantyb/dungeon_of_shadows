@@ -11,6 +11,7 @@ import Button from "components/Button"
 import CharacterCreationScreen from "components/CharacterCreationScreen"
 import MuteIcon from "components/icons/MuteIcon"
 import UnmuteIcon from "components/icons/UnmuteIcon"
+import LoadCharacterScreen from "components/LoadCharacterScreen"
 import { DungeonEntrance } from "components/pages/DungeonEntrance"
 import { GreetWizard } from "components/pages/GreetWizard"
 import { HelpWizard } from "components/pages/HelpWizard"
@@ -101,6 +102,7 @@ function App() {
 		<>
 			<Route path="/" element={<WelcomeScreen />} />
 			<Route path="/create-character" element={<CharacterCreationScreen />} />
+			<Route path="/load-character" element={<LoadCharacterScreen />} />
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
 			<Route path="/attack-wizard/" element={<Combat foe="wizard" backgroundImage={wizard} />} />
 			<Route path="/greet-wizard/" element={<GreetWizard />} />
