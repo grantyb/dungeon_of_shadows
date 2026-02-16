@@ -9,7 +9,7 @@ const Button: React.FC<Props> = ({ label, ...props }) => {
 		props.tabIndex = 0
 	}
 	return (
-		<button {...props}>
+		<button type="button" {...props}>
 			{label}
 			{props.children}
 		</button>
