@@ -5,7 +5,6 @@ import React, { useRef, useState } from "react"
 import { Route } from "react-router-dom"
 
 import introductionMusic from "assets/dungeon/introduction.m4a"
-import wizard from "assets/foes/wizard.png"
 
 import Button from "components/Button"
 import CharacterCreationScreen from "components/CharacterCreationScreen"
@@ -104,7 +103,7 @@ function App() {
 			<Route path="/create-character" element={<CharacterCreationScreen />} />
 			<Route path="/load-character" element={<LoadCharacterScreen />} />
 			<Route path="/dungeon/" element={<DungeonEntrance />} />
-			<Route path="/attack-wizard/" element={<Combat foe="wizard" backgroundImage={wizard} />} />
+			<Route path="/attack-wizard/" element={<Combat foe="wizard" />} />
 			<Route path="/greet-wizard/" element={<GreetWizard />} />
 			<Route path="/proceed/" element={<HelpWizard />} />
 			<Route path="/tunnels/" element={<TheThreeTunnels />} />

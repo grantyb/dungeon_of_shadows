@@ -1,26 +1,26 @@
 import React from "react"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
-import type { FoeId } from "data/foe-data"
+import { Foes, type FoeId } from "data/foe-data"
 
 interface CombatProps extends React.PropsWithChildren {
-	backgroundImage: string
 	foe: FoeId
 }
 
 // TODO : Expand combat system
 
-const Combat: React.FC<CombatProps> = ({ foe, backgroundImage, children }) => {
+const Combat: React.FC<CombatProps> = (props) => {
+	const foe = Foes[props.foe]
 	return (
 		<div
 			className="background-image"
-			style={{ backgroundImage: `url(${backgroundImage})` }}
+			style={{ backgroundImage: `url(${foe.backgroundImage})` }}
 		>
 			<div className="main-title">
-				<h1>Combat with {foe}</h1>
+				<h1>Combat with {foe.name}</h1>
 			</div>
 			<Conversation width={20}>
-				<p>It is your time to strike {foe}!</p>
+				<p>It is your time to strike {foe.name}!</p>
 				<p>Choose your action:
 					<span className="combat-controls">
 						<Button onClick={() => alert("Combat system coming very soon!")} label={"dash"}></Button>
@@ -29,7 +29,7 @@ const Combat: React.FC<CombatProps> = ({ foe, backgroundImage, children }) => {
 					</span>
 				</p>
 			</Conversation>
-			{children}
+			{props.children}
 		</div>
 	)
 }
