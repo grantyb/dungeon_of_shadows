@@ -1,8 +1,10 @@
 import React, { useState, useCallback, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "components/Button"
+import InventoryPanel from "components/InventoryPanel"
 import { Foes, type FoeId } from "data/foe-data"
-import { character, ClassDefense, saveCharacterToLocalStorage } from "data/character-data"
+import { useCharacter } from "data/CharacterContext"
+import { ClassDefense } from "data/character-data"
 import {
 	ClassAttacks,
 	RaceResistances,
@@ -33,7 +35,7 @@ function rollDamage(strength: number): number {
 const Combat: React.FC<CombatProps> = (props) => {
 	const foe = Foes[props.foe]
 	const navigate = useNavigate()
-	const charRecord = character.value
+	const { character: charRecord, saveCharacter } = useCharacter()
 	const classAttacks = charRecord ? ClassAttacks[charRecord.characterClass] : null
 	const classDefense = charRecord ? ClassDefense[charRecord.characterClass] : 0
 	const playerResistances = charRecord ? RaceResistances[charRecord.race] : null
@@ -234,13 +236,11 @@ const Combat: React.FC<CombatProps> = (props) => {
 		if (newPlayerHp <= 0) {
 			addLogs([{ text: "You have fallen in combat...", type: "info" }])
 			setCombatOver(true)
-			charRecord.hitPoints = 0
-			saveCharacterToLocalStorage(charRecord)
+			saveCharacter({ ...charRecord, hitPoints: 0 })
 		} else {
-			charRecord.hitPoints = newPlayerHp
-			saveCharacterToLocalStorage(charRecord)
+			saveCharacter({ ...charRecord, hitPoints: newPlayerHp })
 		}
-	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, addLogs])
+	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, addLogs, saveCharacter])
 
 	const handleFlee = useCallback(() => {
 		if (combatOver || !charRecord || !playerResistances) return
@@ -277,15 +277,13 @@ const Combat: React.FC<CombatProps> = (props) => {
 		if (newPlayerHp <= 0) {
 			addLogs([{ text: "You were struck down while fleeing...", type: "info" }])
 			setCombatOver(true)
-			charRecord.hitPoints = 0
-			saveCharacterToLocalStorage(charRecord)
+			saveCharacter({ ...charRecord, hitPoints: 0 })
 		} else {
 			addLogs([{ text: "You manage to escape!", type: "info" }])
 			setCombatOver(true)
-			charRecord.hitPoints = newPlayerHp
-			saveCharacterToLocalStorage(charRecord)
+			saveCharacter({ ...charRecord, hitPoints: newPlayerHp })
 		}
-	}, [combatOver, charRecord, playerResistances, playerHp, foe, round, foeCooldowns, pickFoeAttack, addLogs])
+	}, [combatOver, charRecord, playerResistances, playerHp, foe, round, foeCooldowns, pickFoeAttack, addLogs, saveCharacter])
 
 	const handleContinue = () => {
 		if (playerHp <= 0) {
@@ -310,9 +308,22 @@ const Combat: React.FC<CombatProps> = (props) => {
 				<h1>Combat: {foe.name}</h1>
 			</div>
 
+			<InventoryPanel
+				characterRecord={charRecord}
+				inCombat={!combatOver}
+				playerDots={playerDots}
+				onPlayerDotsChange={setPlayerDots}
+				playerHp={playerHp}
+				onPlayerHpChange={(hp) => {
+					setPlayerHp(hp)
+					if (charRecord) {
+						saveCharacter({ ...charRecord, hitPoints: hp })
+					}
+				}}
+			/>
+
 			<div className="conversation" style={{ maxWidth: "40%" }}>
 				<div className="combat-status">
-					<p><strong>Your HP:</strong> {playerHp}</p>
 					<p><strong>{foe.name} HP:</strong> {foeHp} / {foe.hitpoints}</p>
 					{playerDots.length > 0 && (
 						<p><strong>Effects on you:</strong> {playerDots.map((d) => `${d.type} (up to ${d.ceiling})`).join(", ")}</p>

@@ -3,12 +3,21 @@
 	width: 100vw;
 	height: 100vh;
 
-	.music-toggle {
+	.top-right-icons {
 		position: fixed;
 		top: 20px;
 		right: 20px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		z-index: 100;
+	}
+
+	.icon-toggle, .music-toggle {
 		background: rgba(30,30,30,0.85);
-		border: none;
+		border: 1px solid slategrey;
+		border-radius: 8px;
+		padding: 6px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -19,6 +28,10 @@
 		&:focus {
 			outline: none;
 		}
+	}
+
+	.icon-toggle img {
+		display: block;
 	}
 }
 

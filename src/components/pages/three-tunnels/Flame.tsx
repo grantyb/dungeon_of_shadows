@@ -3,10 +3,11 @@ import deadImage from "../../../assets/dungeon/tunnels/flame-deeper-dead.png";
 import survivedImage from "../../../assets/dungeon/tunnels/flame-deeper-survive.png";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
-import { identifyItem, inventoryContains } from "data/character-data";
+import { useCharacter } from "data/CharacterContext";
 
 export const Flame = () => {
 	const navigate = useNavigate()
+	const { inventoryContains, identifyItem } = useCharacter()
 
 	const youSurvived = inventoryContains("FireOrb");
 	

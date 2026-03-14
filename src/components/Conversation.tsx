@@ -1,5 +1,5 @@
 import Button from "components/Button"
-import { character, visit } from "data/character-data"
+import { useCharacter } from "data/CharacterContext"
 import type { CSSProperties, ReactNode } from "react"
 import React, { useState } from "react"
 
@@ -14,7 +14,8 @@ const Conversation: React.FC<ConversationProps> = ({
 	width,
 	children,
 }) => {
-	const alreadyVisited = (character.value?.visitedScenes || []).includes(window.location.pathname)
+	const { character, visit } = useCharacter()
+	const alreadyVisited = (character?.visitedScenes || []).includes(window.location.pathname)
 	const childArray = React.Children.toArray(children)
 	const [revealedCount, setRevealedCount] = useState(1)
 

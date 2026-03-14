@@ -1,11 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import Button from "components/Button"
 import {
 	images,
-	saveCharacterToLocalStorage,
 	type CharacterRecord,
 } from "data/character-data"
+import { useCharacter } from "data/CharacterContext"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import ButtonGroup from "./ButtonGroup"
@@ -13,8 +13,18 @@ import dungeonEntrance from "assets/dungeon/entrance.png"
 
 const LoadCharacterScreen: React.FC = () => {
 	const navigate = useNavigate()
+	const { saveCharacter, setPreview } = useCharacter()
 
 	const [characterRecord, setCharacterRecord] = useState<CharacterRecord | undefined>()
+
+	useEffect(() => {
+		if (characterRecord) {
+			setPreview(characterRecord)
+		} else {
+			setPreview(null)
+		}
+		return () => { setPreview(null) }
+	}, [characterRecord, setPreview])
 
 	const image = characterRecord ? images[characterRecord.race][characterRecord.gender][characterRecord.characterClass] : dungeonEntrance
 
@@ -35,7 +45,7 @@ const LoadCharacterScreen: React.FC = () => {
 			toast.error("Please select a character to load.")
 			return
 		}
-		saveCharacterToLocalStorage(characterRecord)
+		saveCharacter(characterRecord)
 		toast.success(`Loaded character: ${characterRecord.name}`)
 		navigate(characterRecord.currentScene || "/")
 	}

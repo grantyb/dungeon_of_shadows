@@ -5,6 +5,8 @@ import React, { useRef, useState } from "react"
 import { Route } from "react-router-dom"
 
 import introductionMusic from "assets/dungeon/introduction.m4a"
+import backpackClosed from "assets/items/backpack-closed.png"
+import backpackOpen from "assets/items/backpack-open.png"
 
 import Button from "components/Button"
 import CharacterCreationScreen from "components/CharacterCreationScreen"
@@ -38,9 +40,11 @@ import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
-import { character } from "data/character-data"
+import InventoryPanel from "components/InventoryPanel"
+import { useCharacter } from "data/CharacterContext"
 import { toast, ToastContainer, Zoom } from "react-toastify"
 function App() {
+	const { character, preview, inventoryOpen, setInventoryOpen } = useCharacter()
 	const [audioEnabled, setAudioEnabled] = useState(false)
 	const ctxRef = useRef<AudioContext | null>(null)
 	const sourceRef = useRef<AudioBufferSourceNode | null>(null)
@@ -50,10 +54,10 @@ function App() {
 	// Load audio buffer once
 	React.useEffect(() => {
 
-		if (!character.value) {
+		if (!character) {
 			toast.info("No character loaded. Please create a character to start the game.")
 		} else {
-			toast.success(`Welcome back, ${character.value.name}!`, { toastId: "welcome-back" })
+			toast.success(`Welcome back, ${character.name}!`, { toastId: "welcome-back" })
 		}
 
 
@@ -102,7 +106,7 @@ function App() {
 		sourceRef.current = source
 	}, [audioEnabled])
 
-	const routes = character.value ? (
+	const routes = character ? (
 		<>
 			<Route path="/" element={<WelcomeScreen />} />
 			<Route path="/create-character" element={<CharacterCreationScreen />} />
@@ -158,18 +162,30 @@ function App() {
 			<AnimatedRoutes durationMs={500}>
 				{routes}
 			</AnimatedRoutes>
-			<Button
-				label=""
-				className="music-toggle"
-				aria-label={audioEnabled ? "Pause music" : "Play music"}
-				onClick={() => setAudioEnabled((v) => !v)}
-			>
-				{audioEnabled ? (
-					<UnmuteIcon width={24} height={24} />
-				) : (
-					<MuteIcon width={24} height={24} />
+			{(preview || character) && <InventoryPanel characterRecord={(preview ?? character)!} inCombat={false} />}
+			<div className="top-right-icons">
+				{(preview || character) && (
+					<button
+						className="icon-toggle"
+						aria-label={inventoryOpen ? "Close inventory" : "Open inventory"}
+						onClick={() => setInventoryOpen((v) => !v)}
+					>
+						<img src={inventoryOpen ? backpackOpen : backpackClosed} alt="Inventory" width={24} height={24} />
+					</button>
 				)}
-			</Button>
+				<Button
+					label=""
+					className="music-toggle"
+					aria-label={audioEnabled ? "Pause music" : "Play music"}
+					onClick={() => setAudioEnabled((v) => !v)}
+				>
+					{audioEnabled ? (
+						<UnmuteIcon width={24} height={24} />
+					) : (
+						<MuteIcon width={24} height={24} />
+					)}
+				</Button>
+			</div>
 		</div>
 	)
 }

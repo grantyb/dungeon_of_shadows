@@ -3,12 +3,11 @@ import React from "react"
 import dungeonEntrance from "assets/dungeon/entrance.png"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
-import { character } from "data/character-data"
+import { useCharacter } from "data/CharacterContext"
 import { useNavigate } from "react-router-dom"
-import { useSignal } from "@preact/signals-react"
 
 const WelcomeScreen = () => {
-	useSignal();
+	const { character } = useCharacter()
 	const navigate = useNavigate()
 
 	const [showIntroduction, setShowIntroduction] = React.useState(false)
@@ -16,7 +15,7 @@ const WelcomeScreen = () => {
 	const handleStartGame = () => {
 		setShowIntroduction(true)
 	}
-	
+
 	return (
 		<div
 			className="background-image"
@@ -30,7 +29,7 @@ const WelcomeScreen = () => {
 					<h2>
 						Forest of Shadows-coming soon!
 					</h2>
-					{(character.value) && (
+					{character && (
 						<Button onClick={handleStartGame} label="Start game" />
 					)}
 					<Button

@@ -1,4 +1,3 @@
-import { signal } from "@preact/signals-react"
 import dwarfFemaleRogueImage from "assets/character/dwarf-female-rogue.png"
 import dwarfFemaleWarriorImage from "assets/character/dwarf-female-warrior.png"
 import dwarfFemaleWizardImage from "assets/character/dwarf-female-wizard.png"
@@ -17,7 +16,6 @@ import humanFemaleWizardImage from "assets/character/human-female-wizard.png"
 import humanMaleRogueImage from "assets/character/human-male-rogue.png"
 import humanMaleWarriorImage from "assets/character/human-male-warrior.png"
 import humanMaleWizardImage from "assets/character/human-male-wizard.png"
-import { toast } from "react-toastify"
 import { InventoryItem } from "./inventory-items"
 import type { JSX } from "react"
 
@@ -35,6 +33,7 @@ export type InventoryItemId = keyof typeof InventoryItem
 export type InventoryItem = {
 	id: InventoryItemId
 	identified: boolean
+	quantity: number
 }
 
 export const ClassDefense: Record<CharacterClass, number> = {
@@ -101,77 +100,4 @@ export const images = {
 			rogue: dwarfFemaleRogueImage,
 		},
 	},
-}
-
-export const saveCharacterToLocalStorage = (characterRecord: CharacterRecord) => {
-	localStorage.setItem(
-		characterRecord.name,
-		JSON.stringify(characterRecord)
-	)
-	localStorage.setItem("currentCharacterName", characterRecord.name)
-	const allCharacterNames = JSON.parse(localStorage.getItem("allCharacterNames") || "[]") as string[]
-	if (!allCharacterNames.includes(characterRecord.name)) {
-		allCharacterNames.push(characterRecord.name)
-		allCharacterNames.sort()
-		localStorage.setItem("allCharacterNames", JSON.stringify(allCharacterNames))
-	}
-	character.value = characterRecord
-}
-
-const currentCharacterName = localStorage.getItem("currentCharacterName")
-const currentCharacterJSON = currentCharacterName
-	? localStorage.getItem(currentCharacterName)
-	: undefined
-export const character = signal<CharacterRecord | undefined>(currentCharacterJSON ? JSON.parse(currentCharacterJSON) as CharacterRecord : undefined)
-
-export const addToInventory = (itemId: InventoryItemId) => {
-	if (!character.value) {
-		toast.error("No character loaded!")
-		return true
-	}
-	const existingItem = character.value.inventory.find((item) => item.id === itemId)
-	if (existingItem) {
-		if (existingItem.identified) {
-			toast.info(`${InventoryItem[itemId].identified.name} is already in your inventory.`)
-		} else {
-			toast.info(`${InventoryItem[itemId].unidentified.name} is already in your inventory.`)
-		}
-		return true
-	}
-	character.value.inventory.push({ id: itemId, identified: false })
-	saveCharacterToLocalStorage(character.value)
-	toast.success(`${InventoryItem[itemId].unidentified.name} added to inventory.`)
-	return true
-}
-
-export const inventoryContains = (itemId: InventoryItemId): boolean => {
-	if (!character.value) {
-		return false
-	}
-	return character.value.inventory.some((item) => item.id === itemId)
-}
-
-export const visit = (sceneId: string) => {
-	if (!character.value) {
-		return false
-	}
-	character.value.currentScene = sceneId
-	if (!character.value.visitedScenes.includes(sceneId)) {
-		character.value.visitedScenes.push(sceneId)
-	}
-	saveCharacterToLocalStorage(character.value)
-	return true
-}
-
-export const identifyItem = (itemId: InventoryItemId) => {
-	if (!character.value) {
-		return false
-	}
-	const itemIndex = character.value.inventory.findIndex((item) => item.id === itemId)
-	if (itemIndex === -1) {
-		return false
-	}
-	character.value.inventory[itemIndex].identified = true
-	saveCharacterToLocalStorage(character.value)
-	return true
 }

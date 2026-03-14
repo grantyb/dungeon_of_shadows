@@ -2,11 +2,12 @@ import img from "assets/dungeon/tunnels/chest.png"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
-import { addToInventory } from "data/character-data"
+import { useCharacter } from "data/CharacterContext"
 import { useNavigate } from "react-router-dom"
 
 export const Orb = () => {
 	const navigate = useNavigate()
+	const { addToInventory } = useCharacter()
 
 	return (
 		<StandardPage backgroundImage={img} title="The Shiny Orb">

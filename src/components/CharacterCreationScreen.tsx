@@ -1,14 +1,15 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import Button from "components/Button"
 import {
 	DefaultCharacterRecord,
 	images,
-	saveCharacterToLocalStorage,
 	type CharacterClass,
 	type CharacterGender,
 	type CharacterRace,
 } from "data/character-data"
+import { useCharacter } from "data/CharacterContext"
+import { StartingInventory } from "data/inventory-items"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import ButtonGroup from "./ButtonGroup"
@@ -18,6 +19,22 @@ const CharacterCreationScreen: React.FC = () => {
 		DefaultCharacterRecord
 	)
 	const navigate = useNavigate()
+	const { saveCharacter, setPreview } = useCharacter()
+
+	useEffect(() => {
+		const startingItems = StartingInventory[characterRecord.characterClass]
+		setPreview({
+			...characterRecord,
+			name: characterRecord.name || "New Character",
+			inventory: startingItems.map((item) => ({
+				id: item.id,
+				identified: true,
+				quantity: item.quantity,
+			})),
+			hitPoints: 100,
+		})
+		return () => { setPreview(null) }
+	}, [characterRecord, setPreview])
 
 	const selectRace = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setCharacterRecord((prev) => ({
@@ -43,7 +60,7 @@ const CharacterCreationScreen: React.FC = () => {
 		setCharacterRecord((prev) => ({ ...prev, name }))
 	}
 
-	const saveCharacter = () => {
+	const handleSaveCharacter = () => {
 		if (characterRecord.name.trim() === "") {
 			toast.error("Please enter a character name.")
 			return
@@ -60,7 +77,16 @@ const CharacterCreationScreen: React.FC = () => {
 				return
 			}
 		}
-		saveCharacterToLocalStorage(characterRecord)
+		const startingItems = StartingInventory[characterRecord.characterClass]
+		const recordWithInventory = {
+			...characterRecord,
+			inventory: startingItems.map((item) => ({
+				id: item.id,
+				identified: true,
+				quantity: item.quantity,
+			})),
+		}
+		saveCharacter(recordWithInventory)
 		navigate("/")
 		toast.success("Character saved successfully!")
 	}
@@ -114,7 +140,7 @@ const CharacterCreationScreen: React.FC = () => {
 						<Button label="Cancel" onClick={() => navigate("/")} />
 						<Button
 							label="Save character"
-							onClick={saveCharacter}
+							onClick={handleSaveCharacter}
 						/>
 					</ButtonGroup>
 				</form>

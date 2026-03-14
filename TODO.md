@@ -6,6 +6,12 @@
 * wizard-victory.png (combat outcome)
 * wizard-death.png (combat outcome)
 * wizard-flee.png (combat outcome)
+* scroll.png (inventory item)
+* fire-orb.png (inventory item)
+* healing-potion.png (inventory item)
+* cauterizing-potion.png (inventory item)
+* dowsing-potion.png (inventory item)
+* antidote-potion.png (inventory item)
 
 ### dungeon pages
 

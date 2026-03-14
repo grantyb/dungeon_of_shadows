@@ -1,7 +1,26 @@
-import type { InventoryItemType } from "./character-data";
+import type { InventoryItemType } from "./character-data"
+import type { CharacterClass } from "./character-data"
 
-export const InventoryItem: Record<string, { unidentified: InventoryItemType, identified: InventoryItemType }> = {
+import scrollImg from "assets/items/scroll.png"
+import fireOrbImg from "assets/items/fire-orb.png"
+import healingPotionImg from "assets/items/healing-potion.png"
+import cauterizingPotionImg from "assets/items/cauterizing-potion.png"
+import dowsingPotionImg from "assets/items/dowsing-potion.png"
+import antidotePotionImg from "assets/items/antidote-potion.png"
+
+export type ItemDefinition = {
+	unidentified: InventoryItemType
+	identified: InventoryItemType
+	image: string
+	expendable: boolean
+	combatOnly: boolean
+}
+
+export const InventoryItem: Record<string, ItemDefinition> = {
 	"Scroll": {
+		image: scrollImg,
+		expendable: false,
+		combatOnly: false,
 		unidentified: {
 			name: "Ancient Scroll",
 			description: <p>A scroll given to you by Gol-Ink the Wise.</p>,
@@ -12,9 +31,12 @@ export const InventoryItem: Record<string, { unidentified: InventoryItemType, id
 				<p>A scroll given to you by Gol-Ink the Wise.</p>
 				<p>Contains valuable knowledge about the dungeon.</p>
 			</>,
-		}
+		},
 	},
 	"FireOrb": {
+		image: fireOrbImg,
+		expendable: false,
+		combatOnly: false,
 		unidentified: {
 			name: "Glowing Orb",
 			description: <p>A mystical orb.</p>,
@@ -25,6 +47,79 @@ export const InventoryItem: Record<string, { unidentified: InventoryItemType, id
 				<p>A mystical orb pulsating with fiery energy.</p>
 				<p>It protects the bearer from fire-based attacks.</p>
 			</>,
-		}
-	}
+		},
+	},
+	"HealingPotion": {
+		image: healingPotionImg,
+		expendable: true,
+		combatOnly: false,
+		unidentified: {
+			name: "Healing Potion",
+			description: <p>A vial of crimson liquid that restores health. Heals a random amount up to 50 HP.</p>,
+		},
+		identified: {
+			name: "Healing Potion",
+			description: <p>A vial of crimson liquid that restores health. Heals a random amount up to 50 HP.</p>,
+		},
+	},
+	"CauterizingPotion": {
+		image: cauterizingPotionImg,
+		expendable: true,
+		combatOnly: true,
+		unidentified: {
+			name: "Cauterizing Potion",
+			description: <p>A thick, amber salve that instantly stops all bleeding effects.</p>,
+		},
+		identified: {
+			name: "Cauterizing Potion",
+			description: <p>A thick, amber salve that instantly stops all bleeding effects.</p>,
+		},
+	},
+	"DowsingPotion": {
+		image: dowsingPotionImg,
+		expendable: true,
+		combatOnly: true,
+		unidentified: {
+			name: "Dowsing Potion",
+			description: <p>A cool, blue liquid that extinguishes all burning effects.</p>,
+		},
+		identified: {
+			name: "Dowsing Potion",
+			description: <p>A cool, blue liquid that extinguishes all burning effects.</p>,
+		},
+	},
+	"AntidotePotion": {
+		image: antidotePotionImg,
+		expendable: true,
+		combatOnly: true,
+		unidentified: {
+			name: "Antidote Potion",
+			description: <p>A sharp, green tonic that neutralises all poison effects.</p>,
+		},
+		identified: {
+			name: "Antidote Potion",
+			description: <p>A sharp, green tonic that neutralises all poison effects.</p>,
+		},
+	},
+}
+
+export const StartingInventory: Record<CharacterClass, { id: string; quantity: number }[]> = {
+	warrior: [
+		{ id: "HealingPotion", quantity: 3 },
+		{ id: "CauterizingPotion", quantity: 2 },
+		{ id: "DowsingPotion", quantity: 1 },
+		{ id: "AntidotePotion", quantity: 1 },
+	],
+	wizard: [
+		{ id: "HealingPotion", quantity: 5 },
+		{ id: "CauterizingPotion", quantity: 1 },
+		{ id: "DowsingPotion", quantity: 2 },
+		{ id: "AntidotePotion", quantity: 1 },
+	],
+	rogue: [
+		{ id: "HealingPotion", quantity: 4 },
+		{ id: "CauterizingPotion", quantity: 1 },
+		{ id: "DowsingPotion", quantity: 1 },
+		{ id: "AntidotePotion", quantity: 2 },
+	],
 }
