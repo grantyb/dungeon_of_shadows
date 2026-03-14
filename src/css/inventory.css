@@ -66,6 +66,10 @@
 	transition: width 0.3s ease;
 }
 
+.foe-health-bar-fill {
+	background: linear-gradient(to bottom, #a22, #722);
+}
+
 .health-bar-text {
 	position: absolute;
 	top: 0;

@@ -72,9 +72,16 @@ const Combat: React.FC<CombatProps> = (props) => {
 			inCombat: !combatOver,
 			playerDots,
 			onPlayerDotsChange: setPlayerDots,
+			foe: {
+				name: foe.name,
+				portrait: foe.backgroundImage,
+				currentHp: foeHp,
+				maxHp: foe.hitpoints,
+				dots: foeDots,
+			},
 		})
 		return () => { setCombatState(null) }
-	}, [combatOver, playerDots, charRecord, saveCharacter, setCombatState])
+	}, [combatOver, playerDots, foeHp, foeDots, foe, setCombatState])
 
 	useEffect(() => {
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -283,14 +290,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 							text: `You are afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
 							type: "foe",
 						},
-						apply: () => {
-							setPlayerDots(dotsWithNew)
-							setCombatState({
-								inCombat: true,
-								playerDots: dotsWithNew,
-								onPlayerDotsChange: setPlayerDots,
-							})
-						},
+						apply: () => setPlayerDots(dotsWithNew),
 					})
 				}
 			}
@@ -314,23 +314,11 @@ const Combat: React.FC<CombatProps> = (props) => {
 					apply: () => {
 						saveCharacter({ ...charRecord, hitPoints: capturedPlayerHp })
 						setPlayerDots(finalPlayerDots)
-						setCombatState({
-							inCombat: true,
-							playerDots: finalPlayerDots,
-							onPlayerDotsChange: setPlayerDots,
-						})
 					},
 				})
 			} else {
 				steps.push({
-					apply: () => {
-						setPlayerDots(finalPlayerDots)
-						setCombatState({
-							inCombat: true,
-							playerDots: finalPlayerDots,
-							onPlayerDotsChange: setPlayerDots,
-						})
-					},
+					apply: () => setPlayerDots(finalPlayerDots),
 				})
 			}
 
@@ -356,7 +344,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 		}
 
 		playSteps(steps)
-	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, saveCharacter, setCombatState, playSteps])
+	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, saveCharacter, playSteps])
 
 	const handleFlee = useCallback(() => {
 		if (combatOver || animatingRef.current || !charRecord || !playerResistances) return

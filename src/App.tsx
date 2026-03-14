@@ -40,7 +40,7 @@ import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
-import InventoryPanel, { CharacterHud } from "components/InventoryPanel"
+import InventoryPanel, { CharacterHud, FoeHud } from "components/InventoryPanel"
 import { useCharacter } from "data/character-data"
 import { ToastContainer, Zoom } from "react-toastify"
 function App() {
@@ -181,6 +181,7 @@ function App() {
 						</button>
 					)}
 				</div>
+				<FoeHud />
 				{(preview || character) && <InventoryPanel characterRecord={(preview ?? character)!} />}
 			</div>
 		</div>
