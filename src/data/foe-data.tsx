@@ -8,6 +8,8 @@ import plasmaBeastVictoryImg from "assets/combat/plasma-beast-victory.png"
 import plasmaBeastDeathImg from "assets/combat/plasma-beast-death.png"
 import plasmaBeastFleeImg from "assets/combat/plasma-beast-flee.png"
 
+import { defaultResistances, type FoeAttack, type Resistances } from "./combat-data"
+
 export type FoeOutcome = {
 	route: string
 	image: string
@@ -17,10 +19,10 @@ export type Foe = {
 	name: string
 	description: string
 	hitpoints: number
-	attack: number
 	defense: number
-	attackStrength: number
 	backgroundImage: string
+	resistances: Resistances
+	attacks: FoeAttack[]
 	victory: FoeOutcome
 	death: FoeOutcome
 	flee: FoeOutcome
@@ -28,13 +30,32 @@ export type Foe = {
 
 export const Foes: Record<string, Foe> = {
 	"wizard": {
-		name: "Proclarus the Wise",
-		description: "A powerful wizard with a staff and a long robe. Proclarus The Wise is a truly fearsome adversary!",
+		name: "Gol-Ink the Wise",
+		description: "A powerful wizard with a staff and a long robe. Gol-Ink the Wise is a truly fearsome adversary!",
 		backgroundImage: wizard,
 		hitpoints: 100,
-		attack: 100,
 		defense: 5,
-		attackStrength: 50,
+		resistances: {
+			...defaultResistances,
+			electricity: 50,
+			crushing: 130,
+		},
+		attacks: [
+			{
+				name: "Arcane Bolt",
+				accuracy: 80,
+				strength: 45,
+				damageMix: { electricity: 0.5, cold: 0.5 },
+				cooldown: 0,
+			},
+			{
+				name: "Meteor Strike",
+				accuracy: 60,
+				strength: 65,
+				damageMix: { fire: 0.6, crushing: 0.4 },
+				cooldown: 2,
+			},
+		],
 		victory: { route: "/combat/wizard-victory", image: wizardVictoryImg },
 		death: { route: "/combat/wizard-death", image: wizardDeathImg },
 		flee: { route: "/combat/wizard-flee", image: wizardFleeImg },
@@ -44,9 +65,30 @@ export const Foes: Record<string, Foe> = {
 		description: "A terrifying creature of pure plasma energy, crackling with searing heat and malice.",
 		backgroundImage: plasmaBeast,
 		hitpoints: 100,
-		attack: 50,
 		defense: 20,
-		attackStrength: 50,
+		resistances: {
+			...defaultResistances,
+			fire: 0,
+			electricity: 50,
+			water: 200,
+			cold: 150,
+		},
+		attacks: [
+			{
+				name: "Plasma Strike",
+				accuracy: 50,
+				strength: 50,
+				damageMix: { fire: 0.6, electricity: 0.4 },
+				cooldown: 0,
+			},
+			{
+				name: "Inferno Burst",
+				accuracy: 40,
+				strength: 70,
+				damageMix: { fire: 0.9, crushing: 0.1 },
+				cooldown: 3,
+			},
+		],
 		victory: { route: "/combat/plasma-beast-victory", image: plasmaBeastVictoryImg },
 		death: { route: "/combat/plasma-beast-death", image: plasmaBeastDeathImg },
 		flee: { route: "/combat/plasma-beast-flee", image: plasmaBeastFleeImg },

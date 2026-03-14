@@ -65,32 +65,10 @@ export type InventoryItem = {
 	identified: boolean
 }
 
-export type ClassCombatStats = {
-	attack: number
-	defense: number
-	attackStrength: number
-	attacks: string[]
-}
-
-export const ClassStats: Record<CharacterClass, ClassCombatStats> = {
-	warrior: {
-		attack: 75,
-		defense: 30,
-		attackStrength: 50,
-		attacks: ["Sword Slash", "Shield Bash", "Heavy Strike"],
-	},
-	wizard: {
-		attack: 60,
-		defense: 15,
-		attackStrength: 55,
-		attacks: ["Fireball", "Lightning Bolt", "Arcane Blast"],
-	},
-	rogue: {
-		attack: 70,
-		defense: 20,
-		attackStrength: 45,
-		attacks: ["Backstab", "Poison Dart", "Dagger Throw"],
-	},
+export const ClassDefense: Record<CharacterClass, number> = {
+	warrior: 30,
+	wizard: 15,
+	rogue: 20,
 }
 
 export type CharacterRecord = {

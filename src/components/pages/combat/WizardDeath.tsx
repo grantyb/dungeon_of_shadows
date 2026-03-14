@@ -6,7 +6,7 @@ export const WizardDeath = () => (
 		backgroundImage={img}
 		title="You Have Fallen"
 		text={[
-			"Proclarus the Wise unleashes a devastating spell. You crumple to the ground as arcane fire engulfs you.",
+			"Gol-Ink the Wise unleashes a devastating spell. You crumple to the ground as arcane fire engulfs you.",
 			"Your adventure ends here, brave soul.",
 		]}
 		continueRoute="/"
