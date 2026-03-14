@@ -11,6 +11,12 @@ import CharacterCreationScreen from "components/CharacterCreationScreen"
 import MuteIcon from "components/icons/MuteIcon"
 import UnmuteIcon from "components/icons/UnmuteIcon"
 import LoadCharacterScreen from "components/LoadCharacterScreen"
+import { PlasmaBeastDeath } from "components/pages/combat/PlasmaBeastDeath"
+import { PlasmaBeastFlee } from "components/pages/combat/PlasmaBeastFlee"
+import { PlasmaBeastVictory } from "components/pages/combat/PlasmaBeastVictory"
+import { WizardDeath } from "components/pages/combat/WizardDeath"
+import { WizardFlee } from "components/pages/combat/WizardFlee"
+import { WizardVictory } from "components/pages/combat/WizardVictory"
 import { DungeonEntrance } from "components/pages/DungeonEntrance"
 import { GreetWizard } from "components/pages/GreetWizard"
 import { HelpWizard } from "components/pages/HelpWizard"
@@ -23,7 +29,6 @@ import { Flame } from "components/pages/three-tunnels/Flame"
 import { FlameDeeper } from "components/pages/three-tunnels/FlameDeeper"
 import { LeftDoor } from "components/pages/three-tunnels/LeftDoor"
 import { Orb } from "components/pages/three-tunnels/Orb"
-import { Plasma } from "components/pages/three-tunnels/Plasma"
 import { RightOne } from "components/pages/three-tunnels/RightOne"
 import { RightTwo } from "components/pages/three-tunnels/RightTwo"
 import { Skull } from "components/pages/three-tunnels/skull"
@@ -124,7 +129,13 @@ function App() {
 			<Route path="/tunnels/right-one/" element={<RightOne/>} />
 			<Route path="/tunnels/right-two/" element={<RightTwo/>} />
 			<Route path="/tunnels/left-door/" element={<LeftDoor/>} />
-			<Route path="/tunnels/plasma/" element={<Plasma/>} />
+			<Route path="/tunnels/plasma/" element={<Combat foe="plasma-beast" />} />
+			<Route path="/combat/plasma-beast-victory" element={<PlasmaBeastVictory/>} />
+			<Route path="/combat/plasma-beast-death" element={<PlasmaBeastDeath/>} />
+			<Route path="/combat/plasma-beast-flee" element={<PlasmaBeastFlee/>} />
+			<Route path="/combat/wizard-victory" element={<WizardVictory/>} />
+			<Route path="/combat/wizard-death" element={<WizardDeath/>} />
+			<Route path="/combat/wizard-flee" element={<WizardFlee/>} />
 		</>
 	) : (
 		<>
