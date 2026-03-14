@@ -2,7 +2,6 @@ import React, { useState } from "react"
 
 import Button from "components/Button"
 import {
-	DefaultCharacterRecord,
 	images,
 	saveCharacterToLocalStorage,
 	type CharacterRecord,
@@ -30,7 +29,7 @@ const LoadCharacterScreen: React.FC = () => {
 		}
 	}
 
-	const loadCharacter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const loadCharacter = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 		if (!characterRecord) {
 			toast.error("Please select a character to load.")

@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import img from "../../../assets/dungeon/tunnels/flame-deeper.png";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
-import { identifyItem, inventoryContains } from "data/character-data";
 
 export const FlameDeeper = () => {
 	const navigate = useNavigate()
