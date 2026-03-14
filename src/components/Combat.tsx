@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import Button from "components/Button"
 import { Foes, type FoeId } from "data/foe-data"
 import { useCharacter, ClassDefense } from "data/character-data"
@@ -85,7 +86,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 	useEffect(() => {
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" })
-	}, [log])
+	}, [log, animating])
 
 	const playSteps = useCallback((steps: CombatStep[]) => {
 		stepsRef.current = steps
@@ -444,21 +445,25 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 				{!combatOver && !animating ? (
 					<>
-						<p>Choose your action:</p>
-						<span className="conversation-controls">
-							{classAttacks.map((attack) => {
-								const cd = getCooldownRemaining(playerCooldowns, attack.name, round)
-								return (
-									<Button
-										key={attack.name}
-										onClick={() => handleAttack(attack)}
-										label={cd > 0 ? `${attack.name} (${cd})` : attack.name}
-										disabled={cd > 0}
-									/>
-								)
-							})}
-							<Button onClick={handleFlee} label="Flee" />
-						</span>
+						<p className="combat-action-prompt">Choose your action:
+							<span className="conversation-controls">
+								{classAttacks.map((attack) => {
+									const cd = getCooldownRemaining(playerCooldowns, attack.name, round)
+									return (
+										<Button
+											key={attack.name}
+											onClick={() => cd > 0
+												? toast.info(`${attack.name} is cooling down. ${cd} round${cd > 1 ? "s" : ""} remaining.`)
+												: handleAttack(attack)
+											}
+											label={cd > 0 ? `${attack.name} (${cd})` : attack.name}
+											disabled={false}
+										/>
+									)
+								})}
+								<Button onClick={handleFlee} label="Flee" />
+							</span>
+						</p>
 					</>
 				) : combatOver ? (
 					<span className="conversation-controls">

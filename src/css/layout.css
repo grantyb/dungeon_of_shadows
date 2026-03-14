@@ -108,12 +108,32 @@
 	border: 1px solid slategrey;
 	box-shadow: 0 2px 10px #000a;
 
+	&:has(.combat-action-prompt) {
+		padding-bottom: 0;
+	}
+
 	p {
 		margin-top: 0;
 
 		&:last-of-type {
 			margin-bottom: 0;
 		}
+	}
+
+	.combat-action-prompt {
+		position: sticky;
+		bottom: 0;
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid slategrey;
+		background: rgb(0, 0, 0);
+		margin-left: -1rem;
+		margin-right: -1rem;
+		margin-bottom: 0;
+		padding-left: 1rem;
+		padding-right: 1rem;
+		padding-bottom: 1rem;
+		border-radius: 0 0 1rem 1rem;
 	}
 
 	.conversation-controls {
