@@ -153,7 +153,7 @@ export function calculateDamage(
 
 		if (effectiveDamage > 0) {
 			if (resistance !== 100) {
-				parts.push(`${effectiveDamage} ${type} (${resistance}%)`)
+				parts.push(`${effectiveDamage} ${type} (${typeDamage} x ${resistance}%)`)
 			} else {
 				parts.push(`${effectiveDamage} ${type}`)
 			}
