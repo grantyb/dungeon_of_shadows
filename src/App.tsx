@@ -42,7 +42,7 @@ import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
 import InventoryPanel, { CharacterHud } from "components/InventoryPanel"
 import { useCharacter } from "data/character-data"
-import { toast, ToastContainer, Zoom } from "react-toastify"
+import { ToastContainer, Zoom } from "react-toastify"
 function App() {
 	const { character, preview, inventoryOpen, setInventoryOpen } = useCharacter()
 	const [audioEnabled, setAudioEnabled] = useState(false)

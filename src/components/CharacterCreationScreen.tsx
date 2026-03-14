@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import Button from "components/Button"
 import {
 	DefaultCharacterRecord,
+	getMaxHp,
 	images,
 	type CharacterClass,
 	type CharacterGender,
@@ -31,7 +32,7 @@ const CharacterCreationScreen: React.FC = () => {
 				identified: true,
 				quantity: item.quantity,
 			})),
-			hitPoints: 100,
+			hitPoints: getMaxHp(characterRecord),
 		})
 		return () => { setPreview(null) }
 	}, [characterRecord, setPreview])

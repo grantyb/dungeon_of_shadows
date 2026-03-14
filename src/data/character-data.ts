@@ -43,6 +43,18 @@ export const ClassDefense: Record<CharacterClass, number> = {
 	rogue: 20,
 }
 
+export const RaceBaseHp: Record<CharacterRace, number> = {
+	dwarf: 120,
+	elf: 80,
+	human: 100,
+}
+
+export const ClassHpMultiplier: Record<CharacterClass, number> = {
+	warrior: 2.0,
+	rogue: 1.0,
+	wizard: 0.8,
+}
+
 export type CharacterRecord = {
 	name: string
 	race: CharacterRace
@@ -54,6 +66,10 @@ export type CharacterRecord = {
 	hitPoints: number
 }
 
+export function getMaxHp(record: CharacterRecord): number {
+	return Math.floor(RaceBaseHp[record.race] * ClassHpMultiplier[record.characterClass])
+}
+
 export const DefaultCharacterRecord: CharacterRecord = {
 	name: "",
 	race: "human",
@@ -61,7 +77,7 @@ export const DefaultCharacterRecord: CharacterRecord = {
 	characterClass: "warrior",
 	inventory: [],
 	visitedScenes: [],
-	hitPoints: 100,
+	hitPoints: 200,
 }
 
 export type CharacterImage = {

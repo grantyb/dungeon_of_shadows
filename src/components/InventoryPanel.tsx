@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { useCharacter } from "data/character-data"
+import { useCharacter, getMaxHp } from "data/character-data"
 import { images, type CharacterRecord, type InventoryItemId } from "data/character-data"
 import { InventoryItem, type ItemDefinition } from "data/inventory-items"
 import { toast } from "react-toastify"
@@ -14,7 +14,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 	const { character, inventoryOpen: open, combatState, removeFromInventory, saveCharacter } = useCharacter()
 
 	const inCombat = combatState?.inCombat ?? false
-	const maxHp = 100
+	const maxHp = character ? getMaxHp(character) : 100
 
 	const consumeItem = useCallback((itemId: InventoryItemId) => {
 		if (!character) return
@@ -87,7 +87,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 				break
 			}
 		}
-	}, [character, inCombat, combatState, saveCharacter, removeFromInventory])
+	}, [character, inCombat, maxHp, saveCharacter, removeFromInventory, combatState])
 
 	return (
 		<>
@@ -139,7 +139,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 export const CharacterHud: React.FC<{ characterRecord: CharacterRecord }> = ({ characterRecord }) => {
 	const charImageDef = images[characterRecord.race][characterRecord.gender][characterRecord.characterClass]
 	const displayName = characterRecord.name || "New Character"
-	const maxHp = 100
+	const maxHp = getMaxHp(characterRecord)
 	const currentHp = characterRecord.hitPoints
 	const hpPercent = Math.max(0, Math.min(100, (currentHp / maxHp) * 100))
 
