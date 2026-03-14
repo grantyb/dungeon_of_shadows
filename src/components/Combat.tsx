@@ -57,6 +57,8 @@ const Combat: React.FC<CombatProps> = (props) => {
 	const [foeDots, setFoeDots] = useState<DotEffect[]>([])
 
 	const logEndRef = useRef<HTMLDivElement>(null)
+	const logQueueRef = useRef<CombatLogEntry[]>([])
+	const [animating, setAnimating] = useState(false)
 
 	// Register combat state so the App-level InventoryPanel can use combat potions
 	useEffect(() => {
@@ -72,9 +74,24 @@ const Combat: React.FC<CombatProps> = (props) => {
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" })
 	}, [log])
 
-	const addLogs = useCallback((entries: CombatLogEntry[]) => {
-		setLog((prev) => [...prev, ...entries])
+	const drainQueue = useCallback(() => {
+		const entry = logQueueRef.current.shift()
+		if (!entry) {
+			setAnimating(false)
+			return
+		}
+		setLog((prev) => [...prev, entry])
+		const delay = entry.type === "round" ? 1000 : 1600
+		setTimeout(drainQueue, delay)
 	}, [])
+
+	const addLogs = useCallback((entries: CombatLogEntry[]) => {
+		logQueueRef.current.push(...entries)
+		if (!animating) {
+			setAnimating(true)
+			drainQueue()
+		}
+	}, [animating, drainQueue])
 
 	const getCooldownRemaining = (cooldowns: Record<string, number>, attackName: string, currentRound: number): number => {
 		const availableAt = cooldowns[attackName] ?? 0
@@ -350,11 +367,11 @@ const Combat: React.FC<CombatProps> = (props) => {
 										key={attack.name}
 										onClick={() => handleAttack(attack)}
 										label={cd > 0 ? `${attack.name} (${cd})` : attack.name}
-										disabled={cd > 0}
+										disabled={cd > 0 || animating}
 									/>
 								)
 							})}
-							<Button onClick={handleFlee} label="Flee" />
+							<Button onClick={handleFlee} label="Flee" disabled={animating} />
 						</span>
 					</>
 				) : (

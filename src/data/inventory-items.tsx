@@ -105,19 +105,19 @@ export const InventoryItem: Record<string, ItemDefinition> = {
 
 export const StartingInventory: Record<CharacterClass, { id: string; quantity: number }[]> = {
 	warrior: [
-		{ id: "HealingPotion", quantity: 3 },
+		{ id: "HealingPotion", quantity: 30 },
 		{ id: "CauterizingPotion", quantity: 2 },
 		{ id: "DowsingPotion", quantity: 1 },
 		{ id: "AntidotePotion", quantity: 1 },
 	],
 	wizard: [
-		{ id: "HealingPotion", quantity: 5 },
+		{ id: "HealingPotion", quantity: 50 },
 		{ id: "CauterizingPotion", quantity: 1 },
 		{ id: "DowsingPotion", quantity: 2 },
 		{ id: "AntidotePotion", quantity: 1 },
 	],
 	rogue: [
-		{ id: "HealingPotion", quantity: 4 },
+		{ id: "HealingPotion", quantity: 40 },
 		{ id: "CauterizingPotion", quantity: 1 },
 		{ id: "DowsingPotion", quantity: 1 },
 		{ id: "AntidotePotion", quantity: 2 },

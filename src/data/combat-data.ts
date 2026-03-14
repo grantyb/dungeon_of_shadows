@@ -198,7 +198,7 @@ export function calculateDamage(
 export function tickDots(effects: DotEffect[], resistances: Resistances): { damage: number; surviving: DotEffect[]; details: string[] } {
 	let damage = 0
 	const surviving: DotEffect[] = []
-	const details: string[] = []
+	const damageByType = new Map<DamageType, number>()
 
 	for (const dot of effects) {
 		const resistance = resistances[dot.type]
@@ -206,7 +206,7 @@ export function tickDots(effects: DotEffect[], resistances: Resistances): { dama
 		const tickDamage = Math.round(rawTick * resistance / 100)
 		damage += tickDamage
 		if (tickDamage > 0) {
-			details.push(`${tickDamage} ${dot.type}`)
+			damageByType.set(dot.type, (damageByType.get(dot.type) ?? 0) + tickDamage)
 		}
 
 		const nextCeiling = Math.floor(dot.ceiling * (1 - dot.falloff))
@@ -214,6 +214,8 @@ export function tickDots(effects: DotEffect[], resistances: Resistances): { dama
 			surviving.push({ type: dot.type, ceiling: nextCeiling, falloff: dot.falloff })
 		}
 	}
+
+	const details = [...damageByType.entries()].map(([type, dmg]) => `${dmg} ${type}`)
 
 	return { damage, surviving, details }
 }

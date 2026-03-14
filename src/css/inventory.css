@@ -27,8 +27,15 @@
 .character-hud-info {
 	display: flex;
 	flex-direction: column;
-	gap: 2px;
 	min-width: 120px;
+	align-self: stretch;
+	justify-content: space-between;
+}
+
+.status-effects-slot {
+	height: 48px;
+	display: flex;
+	align-items: flex-end;
 }
 
 .character-name {
@@ -38,12 +45,11 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 120px;
 }
 
 .health-bar-container {
 	position: relative;
-	width: 120px;
+	width: 100%;
 	height: 18px;
 	background: #333;
 	border-radius: 4px;
@@ -73,6 +79,46 @@
 	font-weight: bold;
 	color: white;
 	text-shadow: 0 1px 2px #000;
+}
+
+.status-effects {
+	display: flex;
+	gap: 4px;
+	margin-top: 2px;
+}
+
+.status-icon-wrapper {
+	position: relative;
+	opacity: 0.1;
+	transition: opacity 0.4s ease;
+
+	&.-active {
+		opacity: 1;
+	}
+}
+
+.status-icon {
+	height: 48px;
+	object-fit: contain;
+}
+
+.status-badge {
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	min-width: 18px;
+	height: 18px;
+	border-radius: 9px;
+	background: #c22;
+	color: white;
+	font-size: 0.65rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	color-scheme: none;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .inventory-panel {

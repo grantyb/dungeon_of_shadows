@@ -2,7 +2,25 @@ import React, { useCallback, useState } from "react"
 import { useCharacter, getMaxHp } from "data/character-data"
 import { images, type CharacterRecord, type InventoryItemId } from "data/character-data"
 import { InventoryItem, type ItemDefinition } from "data/inventory-items"
+import type { DamageType } from "data/combat-data"
+import classNames from "classnames"
 import { toast } from "react-toastify"
+
+import burningIcon from "assets/character/status-icons/burning.png"
+import bleedingIcon from "assets/character/status-icons/bleeding.png"
+import poisonedIcon from "assets/character/status-icons/poisoned.png"
+import freezingIcon from "assets/character/status-icons/freezing.png"
+import electrifiedIcon from "assets/character/status-icons/electrified.png"
+
+const statusEffectTypes: DamageType[] = ["poison", "cold", "fire", "bleeding", "electricity"]
+
+const statusIcons: Partial<Record<DamageType, string>> = {
+	fire: burningIcon,
+	bleeding: bleedingIcon,
+	poison: poisonedIcon,
+	cold: freezingIcon,
+	electricity: electrifiedIcon,
+}
 
 interface InventoryPanelProps {
 	characterRecord: CharacterRecord
@@ -137,11 +155,31 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 }
 
 export const CharacterHud: React.FC<{ characterRecord: CharacterRecord }> = ({ characterRecord }) => {
+	const { combatState } = useCharacter()
 	const charImageDef = images[characterRecord.race][characterRecord.gender][characterRecord.characterClass]
 	const displayName = characterRecord.name || "New Character"
 	const maxHp = getMaxHp(characterRecord)
 	const currentHp = characterRecord.hitPoints
 	const hpPercent = Math.max(0, Math.min(100, (currentHp / maxHp) * 100))
+
+	const playerDots = combatState?.playerDots ?? []
+	const activeEffects = new Set(playerDots.map((d) => d.type))
+
+	// Sum ceiling damage per type for sorting
+	const damageByCtype = new Map<DamageType, number>()
+	for (const dot of playerDots) {
+		damageByCtype.set(dot.type, (damageByCtype.get(dot.type) ?? 0) + dot.ceiling)
+	}
+
+	// Active effects sorted by highest damage first, then inactive in default order
+	const sortedTypes = [...statusEffectTypes].sort((a, b) => {
+		const aActive = activeEffects.has(a)
+		const bActive = activeEffects.has(b)
+		if (aActive && !bActive) return -1
+		if (!aActive && bActive) return 1
+		if (aActive && bActive) return (damageByCtype.get(b) ?? 0) - (damageByCtype.get(a) ?? 0)
+		return 0
+	})
 
 	return (
 		<div className="character-hud">
@@ -153,6 +191,25 @@ export const CharacterHud: React.FC<{ characterRecord: CharacterRecord }> = ({ c
 				<div className="health-bar-container">
 					<div className="health-bar-fill" style={{ width: `${hpPercent}%` }} />
 					<span className="health-bar-text">{currentHp} HP</span>
+				</div>
+				<div className="status-effects-slot">
+					<div className="status-effects">
+						{sortedTypes.map((type) => {
+							const active = activeEffects.has(type)
+							const damage = damageByCtype.get(type) ?? 0
+							return (
+								<div key={type} className={classNames("status-icon-wrapper", { "-active": active })}>
+									<img
+										className="status-icon"
+										src={statusIcons[type]!}
+										alt={type}
+										title={type}
+									/>
+									{damage > 0 && <span className="status-badge">{damage}</span>}
+								</div>
+							)
+						})}
+					</div>
 				</div>
 			</div>
 		</div>
