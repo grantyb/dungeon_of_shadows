@@ -22,6 +22,11 @@ type CombatLogEntry = {
 	type: "player" | "foe" | "info" | "round"
 }
 
+type CombatStep = {
+	log?: CombatLogEntry
+	apply?: () => void
+}
+
 function rollHitCheck(accuracy: number): boolean {
 	return rollHit(accuracy)
 }
@@ -57,7 +62,8 @@ const Combat: React.FC<CombatProps> = (props) => {
 	const [foeDots, setFoeDots] = useState<DotEffect[]>([])
 
 	const logEndRef = useRef<HTMLDivElement>(null)
-	const logQueueRef = useRef<CombatLogEntry[]>([])
+	const stepsRef = useRef<CombatStep[]>([])
+	const animatingRef = useRef(false)
 	const [animating, setAnimating] = useState(false)
 
 	// Register combat state so the App-level InventoryPanel can use combat potions
@@ -74,24 +80,31 @@ const Combat: React.FC<CombatProps> = (props) => {
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" })
 	}, [log])
 
-	const drainQueue = useCallback(() => {
-		const entry = logQueueRef.current.shift()
-		if (!entry) {
-			setAnimating(false)
-			return
-		}
-		setLog((prev) => [...prev, entry])
-		const delay = entry.type === "round" ? 1000 : 1600
-		setTimeout(drainQueue, delay)
-	}, [])
+	const playSteps = useCallback((steps: CombatStep[]) => {
+		stepsRef.current = steps
+		animatingRef.current = true
+		setAnimating(true)
 
-	const addLogs = useCallback((entries: CombatLogEntry[]) => {
-		logQueueRef.current.push(...entries)
-		if (!animating) {
-			setAnimating(true)
-			drainQueue()
+		const playNext = () => {
+			const step = stepsRef.current.shift()
+			if (!step) {
+				animatingRef.current = false
+				setAnimating(false)
+				return
+			}
+			if (step.log) setLog((prev) => [...prev, step.log!])
+			if (step.apply) step.apply()
+
+			if (step.log) {
+				const delay = step.log.type === "round" ? 1000 : 1600
+				setTimeout(playNext, delay)
+			} else {
+				playNext()
+			}
 		}
-	}, [animating, drainQueue])
+
+		playNext()
+	}, [])
 
 	const getCooldownRemaining = (cooldowns: Record<string, number>, attackName: string, currentRound: number): number => {
 		const availableAt = cooldowns[attackName] ?? 0
@@ -108,87 +121,114 @@ const Combat: React.FC<CombatProps> = (props) => {
 	}, [foe.attacks])
 
 	const handleAttack = useCallback((attack: Attack) => {
-		if (combatOver || !charRecord || !playerResistances || !classAttacks) return
+		if (combatOver || animatingRef.current || !charRecord || !playerResistances || !classAttacks) return
 
 		const currentRound = round
 		const nextRound = currentRound + 1
-		const newLogs: CombatLogEntry[] = [
-			{ text: `Round ${nextRound}`, type: "round" },
-		]
+		const steps: CombatStep[] = []
 
 		// Check cooldown
 		if (getCooldownRemaining(playerCooldowns, attack.name, currentRound) > 0) return
 
-		// Set cooldown for this attack
+		// Pre-compute cooldowns
 		const newPlayerCooldowns = { ...playerCooldowns }
 		if (attack.cooldown > 0) {
 			newPlayerCooldowns[attack.name] = nextRound + attack.cooldown
 		}
 
+		// Snapshot existing dots — new dots from this round's attacks won't tick
+		const existingFoeDots = [...foeDots]
+		const existingPlayerDots = [...playerDots]
+
+		// Round header
+		steps.push({
+			log: { text: `Round ${nextRound}`, type: "round" },
+			apply: () => {
+				setRound(nextRound)
+				setPlayerCooldowns(newPlayerCooldowns)
+			},
+		})
+
 		// --- Player's attack ---
 		const playerHits = rollHitCheck(attack.accuracy)
-		let newFoeHp = foeHp
-		let newFoeDots = [...foeDots]
+		let runningFoeHp = foeHp
+		let newFoeDotsFromAttack: DotEffect[] = []
 
 		if (!playerHits) {
-			newLogs.push({ text: `You use ${attack.name} but miss!`, type: "player" })
+			steps.push({ log: { text: `You use ${attack.name} but miss!`, type: "player" } })
 		} else {
 			const foeBlocks = rollHitCheck(foe.defense)
 			const rawDamage = rollDamage(attack.strength)
 			const result = calculateDamage(rawDamage, attack.damageMix, foe.resistances, foeBlocks, attack.dotFalloff)
 
-			newFoeHp = Math.max(0, foeHp - result.total)
+			runningFoeHp = Math.max(0, foeHp - result.total)
 
 			const blockText = foeBlocks ? " (partially blocked)" : ""
-			newLogs.push({
-				text: `You use ${attack.name}${blockText}: ${result.total} damage [${result.breakdown}]`,
-				type: "player",
+			const capturedFoeHp = runningFoeHp
+			steps.push({
+				log: {
+					text: `You use ${attack.name}${blockText}: ${result.total} damage [${result.breakdown}]`,
+					type: "player",
+				},
+				apply: () => setFoeHp(capturedFoeHp),
 			})
 
 			if (result.dots.length > 0) {
-				newFoeDots = [...newFoeDots, ...result.dots]
-				newLogs.push({
-					text: `${foe.name} is afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
-					type: "player",
+				newFoeDotsFromAttack = result.dots
+				const dotsWithNew = [...existingFoeDots, ...newFoeDotsFromAttack]
+				steps.push({
+					log: {
+						text: `${foe.name} is afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
+						type: "player",
+					},
+					apply: () => setFoeDots(dotsWithNew),
 				})
 			}
 
-			if (newFoeHp <= 0) {
-				newLogs.push({ text: `${foe.name} has been slain!`, type: "info" })
-				setFoeHp(0)
-				setFoeDots(newFoeDots)
-				setPlayerCooldowns(newPlayerCooldowns)
-				setRound(nextRound)
-				addLogs(newLogs)
-				setCombatOver(true)
+			if (runningFoeHp <= 0) {
+				steps.push({
+					log: { text: `${foe.name} has been slain!`, type: "info" },
+					apply: () => setCombatOver(true),
+				})
+				playSteps(steps)
 				return
 			}
 		}
 
-		// --- DoT damage on foe ---
-		if (newFoeDots.length > 0) {
-			const dotResult = tickDots(newFoeDots, foe.resistances)
+		// --- DoT tick on foe (pre-existing dots only) ---
+		let survivingFoeDots = existingFoeDots
+		if (existingFoeDots.length > 0) {
+			const dotResult = tickDots(existingFoeDots)
+			survivingFoeDots = dotResult.surviving
+			const finalFoeDots = [...survivingFoeDots, ...newFoeDotsFromAttack]
+
 			if (dotResult.damage > 0) {
-				newFoeHp = Math.max(0, newFoeHp - dotResult.damage)
-				newLogs.push({
-					text: `${foe.name} takes ${dotResult.damage} ongoing damage [${dotResult.details.join(", ")}]`,
-					type: "player",
+				runningFoeHp = Math.max(0, runningFoeHp - dotResult.damage)
+				const capturedFoeHp = runningFoeHp
+				steps.push({
+					log: {
+						text: `${foe.name} takes ${dotResult.damage} ongoing damage [${dotResult.details.join(", ")}]`,
+						type: "player",
+					},
+					apply: () => {
+						setFoeHp(capturedFoeHp)
+						setFoeDots(finalFoeDots)
+					},
 				})
-			}
-			newFoeDots = dotResult.surviving
-
-			if (newFoeDots.length === 0 && dotResult.damage > 0) {
-				newLogs.push({ text: `${foe.name}'s lingering effects have worn off.`, type: "info" })
+			} else {
+				steps.push({ apply: () => setFoeDots(finalFoeDots) })
 			}
 
-			if (newFoeHp <= 0) {
-				newLogs.push({ text: `${foe.name} succumbs to their wounds!`, type: "info" })
-				setFoeHp(0)
-				setFoeDots(newFoeDots)
-				setPlayerCooldowns(newPlayerCooldowns)
-				setRound(nextRound)
-				addLogs(newLogs)
-				setCombatOver(true)
+			if (survivingFoeDots.length === 0 && dotResult.damage > 0 && newFoeDotsFromAttack.length === 0) {
+				steps.push({ log: { text: `${foe.name}'s lingering effects have worn off.`, type: "info" } })
+			}
+
+			if (runningFoeHp <= 0) {
+				steps.push({
+					log: { text: `${foe.name} succumbs to their wounds!`, type: "info" },
+					apply: () => setCombatOver(true),
+				})
+				playSteps(steps)
 				return
 			}
 		}
@@ -196,11 +236,14 @@ const Combat: React.FC<CombatProps> = (props) => {
 		// --- Foe's turn ---
 		const newFoeCooldowns = { ...foeCooldowns }
 		const foeAttack = pickFoeAttack(currentRound, foeCooldowns)
-		let newPlayerHp = playerHp
-		let newPlayerDots = [...playerDots]
+		let runningPlayerHp = playerHp
+		let newPlayerDotsFromAttack: DotEffect[] = []
 
 		if (!foeAttack) {
-			newLogs.push({ text: `${foe.name} hesitates — all attacks on cooldown.`, type: "foe" })
+			steps.push({
+				log: { text: `${foe.name} hesitates — all attacks on cooldown.`, type: "foe" },
+				apply: () => setFoeCooldowns(newFoeCooldowns),
+			})
 		} else {
 			if (foeAttack.cooldown > 0) {
 				newFoeCooldowns[foeAttack.name] = nextRound + foeAttack.cooldown
@@ -208,106 +251,169 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 			const foeHits = rollHitCheck(foeAttack.accuracy)
 			if (!foeHits) {
-				newLogs.push({ text: `${foe.name} uses ${foeAttack.name} but misses!`, type: "foe" })
+				steps.push({
+					log: { text: `${foe.name} uses ${foeAttack.name} but misses!`, type: "foe" },
+					apply: () => setFoeCooldowns(newFoeCooldowns),
+				})
 			} else {
 				const playerBlocks = rollHitCheck(classDefense)
 				const rawDamage = rollDamage(foeAttack.strength)
 				const result = calculateDamage(rawDamage, foeAttack.damageMix, playerResistances, playerBlocks, foeAttack.dotFalloff)
 
-				newPlayerHp = Math.max(0, playerHp - result.total)
+				runningPlayerHp = Math.max(0, playerHp - result.total)
 
 				const blockText = playerBlocks ? " (partially blocked)" : ""
-				newLogs.push({
-					text: `${foe.name} uses ${foeAttack.name}${blockText}: ${result.total} damage [${result.breakdown}]`,
-					type: "foe",
+				const capturedPlayerHp = runningPlayerHp
+				steps.push({
+					log: {
+						text: `${foe.name} uses ${foeAttack.name}${blockText}: ${result.total} damage [${result.breakdown}]`,
+						type: "foe",
+					},
+					apply: () => {
+						setFoeCooldowns(newFoeCooldowns)
+						saveCharacter({ ...charRecord, hitPoints: capturedPlayerHp })
+					},
 				})
 
 				if (result.dots.length > 0) {
-					newPlayerDots = [...newPlayerDots, ...result.dots]
-					newLogs.push({
-						text: `You are afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
-						type: "foe",
+					newPlayerDotsFromAttack = result.dots
+					const dotsWithNew = [...existingPlayerDots, ...newPlayerDotsFromAttack]
+					steps.push({
+						log: {
+							text: `You are afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
+							type: "foe",
+						},
+						apply: () => {
+							setPlayerDots(dotsWithNew)
+							setCombatState({
+								inCombat: true,
+								playerDots: dotsWithNew,
+								onPlayerDotsChange: setPlayerDots,
+							})
+						},
 					})
 				}
 			}
 		}
 
-		// --- DoT damage on player ---
-		if (newPlayerDots.length > 0) {
-			const dotResult = tickDots(newPlayerDots, playerResistances)
+		// --- DoT tick on player (pre-existing dots only) ---
+		let survivingPlayerDots = existingPlayerDots
+		if (existingPlayerDots.length > 0) {
+			const dotResult = tickDots(existingPlayerDots)
+			survivingPlayerDots = dotResult.surviving
+			const finalPlayerDots = [...survivingPlayerDots, ...newPlayerDotsFromAttack]
+
 			if (dotResult.damage > 0) {
-				newPlayerHp = Math.max(0, newPlayerHp - dotResult.damage)
-				newLogs.push({
-					text: `You take ${dotResult.damage} ongoing damage [${dotResult.details.join(", ")}]`,
-					type: "foe",
+				runningPlayerHp = Math.max(0, runningPlayerHp - dotResult.damage)
+				const capturedPlayerHp = runningPlayerHp
+				steps.push({
+					log: {
+						text: `You take ${dotResult.damage} ongoing damage [${dotResult.details.join(", ")}]`,
+						type: "foe",
+					},
+					apply: () => {
+						saveCharacter({ ...charRecord, hitPoints: capturedPlayerHp })
+						setPlayerDots(finalPlayerDots)
+						setCombatState({
+							inCombat: true,
+							playerDots: finalPlayerDots,
+							onPlayerDotsChange: setPlayerDots,
+						})
+					},
+				})
+			} else {
+				steps.push({
+					apply: () => {
+						setPlayerDots(finalPlayerDots)
+						setCombatState({
+							inCombat: true,
+							playerDots: finalPlayerDots,
+							onPlayerDotsChange: setPlayerDots,
+						})
+					},
 				})
 			}
-			newPlayerDots = dotResult.surviving
 
-			if (newPlayerDots.length === 0 && dotResult.damage > 0) {
-				newLogs.push({ text: "Your lingering effects have worn off.", type: "info" })
+			if (survivingPlayerDots.length === 0 && dotResult.damage > 0 && newPlayerDotsFromAttack.length === 0) {
+				steps.push({ log: { text: "Your lingering effects have worn off.", type: "info" } })
 			}
 		}
 
-		// --- Apply state ---
-		setFoeHp(newFoeHp)
-		setPlayerDots(newPlayerDots)
-		setFoeDots(newFoeDots)
-		setPlayerCooldowns(newPlayerCooldowns)
-		setFoeCooldowns(newFoeCooldowns)
-		setRound(nextRound)
-		addLogs(newLogs)
-
-		if (newPlayerHp <= 0) {
-			addLogs([{ text: "You have fallen in combat...", type: "info" }])
-			setCombatOver(true)
-			saveCharacter({ ...charRecord, hitPoints: 0 })
+		// --- Final ---
+		if (runningPlayerHp <= 0) {
+			steps.push({
+				log: { text: "You have fallen in combat...", type: "info" },
+				apply: () => {
+					setCombatOver(true)
+					saveCharacter({ ...charRecord, hitPoints: 0 })
+				},
+			})
 		} else {
-			saveCharacter({ ...charRecord, hitPoints: newPlayerHp })
+			const finalHp = runningPlayerHp
+			steps.push({
+				apply: () => saveCharacter({ ...charRecord, hitPoints: finalHp }),
+			})
 		}
-	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, addLogs, saveCharacter])
+
+		playSteps(steps)
+	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, saveCharacter, setCombatState, playSteps])
 
 	const handleFlee = useCallback(() => {
-		if (combatOver || !charRecord || !playerResistances) return
+		if (combatOver || animatingRef.current || !charRecord || !playerResistances) return
 
 		const nextRound = round + 1
-		const newLogs: CombatLogEntry[] = [
-			{ text: `Round ${nextRound}`, type: "round" },
-			{ text: "You attempt to flee!", type: "player" },
-		]
+		const steps: CombatStep[] = []
+
+		steps.push({
+			log: { text: `Round ${nextRound}`, type: "round" },
+			apply: () => setRound(nextRound),
+		})
+
+		steps.push({ log: { text: "You attempt to flee!", type: "player" } })
 
 		// Attack of opportunity — foe picks an available attack
 		const foeAttack = pickFoeAttack(round, foeCooldowns)
-		let newPlayerHp = playerHp
+		let runningPlayerHp = playerHp
 
 		if (foeAttack) {
 			const foeHits = rollHitCheck(foeAttack.accuracy)
 			if (!foeHits) {
-				newLogs.push({ text: `${foe.name} swings at you as you flee but misses!`, type: "foe" })
+				steps.push({ log: { text: `${foe.name} swings at you as you flee but misses!`, type: "foe" } })
 			} else {
 				const rawDamage = rollDamage(foeAttack.strength)
 				const result = calculateDamage(rawDamage, foeAttack.damageMix, playerResistances, false, foeAttack.dotFalloff)
-				newPlayerHp = Math.max(0, playerHp - result.total)
-				newLogs.push({
-					text: `${foe.name} strikes you as you flee: ${result.total} damage [${result.breakdown}]`,
-					type: "foe",
+				runningPlayerHp = Math.max(0, playerHp - result.total)
+				const capturedHp = runningPlayerHp
+				steps.push({
+					log: {
+						text: `${foe.name} strikes you as you flee: ${result.total} damage [${result.breakdown}]`,
+						type: "foe",
+					},
+					apply: () => saveCharacter({ ...charRecord, hitPoints: capturedHp }),
 				})
 			}
 		}
 
-		setRound(nextRound)
-		addLogs(newLogs)
-
-		if (newPlayerHp <= 0) {
-			addLogs([{ text: "You were struck down while fleeing...", type: "info" }])
-			setCombatOver(true)
-			saveCharacter({ ...charRecord, hitPoints: 0 })
+		if (runningPlayerHp <= 0) {
+			steps.push({
+				log: { text: "You were struck down while fleeing...", type: "info" },
+				apply: () => {
+					setCombatOver(true)
+					saveCharacter({ ...charRecord, hitPoints: 0 })
+				},
+			})
 		} else {
-			addLogs([{ text: "You manage to escape!", type: "info" }])
-			setCombatOver(true)
-			saveCharacter({ ...charRecord, hitPoints: newPlayerHp })
+			steps.push({
+				log: { text: "You manage to escape!", type: "info" },
+				apply: () => {
+					setCombatOver(true)
+					saveCharacter({ ...charRecord, hitPoints: runningPlayerHp })
+				},
+			})
 		}
-	}, [combatOver, charRecord, playerResistances, playerHp, foe, round, foeCooldowns, pickFoeAttack, addLogs, saveCharacter])
+
+		playSteps(steps)
+	}, [combatOver, charRecord, playerResistances, playerHp, foe, round, foeCooldowns, pickFoeAttack, saveCharacter, playSteps])
 
 	const handleContinue = () => {
 		if (playerHp <= 0) {
@@ -356,9 +462,9 @@ const Combat: React.FC<CombatProps> = (props) => {
 					<div ref={logEndRef} />
 				</div>
 
-				{!combatOver ? (
+				{!combatOver && !animating ? (
 					<>
-						<p>Choose your attack:</p>
+						<p>Choose your action:</p>
 						<span className="conversation-controls">
 							{classAttacks.map((attack) => {
 								const cd = getCooldownRemaining(playerCooldowns, attack.name, round)
@@ -367,18 +473,18 @@ const Combat: React.FC<CombatProps> = (props) => {
 										key={attack.name}
 										onClick={() => handleAttack(attack)}
 										label={cd > 0 ? `${attack.name} (${cd})` : attack.name}
-										disabled={cd > 0 || animating}
+										disabled={cd > 0}
 									/>
 								)
 							})}
-							<Button onClick={handleFlee} label="Flee" disabled={animating} />
+							<Button onClick={handleFlee} label="Flee" />
 						</span>
 					</>
-				) : (
+				) : combatOver ? (
 					<span className="conversation-controls">
 						<Button onClick={handleContinue} label="Continue" />
 					</span>
-				)}
+				) : null}
 			</div>
 			{props.children}
 		</div>
