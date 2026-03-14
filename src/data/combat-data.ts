@@ -3,8 +3,6 @@ import type { CharacterClass, CharacterRace } from "./character-data"
 export const DamageTypes = ["crushing", "bleeding", "poison", "fire", "electricity", "cold", "water"] as const
 export type DamageType = typeof DamageTypes[number]
 
-export const DotDamageTypes: DamageType[] = ["poison", "fire"]
-
 /** Percentage multiplier per damage type. 100 = normal, 0 = immune, 200 = double damage */
 export type Resistances = Record<DamageType, number>
 
@@ -36,12 +34,23 @@ export const RaceResistances: Record<CharacterRace, Resistances> = {
 /** Damage mixture: what fraction of the attack's damage is each type. Values should sum to 1. */
 export type DamageMix = Partial<Record<DamageType, number>>
 
+/**
+ * Per-damage-type DoT fall-off rate for an attack.
+ * 1.0 = no recurring damage (100% fall-off, effect gone after initial hit).
+ * 0.5 = damage potential halves each round.
+ * 0.25 = damage potential drops to 25% each round (very lingering).
+ * Omitted damage types have no DoT.
+ */
+export type DotFalloff = Partial<Record<DamageType, number>>
+
 export type Attack = {
 	name: string
 	accuracy: number
 	strength: number
 	damageMix: DamageMix
 	cooldown: number
+	/** Optional: which damage types linger as DoT, and their per-round fall-off rate */
+	dotFalloff?: DotFalloff
 }
 
 export const ClassAttacks: Record<CharacterClass, Attack[]> = {
@@ -52,6 +61,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 45,
 			damageMix: { bleeding: 0.7, crushing: 0.3 },
 			cooldown: 0,
+			dotFalloff: { bleeding: 0.6 },
 		},
 		{
 			name: "Shield Bash",
@@ -66,6 +76,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 60,
 			damageMix: { crushing: 0.5, bleeding: 0.5 },
 			cooldown: 2,
+			dotFalloff: { bleeding: 0.5 },
 		},
 	],
 	wizard: [
@@ -75,6 +86,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 55,
 			damageMix: { fire: 0.8, crushing: 0.2 },
 			cooldown: 2,
+			dotFalloff: { fire: 0.5 },
 		},
 		{
 			name: "Lightning Bolt",
@@ -82,6 +94,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 50,
 			damageMix: { electricity: 0.9, crushing: 0.1 },
 			cooldown: 2,
+			dotFalloff: { electricity: 0.7 },
 		},
 		{
 			name: "Arcane Blast",
@@ -89,6 +102,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 40,
 			damageMix: { cold: 0.4, crushing: 0.3, electricity: 0.3 },
 			cooldown: 1,
+			dotFalloff: { cold: 0.6 },
 		},
 	],
 	rogue: [
@@ -98,6 +112,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 50,
 			damageMix: { bleeding: 0.6, crushing: 0.4 },
 			cooldown: 1,
+			dotFalloff: { bleeding: 0.5 },
 		},
 		{
 			name: "Poison Dart",
@@ -105,6 +120,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 40,
 			damageMix: { poison: 0.7, crushing: 0.3 },
 			cooldown: 3,
+			dotFalloff: { poison: 0.4 },
 		},
 		{
 			name: "Dagger Throw",
@@ -112,6 +128,7 @@ export const ClassAttacks: Record<CharacterClass, Attack[]> = {
 			strength: 35,
 			damageMix: { bleeding: 0.8, crushing: 0.2 },
 			cooldown: 0,
+			dotFalloff: { bleeding: 0.7 },
 		},
 	],
 }
@@ -122,10 +139,11 @@ export function rollHit(accuracy: number): boolean {
 	return Math.random() * 100 < accuracy
 }
 
-/** A DoT effect ticking on a target. Damage halves each round until < 1. */
+/** A DoT effect ticking on a target. `ceiling` is the max random damage this tick. */
 export type DotEffect = {
 	type: DamageType
-	remaining: number
+	ceiling: number
+	falloff: number
 }
 
 /**
@@ -137,6 +155,7 @@ export function calculateDamage(
 	damageMix: DamageMix,
 	resistances: Resistances,
 	blocked: boolean,
+	dotFalloff?: DotFalloff,
 ): { total: number; dots: DotEffect[]; breakdown: string } {
 	let total = 0
 	const dots: DotEffect[] = []
@@ -161,15 +180,21 @@ export function calculateDamage(
 			parts.push(`0 ${type} (immune)`)
 		}
 
-		if (DotDamageTypes.includes(type) && effectiveDamage > 0) {
-			dots.push({ type, remaining: Math.round(effectiveDamage * 0.5) })
+		// Create DoT if this attack has a falloff defined for this damage type
+		const falloff = dotFalloff?.[type]
+		if (falloff !== undefined && falloff < 1.0 && effectiveDamage > 0) {
+			dots.push({
+				type,
+				ceiling: Math.round(effectiveDamage * (1 - falloff)),
+				falloff,
+			})
 		}
 	}
 
 	return { total, dots, breakdown: parts.join(", ") }
 }
 
-/** Tick all DoT effects. Returns total damage dealt this round and the surviving effects. */
+/** Tick all DoT effects. Rolls random damage up to each effect's ceiling, then decays. */
 export function tickDots(effects: DotEffect[], resistances: Resistances): { damage: number; surviving: DotEffect[]; details: string[] } {
 	let damage = 0
 	const surviving: DotEffect[] = []
@@ -177,15 +202,16 @@ export function tickDots(effects: DotEffect[], resistances: Resistances): { dama
 
 	for (const dot of effects) {
 		const resistance = resistances[dot.type]
-		const tickDamage = Math.round(dot.remaining * resistance / 100)
+		const rawTick = Math.floor(Math.random() * dot.ceiling) + 1
+		const tickDamage = Math.round(rawTick * resistance / 100)
 		damage += tickDamage
 		if (tickDamage > 0) {
 			details.push(`${tickDamage} ${dot.type}`)
 		}
 
-		const nextRemaining = Math.floor(dot.remaining / 2)
-		if (nextRemaining >= 1) {
-			surviving.push({ type: dot.type, remaining: nextRemaining })
+		const nextCeiling = Math.floor(dot.ceiling * (1 - dot.falloff))
+		if (nextCeiling >= 1) {
+			surviving.push({ type: dot.type, ceiling: nextCeiling, falloff: dot.falloff })
 		}
 	}
 

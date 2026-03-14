@@ -47,6 +47,7 @@ export const Foes: Record<string, Foe> = {
 				strength: 45,
 				damageMix: { electricity: 0.5, cold: 0.5 },
 				cooldown: 0,
+				dotFalloff: { cold: 0.6 },
 			},
 			{
 				name: "Meteor Strike",
@@ -54,6 +55,7 @@ export const Foes: Record<string, Foe> = {
 				strength: 65,
 				damageMix: { fire: 0.6, crushing: 0.4 },
 				cooldown: 2,
+				dotFalloff: { fire: 0.5 },
 			},
 		],
 		victory: { route: "/combat/wizard-victory", image: wizardVictoryImg },
@@ -80,6 +82,7 @@ export const Foes: Record<string, Foe> = {
 				strength: 50,
 				damageMix: { fire: 0.6, electricity: 0.4 },
 				cooldown: 0,
+				dotFalloff: { fire: 0.5, electricity: 0.7 },
 			},
 			{
 				name: "Inferno Burst",
@@ -87,6 +90,7 @@ export const Foes: Record<string, Foe> = {
 				strength: 70,
 				damageMix: { fire: 0.9, crushing: 0.1 },
 				cooldown: 3,
+				dotFalloff: { fire: 0.4 },
 			},
 		],
 		victory: { route: "/combat/plasma-beast-victory", image: plasmaBeastVictoryImg },

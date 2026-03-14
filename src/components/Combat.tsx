@@ -19,7 +19,7 @@ interface CombatProps extends React.PropsWithChildren {
 
 type CombatLogEntry = {
 	text: string
-	type: "player" | "foe" | "info"
+	type: "player" | "foe" | "info" | "round"
 }
 
 function rollHitCheck(accuracy: number): boolean {
@@ -84,7 +84,9 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 		const currentRound = round
 		const nextRound = currentRound + 1
-		const newLogs: CombatLogEntry[] = []
+		const newLogs: CombatLogEntry[] = [
+			{ text: `Round ${nextRound}`, type: "round" },
+		]
 
 		// Check cooldown
 		if (getCooldownRemaining(playerCooldowns, attack.name, currentRound) > 0) return
@@ -105,7 +107,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 		} else {
 			const foeBlocks = rollHitCheck(foe.defense)
 			const rawDamage = rollDamage(attack.strength)
-			const result = calculateDamage(rawDamage, attack.damageMix, foe.resistances, foeBlocks)
+			const result = calculateDamage(rawDamage, attack.damageMix, foe.resistances, foeBlocks, attack.dotFalloff)
 
 			newFoeHp = Math.max(0, foeHp - result.total)
 
@@ -118,7 +120,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 			if (result.dots.length > 0) {
 				newFoeDots = [...newFoeDots, ...result.dots]
 				newLogs.push({
-					text: `${foe.name} is burning from ${result.dots.map((d) => d.type).join(" and ")}!`,
+					text: `${foe.name} is afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
 					type: "player",
 				})
 			}
@@ -146,6 +148,10 @@ const Combat: React.FC<CombatProps> = (props) => {
 				})
 			}
 			newFoeDots = dotResult.surviving
+
+			if (newFoeDots.length === 0 && dotResult.damage > 0) {
+				newLogs.push({ text: `${foe.name}'s lingering effects have worn off.`, type: "info" })
+			}
 
 			if (newFoeHp <= 0) {
 				newLogs.push({ text: `${foe.name} succumbs to their wounds!`, type: "info" })
@@ -178,7 +184,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 			} else {
 				const playerBlocks = rollHitCheck(classDefense)
 				const rawDamage = rollDamage(foeAttack.strength)
-				const result = calculateDamage(rawDamage, foeAttack.damageMix, playerResistances, playerBlocks)
+				const result = calculateDamage(rawDamage, foeAttack.damageMix, playerResistances, playerBlocks, foeAttack.dotFalloff)
 
 				newPlayerHp = Math.max(0, playerHp - result.total)
 
@@ -191,7 +197,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 				if (result.dots.length > 0) {
 					newPlayerDots = [...newPlayerDots, ...result.dots]
 					newLogs.push({
-						text: `You are burning from ${result.dots.map((d) => d.type).join(" and ")}!`,
+						text: `You are afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
 						type: "foe",
 					})
 				}
@@ -209,6 +215,10 @@ const Combat: React.FC<CombatProps> = (props) => {
 				})
 			}
 			newPlayerDots = dotResult.surviving
+
+			if (newPlayerDots.length === 0 && dotResult.damage > 0) {
+				newLogs.push({ text: "Your lingering effects have worn off.", type: "info" })
+			}
 		}
 
 		// --- Apply state ---
@@ -235,7 +245,11 @@ const Combat: React.FC<CombatProps> = (props) => {
 	const handleFlee = useCallback(() => {
 		if (combatOver || !charRecord || !playerResistances) return
 
-		const newLogs: CombatLogEntry[] = [{ text: "You attempt to flee!", type: "player" }]
+		const nextRound = round + 1
+		const newLogs: CombatLogEntry[] = [
+			{ text: `Round ${nextRound}`, type: "round" },
+			{ text: "You attempt to flee!", type: "player" },
+		]
 
 		// Attack of opportunity — foe picks an available attack
 		const foeAttack = pickFoeAttack(round, foeCooldowns)
@@ -247,7 +261,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 				newLogs.push({ text: `${foe.name} swings at you as you flee but misses!`, type: "foe" })
 			} else {
 				const rawDamage = rollDamage(foeAttack.strength)
-				const result = calculateDamage(rawDamage, foeAttack.damageMix, playerResistances, false)
+				const result = calculateDamage(rawDamage, foeAttack.damageMix, playerResistances, false, foeAttack.dotFalloff)
 				newPlayerHp = Math.max(0, playerHp - result.total)
 				newLogs.push({
 					text: `${foe.name} strikes you as you flee: ${result.total} damage [${result.breakdown}]`,
@@ -257,6 +271,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 		}
 
 		setPlayerHp(newPlayerHp)
+		setRound(nextRound)
 		addLogs(newLogs)
 
 		if (newPlayerHp <= 0) {
@@ -300,18 +315,22 @@ const Combat: React.FC<CombatProps> = (props) => {
 					<p><strong>Your HP:</strong> {playerHp}</p>
 					<p><strong>{foe.name} HP:</strong> {foeHp} / {foe.hitpoints}</p>
 					{playerDots.length > 0 && (
-						<p><strong>Effects on you:</strong> {playerDots.map((d) => `${d.type} (${d.remaining})`).join(", ")}</p>
+						<p><strong>Effects on you:</strong> {playerDots.map((d) => `${d.type} (up to ${d.ceiling})`).join(", ")}</p>
 					)}
 					{foeDots.length > 0 && (
-						<p><strong>Effects on foe:</strong> {foeDots.map((d) => `${d.type} (${d.remaining})`).join(", ")}</p>
+						<p><strong>Effects on foe:</strong> {foeDots.map((d) => `${d.type} (up to ${d.ceiling})`).join(", ")}</p>
 					)}
 				</div>
 
 				<div className="combat-log">
 					{log.map((entry, i) => (
-						<p key={i} className={`combat-log-${entry.type}`}>
-							{entry.text}
-						</p>
+						entry.type === "round" ? (
+							<p key={i} className="combat-log-round">--- {entry.text} ---</p>
+						) : (
+							<p key={i} className={`combat-log-${entry.type}`}>
+								{entry.text}
+							</p>
+						)
 					))}
 					<div ref={logEndRef} />
 				</div>
