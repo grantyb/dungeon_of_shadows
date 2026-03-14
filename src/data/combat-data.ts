@@ -194,16 +194,14 @@ export function calculateDamage(
 	return { total, dots, breakdown: parts.join(", ") }
 }
 
-/** Tick all DoT effects. Rolls random damage up to each effect's ceiling, then decays. */
-export function tickDots(effects: DotEffect[], resistances: Resistances): { damage: number; surviving: DotEffect[]; details: string[] } {
+/** Tick all DoT effects. Rolls random damage up to each effect's ceiling, then decays. Resistance is already baked into the ceiling at creation time. */
+export function tickDots(effects: DotEffect[]): { damage: number; surviving: DotEffect[]; details: string[] } {
 	let damage = 0
 	const surviving: DotEffect[] = []
 	const damageByType = new Map<DamageType, number>()
 
 	for (const dot of effects) {
-		const resistance = resistances[dot.type]
-		const rawTick = Math.floor(Math.random() * dot.ceiling) + 1
-		const tickDamage = Math.round(rawTick * resistance / 100)
+		const tickDamage = Math.floor(Math.random() * dot.ceiling) + 1
 		damage += tickDamage
 		if (tickDamage > 0) {
 			damageByType.set(dot.type, (damageByType.get(dot.type) ?? 0) + tickDamage)
