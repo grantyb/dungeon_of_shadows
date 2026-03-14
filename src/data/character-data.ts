@@ -114,7 +114,6 @@ export type CombatState = {
 	inCombat: boolean
 	playerDots: DotEffect[]
 	onPlayerDotsChange: (dots: DotEffect[]) => void
-	onPlayerHpChange: (hp: number) => void
 }
 
 export type CharacterContextType = {

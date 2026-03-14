@@ -31,11 +31,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 				const heal = Math.floor(Math.random() * 50) + 1
 				const currentHp = character.hitPoints
 				const newHp = Math.min(maxHp, currentHp + heal)
-				if (inCombat && combatState) {
-					combatState.onPlayerHpChange(newHp)
-				} else {
-					saveCharacter({ ...character, hitPoints: newHp })
-				}
+				saveCharacter({ ...character, hitPoints: newHp })
 				removeFromInventory(itemId)
 				toast.success(`Healed for ${heal} HP! (${newHp} HP)`)
 				break

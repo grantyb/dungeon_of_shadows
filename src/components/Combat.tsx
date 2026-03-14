@@ -2,8 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "components/Button"
 import { Foes, type FoeId } from "data/foe-data"
-import { useCharacter } from "data/character-data"
-import { ClassDefense } from "data/character-data"
+import { useCharacter, ClassDefense } from "data/character-data"
 import {
 	ClassAttacks,
 	RaceResistances,
@@ -39,8 +38,9 @@ const Combat: React.FC<CombatProps> = (props) => {
 	const classDefense = charRecord ? ClassDefense[charRecord.characterClass] : 0
 	const playerResistances = charRecord ? RaceResistances[charRecord.race] : null
 
+	const playerHp = charRecord?.hitPoints ?? 0
+
 	const [foeHp, setFoeHp] = useState(foe.hitpoints)
-	const [playerHp, setPlayerHp] = useState(charRecord?.hitPoints ?? 100)
 	const [log, setLog] = useState<CombatLogEntry[]>([
 		{ text: `You face ${foe.name}!`, type: "info" },
 		{ text: foe.description, type: "info" },
@@ -64,10 +64,6 @@ const Combat: React.FC<CombatProps> = (props) => {
 			inCombat: !combatOver,
 			playerDots,
 			onPlayerDotsChange: setPlayerDots,
-			onPlayerHpChange: (hp: number) => {
-				setPlayerHp(hp)
-				if (charRecord) saveCharacter({ ...charRecord, hitPoints: hp })
-			},
 		})
 		return () => { setCombatState(null) }
 	}, [combatOver, playerDots, charRecord, saveCharacter, setCombatState])
@@ -238,7 +234,6 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 		// --- Apply state ---
 		setFoeHp(newFoeHp)
-		setPlayerHp(newPlayerHp)
 		setPlayerDots(newPlayerDots)
 		setFoeDots(newFoeDots)
 		setPlayerCooldowns(newPlayerCooldowns)
@@ -283,7 +278,6 @@ const Combat: React.FC<CombatProps> = (props) => {
 			}
 		}
 
-		setPlayerHp(newPlayerHp)
 		setRound(nextRound)
 		addLogs(newLogs)
 
