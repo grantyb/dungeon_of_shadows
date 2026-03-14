@@ -53,14 +53,6 @@ function App() {
 
 	// Load audio buffer once
 	React.useEffect(() => {
-
-		if (!character) {
-			toast.info("No character loaded. Please create a character to start the game.")
-		} else {
-			toast.success(`Welcome back, ${character.name}!`, { toastId: "welcome-back" })
-		}
-
-
 		fetch(introductionMusic)
 			.then((r) => r.arrayBuffer())
 			.then((b) => {
@@ -78,7 +70,7 @@ function App() {
 			}
 			if (ctxRef.current?.state !== "closed") ctxRef.current?.close()
 		}
-	}, [character])
+	}, [])
 
 	// Play or pause audio on toggle
 	React.useEffect(() => {
