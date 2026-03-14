@@ -34,6 +34,7 @@
 .character-name {
 	font-size: 0.85rem;
 	color: #ccc;
+	text-align: center;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
