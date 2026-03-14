@@ -44,7 +44,7 @@ import InventoryPanel, { CharacterHud, FoeHud } from "components/InventoryPanel"
 import { useCharacter } from "data/character-data"
 import { ToastContainer, Zoom } from "react-toastify"
 function App() {
-	const { character, preview, inventoryOpen, setInventoryOpen } = useCharacter()
+	const { character, preview, inventoryOpen, setInventoryOpen, combatState } = useCharacter()
 	const [audioEnabled, setAudioEnabled] = useState(false)
 	const ctxRef = useRef<AudioContext | null>(null)
 	const sourceRef = useRef<AudioBufferSourceNode | null>(null)
@@ -182,6 +182,7 @@ function App() {
 					)}
 				</div>
 				<FoeHud />
+				{combatState?.inCombat && <div className="hud-icons-spacer" />}
 				{(preview || character) && <InventoryPanel characterRecord={(preview ?? character)!} />}
 			</div>
 		</div>

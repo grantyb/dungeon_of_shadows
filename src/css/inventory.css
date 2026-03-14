@@ -95,6 +95,7 @@
 	position: relative;
 	opacity: 0.1;
 	transition: opacity 0.4s ease;
+	top: 6px;
 
 	&.-active {
 		opacity: 1;

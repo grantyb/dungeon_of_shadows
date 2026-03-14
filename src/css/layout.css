@@ -20,6 +20,11 @@
 		gap: 8px;
 	}
 
+	.hud-icons-spacer {
+		width: 62px;
+		min-height: 132px;
+	}
+
 	.icon-toggle, .music-toggle {
 		background: rgba(30,30,30,0.85);
 		border: 1px solid slategrey;
