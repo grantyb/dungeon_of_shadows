@@ -183,9 +183,10 @@ const Combat: React.FC<CombatProps> = (props) => {
 			if (result.dots.length > 0) {
 				newFoeDotsFromAttack = result.dots
 				const dotsWithNew = [...existingFoeDots, ...newFoeDotsFromAttack]
+				const totalDoT = result.dots.reduce((sum, d) => sum + d.ceiling, 0)
 				steps.push({
 					log: {
-						text: `${foe.name} is afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
+						text: `${foe.name} is afflicted by ${result.dots.map((d) => d.type).join(" and ")} and will take up to ${totalDoT} damage next round!`,
 						type: "player",
 					},
 					apply: () => setFoeDots(dotsWithNew),
@@ -285,9 +286,10 @@ const Combat: React.FC<CombatProps> = (props) => {
 				if (result.dots.length > 0) {
 					newPlayerDotsFromAttack = result.dots
 					const dotsWithNew = [...existingPlayerDots, ...newPlayerDotsFromAttack]
+					const totalDoT = result.dots.reduce((sum, d) => sum + d.ceiling, 0)
 					steps.push({
 						log: {
-							text: `You are afflicted by ${result.dots.map((d) => d.type).join(" and ")}!`,
+							text: `You are afflicted by ${result.dots.map((d) => d.type).join(" and ")} and will take up to ${totalDoT} damage next round!`,
 							type: "foe",
 						},
 						apply: () => setPlayerDots(dotsWithNew),
