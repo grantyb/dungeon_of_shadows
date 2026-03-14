@@ -439,16 +439,6 @@ const Combat: React.FC<CombatProps> = (props) => {
 			</div>
 
 			<div className="conversation" style={{ maxWidth: "40%" }}>
-				<div className="combat-status">
-					<p><strong>{foe.name} HP:</strong> {foeHp} / {foe.hitpoints}</p>
-					{playerDots.length > 0 && (
-						<p><strong>Effects on you:</strong> {playerDots.map((d) => `${d.type} (up to ${d.ceiling})`).join(", ")}</p>
-					)}
-					{foeDots.length > 0 && (
-						<p><strong>Effects on foe:</strong> {foeDots.map((d) => `${d.type} (up to ${d.ceiling})`).join(", ")}</p>
-					)}
-				</div>
-
 				<div className="combat-log">
 					{log.map((entry, i) => (
 						entry.type === "round" ? (
