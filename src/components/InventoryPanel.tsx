@@ -1,38 +1,22 @@
-import React, { useState } from "react"
-import { useCharacter } from "data/CharacterContext"
+import React, { useCallback, useState } from "react"
+import { useCharacter } from "data/character-data"
 import { images, type CharacterRecord, type InventoryItemId } from "data/character-data"
 import { InventoryItem, type ItemDefinition } from "data/inventory-items"
 import { toast } from "react-toastify"
-import type { DotEffect } from "data/combat-data"
 
 interface InventoryPanelProps {
 	characterRecord: CharacterRecord
-	inCombat: boolean
-	playerDots?: DotEffect[]
-	onPlayerDotsChange?: (dots: DotEffect[]) => void
-	playerHp?: number
-	onPlayerHpChange?: (hp: number) => void
 }
 
-const InventoryPanel: React.FC<InventoryPanelProps> = ({
-	characterRecord,
-	inCombat,
-	playerDots,
-	onPlayerDotsChange,
-	playerHp,
-	onPlayerHpChange,
-}) => {
+const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 	const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
-	const { character, inventoryOpen: open, removeFromInventory, saveCharacter } = useCharacter()
+	const { character, inventoryOpen: open, combatState, removeFromInventory, saveCharacter } = useCharacter()
 
-	const charImage = images[characterRecord.race][characterRecord.gender][characterRecord.characterClass]
-	const displayName = characterRecord.name || "New Character"
+	const inCombat = combatState?.inCombat ?? false
 	const maxHp = 100
-	const currentHp = playerHp ?? characterRecord.hitPoints
-	const hpPercent = Math.max(0, Math.min(100, (currentHp / maxHp) * 100))
 
-	const useItem = (itemId: InventoryItemId) => {
+	const consumeItem = useCallback((itemId: InventoryItemId) => {
 		if (!character) return
 		const def: ItemDefinition = InventoryItem[itemId]
 		if (!def) return
@@ -45,9 +29,10 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({
 		switch (itemId) {
 			case "HealingPotion": {
 				const heal = Math.floor(Math.random() * 50) + 1
+				const currentHp = character.hitPoints
 				const newHp = Math.min(maxHp, currentHp + heal)
-				if (inCombat && onPlayerHpChange) {
-					onPlayerHpChange(newHp)
+				if (inCombat && combatState) {
+					combatState.onPlayerHpChange(newHp)
 				} else {
 					saveCharacter({ ...character, hitPoints: newHp })
 				}
@@ -56,46 +41,46 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({
 				break
 			}
 			case "CauterizingPotion": {
-				if (!inCombat || !playerDots || !onPlayerDotsChange) {
+				if (!inCombat || !combatState) {
 					toast.info("Not usable outside of combat.")
 					return
 				}
-				const hasBleeding = playerDots.some((d) => d.type === "bleeding")
+				const hasBleeding = combatState.playerDots.some((d) => d.type === "bleeding")
 				if (!hasBleeding) {
 					toast.info("You have no bleeding effects to cure.")
 					return
 				}
-				onPlayerDotsChange(playerDots.filter((d) => d.type !== "bleeding"))
+				combatState.onPlayerDotsChange(combatState.playerDots.filter((d) => d.type !== "bleeding"))
 				removeFromInventory(itemId)
 				toast.success("Bleeding effects removed!")
 				break
 			}
 			case "DowsingPotion": {
-				if (!inCombat || !playerDots || !onPlayerDotsChange) {
+				if (!inCombat || !combatState) {
 					toast.info("Not usable outside of combat.")
 					return
 				}
-				const hasFire = playerDots.some((d) => d.type === "fire")
+				const hasFire = combatState.playerDots.some((d) => d.type === "fire")
 				if (!hasFire) {
 					toast.info("You have no burning effects to cure.")
 					return
 				}
-				onPlayerDotsChange(playerDots.filter((d) => d.type !== "fire"))
+				combatState.onPlayerDotsChange(combatState.playerDots.filter((d) => d.type !== "fire"))
 				removeFromInventory(itemId)
 				toast.success("Burning effects extinguished!")
 				break
 			}
 			case "AntidotePotion": {
-				if (!inCombat || !playerDots || !onPlayerDotsChange) {
+				if (!inCombat || !combatState) {
 					toast.info("Not usable outside of combat.")
 					return
 				}
-				const hasPoison = playerDots.some((d) => d.type === "poison")
+				const hasPoison = combatState.playerDots.some((d) => d.type === "poison")
 				if (!hasPoison) {
 					toast.info("You have no poison effects to cure.")
 					return
 				}
-				onPlayerDotsChange(playerDots.filter((d) => d.type !== "poison"))
+				combatState.onPlayerDotsChange(combatState.playerDots.filter((d) => d.type !== "poison"))
 				removeFromInventory(itemId)
 				toast.success("Poison neutralised!")
 				break
@@ -106,23 +91,10 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({
 				break
 			}
 		}
-	}
+	}, [character, inCombat, combatState, saveCharacter, removeFromInventory])
 
 	return (
 		<>
-			<div className="character-hud">
-				<div className="character-portrait">
-					<img src={charImage} alt={displayName} />
-				</div>
-				<div className="character-hud-info">
-					<div className="character-name">{displayName}</div>
-					<div className="health-bar-container">
-						<div className="health-bar-fill" style={{ width: `${hpPercent}%` }} />
-						<span className="health-bar-text">{currentHp} HP</span>
-					</div>
-				</div>
-			</div>
-
 			{open && (
 				<div className="inventory-panel">
 					<h3>Inventory</h3>
@@ -140,7 +112,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({
 									<div
 										key={item.id}
 										className={`inventory-row ${disabled ? "inventory-row-disabled" : ""}`}
-										onClick={() => !disabled && useItem(item.id)}
+										onClick={() => !disabled && consumeItem(item.id)}
 										onMouseEnter={() => setHoveredItem(item.id)}
 										onMouseLeave={() => setHoveredItem(null)}
 									>
@@ -165,6 +137,29 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({
 				</div>
 			)}
 		</>
+	)
+}
+
+export const CharacterHud: React.FC<{ characterRecord: CharacterRecord }> = ({ characterRecord }) => {
+	const charImageDef = images[characterRecord.race][characterRecord.gender][characterRecord.characterClass]
+	const displayName = characterRecord.name || "New Character"
+	const maxHp = 100
+	const currentHp = characterRecord.hitPoints
+	const hpPercent = Math.max(0, Math.min(100, (currentHp / maxHp) * 100))
+
+	return (
+		<div className="character-hud">
+			<div className="character-portrait">
+				<img src={charImageDef.src} alt={displayName} style={{ filter: `brightness(${charImageDef.brightness})` }} />
+			</div>
+			<div className="character-hud-info">
+				<div className="character-name">{displayName}</div>
+				<div className="health-bar-container">
+					<div className="health-bar-fill" style={{ width: `${hpPercent}%` }} />
+					<span className="health-bar-text">{currentHp} HP</span>
+				</div>
+			</div>
+		</div>
 	)
 }
 

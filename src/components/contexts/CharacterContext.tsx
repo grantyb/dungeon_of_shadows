@@ -1,47 +1,25 @@
-import React, { createContext, useCallback, useContext, useState } from "react"
-import type { CharacterRecord, InventoryItemId } from "./character-data"
-import { InventoryItem } from "./inventory-items"
+import React, { useCallback, useRef, useState } from "react"
+import {
+	CharacterContext,
+	loadCharacterFromStorage,
+	persistCharacter,
+	type CharacterRecord,
+	type CombatState,
+	type InventoryItemId,
+} from "data/character-data"
+import { InventoryItem } from "data/inventory-items"
 import { toast } from "react-toastify"
-
-type CharacterContextType = {
-	character: CharacterRecord | undefined
-	preview: CharacterRecord | null
-	setPreview: (preview: CharacterRecord | null) => void
-	saveCharacter: (record: CharacterRecord) => void
-	addToInventory: (itemId: InventoryItemId, quantity?: number) => boolean
-	removeFromInventory: (itemId: InventoryItemId, quantity?: number) => boolean
-	inventoryContains: (itemId: InventoryItemId) => boolean
-	visit: (sceneId: string) => boolean
-	identifyItem: (itemId: InventoryItemId) => boolean
-	inventoryOpen: boolean
-	setInventoryOpen: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const CharacterContext = createContext<CharacterContextType | null>(null)
-
-function loadCharacterFromStorage(): CharacterRecord | undefined {
-	const name = localStorage.getItem("currentCharacterName")
-	if (!name) return undefined
-	const json = localStorage.getItem(name)
-	if (!json) return undefined
-	return JSON.parse(json) as CharacterRecord
-}
-
-function persistCharacter(record: CharacterRecord) {
-	localStorage.setItem(record.name, JSON.stringify(record))
-	localStorage.setItem("currentCharacterName", record.name)
-	const allNames = JSON.parse(localStorage.getItem("allCharacterNames") || "[]") as string[]
-	if (!allNames.includes(record.name)) {
-		allNames.push(record.name)
-		allNames.sort()
-		localStorage.setItem("allCharacterNames", JSON.stringify(allNames))
-	}
-}
 
 export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [character, setCharacter] = useState<CharacterRecord | undefined>(loadCharacterFromStorage)
 	const [preview, setPreview] = useState<CharacterRecord | null>(null)
 	const [inventoryOpen, setInventoryOpen] = useState(false)
+	const combatStateRef = useRef<CombatState | null>(null)
+	const [combatState, setCombatStateRaw] = useState<CombatState | null>(null)
+	const setCombatState = useCallback((state: CombatState | null) => {
+		combatStateRef.current = state
+		setCombatStateRaw(state)
+	}, [])
 
 	const saveCharacter = useCallback((record: CharacterRecord) => {
 		persistCharacter(record)
@@ -96,7 +74,9 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 
 	const visit = useCallback((sceneId: string): boolean => {
 		if (!character) return false
+		if (character.currentScene === sceneId && character.visitedScenes.includes(sceneId)) return true
 		updateCharacter((prev) => {
+			if (prev.currentScene === sceneId && prev.visitedScenes.includes(sceneId)) return prev
 			const visited = prev.visitedScenes.includes(sceneId)
 				? prev.visitedScenes
 				: [...prev.visitedScenes, sceneId]
@@ -128,14 +108,10 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 			identifyItem,
 			inventoryOpen,
 			setInventoryOpen,
+			combatState,
+			setCombatState,
 		}}>
 			{children}
 		</CharacterContext.Provider>
 	)
-}
-
-export function useCharacter() {
-	const ctx = useContext(CharacterContext)
-	if (!ctx) throw new Error("useCharacter must be used within CharacterProvider")
-	return ctx
 }

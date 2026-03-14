@@ -16,8 +16,9 @@ import humanFemaleWizardImage from "assets/character/human-female-wizard.png"
 import humanMaleRogueImage from "assets/character/human-male-rogue.png"
 import humanMaleWarriorImage from "assets/character/human-male-warrior.png"
 import humanMaleWizardImage from "assets/character/human-male-wizard.png"
+import React, { createContext, useContext, type JSX } from "react"
+import type { DotEffect } from "./combat-data"
 import { InventoryItem } from "./inventory-items"
-import type { JSX } from "react"
 
 export type InventoryItemType = {
 	name: string
@@ -63,41 +64,98 @@ export const DefaultCharacterRecord: CharacterRecord = {
 	hitPoints: 100,
 }
 
-export const images = {
+export type CharacterImage = {
+	src: string
+	brightness: number
+}
+
+export const images: Record<CharacterRace, Record<CharacterGender, Record<CharacterClass, CharacterImage>>> = {
 	human: {
 		male: {
-			warrior: humanMaleWarriorImage,
-			wizard: humanMaleWizardImage,
-			rogue: humanMaleRogueImage,
+			warrior: { src: humanMaleWarriorImage, brightness: 1.5 },
+			wizard: { src: humanMaleWizardImage, brightness: 2.5 },
+			rogue: { src: humanMaleRogueImage, brightness: 1.8 },
 		},
 		female: {
-			warrior: humanFemaleWarriorImage,
-			wizard: humanFemaleWizardImage,
-			rogue: humanFemaleRogueImage,
+			warrior: { src: humanFemaleWarriorImage, brightness: 1.5 },
+			wizard: { src: humanFemaleWizardImage, brightness: 3.5 },
+			rogue: { src: humanFemaleRogueImage, brightness: 1.8 },
 		},
 	},
 	elf: {
 		male: {
-			warrior: elfMaleWarriorImage,
-			wizard: elfMaleWizardImage,
-			rogue: elfMaleRogueImage,
+			warrior: { src: elfMaleWarriorImage, brightness: 1.0 },
+			wizard: { src: elfMaleWizardImage, brightness: 1.8 },
+			rogue: { src: elfMaleRogueImage, brightness: 2.0 },
 		},
 		female: {
-			warrior: elfFemaleWarriorImage,
-			wizard: elfFemaleWizardImage,
-			rogue: elfFemaleRogueImage,
+			warrior: { src: elfFemaleWarriorImage, brightness: 1.0 },
+			wizard: { src: elfFemaleWizardImage, brightness: 1.8 },
+			rogue: { src: elfFemaleRogueImage, brightness: 2 },
 		},
 	},
 	dwarf: {
 		male: {
-			warrior: dwarfMaleWarriorImage,
-			wizard: dwarfMaleWizardImage,
-			rogue: dwarfMaleRogueImage,
+			warrior: { src: dwarfMaleWarriorImage, brightness: 1.0 },
+			wizard: { src: dwarfMaleWizardImage, brightness: 1.8 },
+			rogue: { src: dwarfMaleRogueImage, brightness: 2.0 },
 		},
 		female: {
-			warrior: dwarfFemaleWarriorImage,
-			wizard: dwarfFemaleWizardImage,
-			rogue: dwarfFemaleRogueImage,
+			warrior: { src: dwarfFemaleWarriorImage, brightness: 1.0 },
+			wizard: { src: dwarfFemaleWizardImage, brightness: 1.8 },
+			rogue: { src: dwarfFemaleRogueImage, brightness: 1.8 },
 		},
 	},
+}
+
+// --- Character Context ---
+
+export type CombatState = {
+	inCombat: boolean
+	playerDots: DotEffect[]
+	onPlayerDotsChange: (dots: DotEffect[]) => void
+	onPlayerHpChange: (hp: number) => void
+}
+
+export type CharacterContextType = {
+	character: CharacterRecord | undefined
+	preview: CharacterRecord | null
+	setPreview: (preview: CharacterRecord | null) => void
+	saveCharacter: (record: CharacterRecord) => void
+	addToInventory: (itemId: InventoryItemId, quantity?: number) => boolean
+	removeFromInventory: (itemId: InventoryItemId, quantity?: number) => boolean
+	inventoryContains: (itemId: InventoryItemId) => boolean
+	visit: (sceneId: string) => boolean
+	identifyItem: (itemId: InventoryItemId) => boolean
+	inventoryOpen: boolean
+	setInventoryOpen: React.Dispatch<React.SetStateAction<boolean>>
+	combatState: CombatState | null
+	setCombatState: (state: CombatState | null) => void
+}
+
+export const CharacterContext = createContext<CharacterContextType | null>(null)
+
+export function useCharacter() {
+	const ctx = useContext(CharacterContext)
+	if (!ctx) throw new Error("useCharacter must be used within CharacterProvider")
+	return ctx
+}
+
+export function loadCharacterFromStorage(): CharacterRecord | undefined {
+	const name = localStorage.getItem("currentCharacterName")
+	if (!name) return undefined
+	const json = localStorage.getItem(name)
+	if (!json) return undefined
+	return JSON.parse(json) as CharacterRecord
+}
+
+export function persistCharacter(record: CharacterRecord) {
+	localStorage.setItem(record.name, JSON.stringify(record))
+	localStorage.setItem("currentCharacterName", record.name)
+	const allNames = JSON.parse(localStorage.getItem("allCharacterNames") || "[]") as string[]
+	if (!allNames.includes(record.name)) {
+		allNames.push(record.name)
+		allNames.sort()
+		localStorage.setItem("allCharacterNames", JSON.stringify(allNames))
+	}
 }

@@ -5,7 +5,7 @@ import {
 	images,
 	type CharacterRecord,
 } from "data/character-data"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import ButtonGroup from "./ButtonGroup"
@@ -26,7 +26,7 @@ const LoadCharacterScreen: React.FC = () => {
 		return () => { setPreview(null) }
 	}, [characterRecord, setPreview])
 
-	const image = characterRecord ? images[characterRecord.race][characterRecord.gender][characterRecord.characterClass] : dungeonEntrance
+	const image = characterRecord ? images[characterRecord.race][characterRecord.gender][characterRecord.characterClass].src : dungeonEntrance
 
 	const savedCharacters: string[] = JSON.parse(localStorage.getItem("allCharacterNames") || "[]")
 	const selectCharacter = (event: React.ChangeEvent<HTMLSelectElement>) => {

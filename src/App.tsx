@@ -40,8 +40,8 @@ import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
-import InventoryPanel from "components/InventoryPanel"
-import { useCharacter } from "data/CharacterContext"
+import InventoryPanel, { CharacterHud } from "components/InventoryPanel"
+import { useCharacter } from "data/character-data"
 import { toast, ToastContainer, Zoom } from "react-toastify"
 function App() {
 	const { character, preview, inventoryOpen, setInventoryOpen } = useCharacter()
@@ -76,9 +76,9 @@ function App() {
 			} catch {
 				// Ignore errors on stop
 			}
-			ctxRef.current?.close()
+			if (ctxRef.current?.state !== "closed") ctxRef.current?.close()
 		}
-	}, [])
+	}, [character])
 
 	// Play or pause audio on toggle
 	React.useEffect(() => {
@@ -162,29 +162,34 @@ function App() {
 			<AnimatedRoutes durationMs={500}>
 				{routes}
 			</AnimatedRoutes>
-			{(preview || character) && <InventoryPanel characterRecord={(preview ?? character)!} inCombat={false} />}
-			<div className="top-right-icons">
+			<div className="top-right-controls">
 				{(preview || character) && (
-					<button
-						className="icon-toggle"
-						aria-label={inventoryOpen ? "Close inventory" : "Open inventory"}
-						onClick={() => setInventoryOpen((v) => !v)}
-					>
-						<img src={inventoryOpen ? backpackOpen : backpackClosed} alt="Inventory" width={24} height={24} />
-					</button>
+					<CharacterHud characterRecord={(preview ?? character)!} />
 				)}
-				<Button
-					label=""
-					className="music-toggle"
-					aria-label={audioEnabled ? "Pause music" : "Play music"}
-					onClick={() => setAudioEnabled((v) => !v)}
-				>
-					{audioEnabled ? (
-						<UnmuteIcon width={24} height={24} />
-					) : (
-						<MuteIcon width={24} height={24} />
+				<div className="top-right-icons">
+					<Button
+						label=""
+						className="music-toggle"
+						aria-label={audioEnabled ? "Pause music" : "Play music"}
+						onClick={() => setAudioEnabled((v) => !v)}
+					>
+						{audioEnabled ? (
+							<UnmuteIcon width={48} height={48} />
+						) : (
+							<MuteIcon width={48} height={48} />
+						)}
+					</Button>
+					{(preview || character) && (
+						<button
+							className="icon-toggle"
+							aria-label={inventoryOpen ? "Close inventory" : "Open inventory"}
+							onClick={() => setInventoryOpen((v) => !v)}
+						>
+							<img src={inventoryOpen ? backpackOpen : backpackClosed} alt="Inventory" width={48} height={48} />
+						</button>
 					)}
-				</Button>
+				</div>
+				{(preview || character) && <InventoryPanel characterRecord={(preview ?? character)!} />}
 			</div>
 		</div>
 	)

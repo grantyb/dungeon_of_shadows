@@ -3,7 +3,7 @@ import React from "react"
 import dungeonEntrance from "assets/dungeon/entrance.png"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
 
 const WelcomeScreen = () => {

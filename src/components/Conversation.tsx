@@ -1,7 +1,7 @@
 import Button from "components/Button"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 import type { CSSProperties, ReactNode } from "react"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 interface ConversationProps {
 	top?: number
@@ -29,9 +29,11 @@ const Conversation: React.FC<ConversationProps> = ({
 
 	const allRevealed = alreadyVisited || revealedCount >= childArray.length
 
-	if (allRevealed) {
-		visit(window.location.pathname)
-	}
+	useEffect(() => {
+		if (allRevealed) {
+			visit(window.location.pathname)
+		}
+	}, [allRevealed, visit])
 
 	const storySoFar = allRevealed ? childArray : childArray.slice(0, revealedCount)
 

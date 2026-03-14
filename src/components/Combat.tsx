@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "components/Button"
-import InventoryPanel from "components/InventoryPanel"
 import { Foes, type FoeId } from "data/foe-data"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 import { ClassDefense } from "data/character-data"
 import {
 	ClassAttacks,
@@ -35,7 +34,7 @@ function rollDamage(strength: number): number {
 const Combat: React.FC<CombatProps> = (props) => {
 	const foe = Foes[props.foe]
 	const navigate = useNavigate()
-	const { character: charRecord, saveCharacter } = useCharacter()
+	const { character: charRecord, saveCharacter, setCombatState } = useCharacter()
 	const classAttacks = charRecord ? ClassAttacks[charRecord.characterClass] : null
 	const classDefense = charRecord ? ClassDefense[charRecord.characterClass] : 0
 	const playerResistances = charRecord ? RaceResistances[charRecord.race] : null
@@ -58,6 +57,20 @@ const Combat: React.FC<CombatProps> = (props) => {
 	const [foeDots, setFoeDots] = useState<DotEffect[]>([])
 
 	const logEndRef = useRef<HTMLDivElement>(null)
+
+	// Register combat state so the App-level InventoryPanel can use combat potions
+	useEffect(() => {
+		setCombatState({
+			inCombat: !combatOver,
+			playerDots,
+			onPlayerDotsChange: setPlayerDots,
+			onPlayerHpChange: (hp: number) => {
+				setPlayerHp(hp)
+				if (charRecord) saveCharacter({ ...charRecord, hitPoints: hp })
+			},
+		})
+		return () => { setCombatState(null) }
+	}, [combatOver, playerDots, charRecord, saveCharacter, setCombatState])
 
 	useEffect(() => {
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -307,20 +320,6 @@ const Combat: React.FC<CombatProps> = (props) => {
 			<div className="main-title">
 				<h1>Combat: {foe.name}</h1>
 			</div>
-
-			<InventoryPanel
-				characterRecord={charRecord}
-				inCombat={!combatOver}
-				playerDots={playerDots}
-				onPlayerDotsChange={setPlayerDots}
-				playerHp={playerHp}
-				onPlayerHpChange={(hp) => {
-					setPlayerHp(hp)
-					if (charRecord) {
-						saveCharacter({ ...charRecord, hitPoints: hp })
-					}
-				}}
-			/>
 
 			<div className="conversation" style={{ maxWidth: "40%" }}>
 				<div className="combat-status">

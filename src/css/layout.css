@@ -3,14 +3,21 @@
 	width: 100vw;
 	height: 100vh;
 
-	.top-right-icons {
+	.top-right-controls {
 		position: fixed;
 		top: 20px;
 		right: 20px;
-		display: flex;
-		align-items: center;
+		display: grid;
+		grid-template-columns: auto auto;
 		gap: 8px;
+		align-items: stretch;
 		z-index: 100;
+	}
+
+	.top-right-icons {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 	}
 
 	.icon-toggle, .music-toggle {
@@ -22,6 +29,7 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
+		flex: 1;
 		&:hover {
 			background: rgba(50,50,50,0.85);
 		}

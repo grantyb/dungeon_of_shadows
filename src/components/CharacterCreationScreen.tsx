@@ -8,7 +8,7 @@ import {
 	type CharacterGender,
 	type CharacterRace,
 } from "data/character-data"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 import { StartingInventory } from "data/inventory-items"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -94,7 +94,7 @@ const CharacterCreationScreen: React.FC = () => {
 	const image =
 		images[characterRecord.race][characterRecord.gender][
 			characterRecord.characterClass
-		]
+		].src
 	return (
 		<div
 			className="background-image"

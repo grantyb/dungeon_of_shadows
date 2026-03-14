@@ -2,7 +2,7 @@ import img from "assets/dungeon/tunnels/chest.png"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
 
 export const Orb = () => {

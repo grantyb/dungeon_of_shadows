@@ -3,7 +3,7 @@ import deadImage from "../../../assets/dungeon/tunnels/flame-deeper-dead.png";
 import survivedImage from "../../../assets/dungeon/tunnels/flame-deeper-survive.png";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
-import { useCharacter } from "data/CharacterContext";
+import { useCharacter } from "data/character-data";
 
 export const Flame = () => {
 	const navigate = useNavigate()

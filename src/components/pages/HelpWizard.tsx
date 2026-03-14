@@ -3,7 +3,7 @@ import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import img from "assets/dungeon/greet-wizard.png"
 import Button from "components/Button"
-import { useCharacter } from "data/CharacterContext"
+import { useCharacter } from "data/character-data"
 
 export const HelpWizard = () => {
 	const navigate = useNavigate()
