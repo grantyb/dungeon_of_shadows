@@ -1,62 +1,34 @@
-import humanMaleWarriorImage from "assets/character/human-male-warrior.png"
-import humanMaleWizardImage from "assets/character/human-male-wizard.png"
-import humanMaleRogueImage from "assets/character/human-male-rogue.png"
-import humanFemaleWarriorImage from "assets/character/human-female-warrior.png"
-import humanFemaleWizardImage from "assets/character/human-female-wizard.png"
-import humanFemaleRogueImage from "assets/character/human-female-rogue.png"
-import elfMaleWarriorImage from "assets/character/elf-male-warrior.png"
-import elfMaleWizardImage from "assets/character/elf-male-wizard.png"
-import elfMaleRogueImage from "assets/character/elf-male-rogue.png"
-import elfFemaleWarriorImage from "assets/character/elf-female-warrior.png"
-import elfFemaleWizardImage from "assets/character/elf-female-wizard.png"
-import elfFemaleRogueImage from "assets/character/elf-female-rogue.png"
-import dwarfMaleWarriorImage from "assets/character/dwarf-male-warrior.png"
-import dwarfMaleWizardImage from "assets/character/dwarf-male-wizard.png"
-import dwarfMaleRogueImage from "assets/character/dwarf-male-rogue.png"
+import { signal } from "@preact/signals-react"
+import dwarfFemaleRogueImage from "assets/character/dwarf-female-rogue.png"
 import dwarfFemaleWarriorImage from "assets/character/dwarf-female-warrior.png"
 import dwarfFemaleWizardImage from "assets/character/dwarf-female-wizard.png"
-import dwarfFemaleRogueImage from "assets/character/dwarf-female-rogue.png"
-import { signal } from "@preact/signals-react"
+import dwarfMaleRogueImage from "assets/character/dwarf-male-rogue.png"
+import dwarfMaleWarriorImage from "assets/character/dwarf-male-warrior.png"
+import dwarfMaleWizardImage from "assets/character/dwarf-male-wizard.png"
+import elfFemaleRogueImage from "assets/character/elf-female-rogue.png"
+import elfFemaleWarriorImage from "assets/character/elf-female-warrior.png"
+import elfFemaleWizardImage from "assets/character/elf-female-wizard.png"
+import elfMaleRogueImage from "assets/character/elf-male-rogue.png"
+import elfMaleWarriorImage from "assets/character/elf-male-warrior.png"
+import elfMaleWizardImage from "assets/character/elf-male-wizard.png"
+import humanFemaleRogueImage from "assets/character/human-female-rogue.png"
+import humanFemaleWarriorImage from "assets/character/human-female-warrior.png"
+import humanFemaleWizardImage from "assets/character/human-female-wizard.png"
+import humanMaleRogueImage from "assets/character/human-male-rogue.png"
+import humanMaleWarriorImage from "assets/character/human-male-warrior.png"
+import humanMaleWizardImage from "assets/character/human-male-wizard.png"
 import { toast } from "react-toastify"
+import { InventoryItem } from "./inventory-items"
 import type { JSX } from "react"
-
-export type CharacterRace = "human" | "elf" | "dwarf"
-export type CharacterGender = "male" | "female"
-export type CharacterClass = "warrior" | "wizard" | "rogue"
 
 export type InventoryItemType = {
 	name: string
 	description: JSX.Element
 }
 
-export const InventoryItem: Record<string, { unidentified: InventoryItemType, identified: InventoryItemType }> = {
-	"Scroll": {
-		unidentified: {
-			name: "Ancient Scroll",
-			description: <p>A scroll given to you by Gol-Ink the Wise.</p>,
-		},
-		identified: {
-			name: "Map of the Dungeon",
-			description: <>
-				<p>A scroll given to you by Gol-Ink the Wise.</p>
-				<p>Contains valuable knowledge about the dungeon.</p>
-			</>,
-		}
-	},
-	"FireOrb": {
-		unidentified: {
-			name: "Glowing Orb",
-			description: <p>A mystical orb.</p>,
-		},
-		identified: {
-			name: "Orb of Fire Protection",
-			description: <>
-				<p>A mystical orb pulsating with fiery energy.</p>
-				<p>It protects the bearer from fire-based attacks.</p>
-			</>,
-		}
-	}
-}
+export type CharacterRace = "human" | "elf" | "dwarf"
+export type CharacterGender = "male" | "female"
+export type CharacterClass = "warrior" | "wizard" | "rogue"
 
 export type InventoryItemId = keyof typeof InventoryItem
 
