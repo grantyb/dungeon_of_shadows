@@ -5,42 +5,30 @@ import StandardPage from "../../StandardPage";
 
 export const FlameDeeper = () => {
 	const navigate = useNavigate()
-
-	
 	
 	return (
 		<StandardPage backgroundImage={img} title="The Flame">
 			<Conversation width={30}>
-					<p>
-						You enter the tunnel and see 3 doors; one on the left and two on the right.</p>
-					<p>
-						You ponder which door to choose.
-					</p>
-					<p>
-						Which door do you pick?
-					</p>
+				<p>
+					You enter the tunnel and see 3 doors; one on the left and two on the right.</p>
+				<p>
+					You ponder which door to choose.
+				</p>
+				<p>
+					Which door do you pick?
+				</p>
 
-					<span className="conversation-controls">
-						<button 
-							onClick={() => navigate("/tunnels/left-door/")}>Left Door
-						</button>
-
-						<button
-							onClick={() => navigate("/tunnels/right-one/")}>Right Door 1
-						</button>
-
-						<button
-							onClick={() => navigate("/tunnels/right-two/")}>Right Door 2
-						</button>
-
-					</span>
-
-					
-				
-
-			
-					
-					
+				<span className="conversation-controls">
+					<button 
+						onClick={() => navigate("/tunnels/left-door/")}>Left Door
+					</button>
+					<button
+						onClick={() => navigate("/tunnels/right-one/")}>Right Door 1
+					</button>
+					<button
+						onClick={() => navigate("/tunnels/right-two/")}>Right Door 2
+					</button>
+				</span>
 			</Conversation>
 		</StandardPage>
 	)
