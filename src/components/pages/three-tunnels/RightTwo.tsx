@@ -10,7 +10,8 @@ export const RightTwo = () => {
 		<StandardPage backgroundImage={img} title="The doors">
 			<Conversation width={20}>
 				<p>
-					You enter the tunnel furthest from you on the right.</p>
+					You enter the tunnel furthest from you on the right.
+				</p>
 				<p>
 					you walk a long way down the mysterious tunnel.
 				</p>
