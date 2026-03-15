@@ -5,29 +5,27 @@ import StandardPage from "../../StandardPage";
 
 export const RightTwo = () => {
 	const navigate = useNavigate()
-
-	
 	
 	return (
 		<StandardPage backgroundImage={img} title="The doors">
 			<Conversation width={20}>
-					<p>
-						You enter the tunnel furthest from you on the right.</p>
-					<p>
-						you walk a long way down the mysterious tunnel.
-					</p>
-					<p>
-						you hit a dead end, you turn around 
-						and notice that the door swings shut and traps you inside.
-					</p>
-					<p>
-						you have perished in the tunnel.
-					</p>
-
-					<button 
-						onClick={() => navigate("/")}>Restart
-					</button>
-					
+				<p>
+					You enter the tunnel furthest from you on the right.</p>
+				<p>
+					you walk a long way down the mysterious tunnel.
+				</p>
+				<p>
+					you hit a dead end, you turn around 
+					and notice that the door swings shut and traps you inside.
+				</p>
+				<p>
+					you have perished in the tunnel.
+					<span className="conversation-controls">
+						<button 
+							onClick={() => navigate("/")}>Restart
+						</button>
+					</span>
+				</p>
 			</Conversation>
 		</StandardPage>
 	)

@@ -16,11 +16,11 @@ export const Skull = () => {
 				</p>
 				<p>
 					As you look down the staircase a damp forbidding darkness swallows the light
+					<span className="conversation-controls">
+						<Button label="Enter" onClick={() => navigate("/tunnels/skullDeeper/")} />
+					</span>	
 				</p>
 
-				<span className="conversation-controls">
-					<Button label="Enter" onClick={() => navigate("/tunnels/skullDeeper/")} />
-				</span>	
 			</Conversation>
 		</StandardPage>
 	)

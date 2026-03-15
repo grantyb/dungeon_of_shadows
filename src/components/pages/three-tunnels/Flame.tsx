@@ -47,16 +47,13 @@ export const Flame = () => {
 					</p>
 					<p>
 						You have perished in the flames.
+						<span className="conversation-controls">
+							<button 
+								onClick={() => navigate("/")}>Restart
+							</button>
+						</span>
 					</p>
-
-					<button 
-						onClick={() => navigate("/")}>Restart
-					</button>
 				</>)}
-
-			
-					
-					
 			</Conversation>
 		</StandardPage>
 	)
