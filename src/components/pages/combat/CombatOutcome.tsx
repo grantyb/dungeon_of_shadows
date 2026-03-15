@@ -24,11 +24,14 @@ export const CombatOutcome: React.FC<CombatOutcomeProps> = ({
 		<StandardPage backgroundImage={backgroundImage} title={title}>
 			<Conversation width={30}>
 				{text.map((line, i) => (
-					<p key={i}>{line}</p>
+					<p key={i}>{line}
+						{i === text.length - 1 && (
+							<span className="conversation-controls">
+								<Button onClick={() => navigate(continueRoute)} label={continueLabel} />
+							</span>
+						)}
+					</p>
 				))}
-				<span className="conversation-controls">
-					<Button onClick={() => navigate(continueRoute)} label={continueLabel} />
-				</span>
 			</Conversation>
 		</StandardPage>
 	)
