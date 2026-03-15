@@ -1,4 +1,16 @@
-import React from "react"
+import React, { createContext, useCallback, useContext, useRef, useState } from "react"
+
+type BackgroundContextType = {
+	setBackgroundImage: (bg: string) => void
+}
+
+const BackgroundContext = createContext<BackgroundContextType | null>(null)
+
+export function useBackground() {
+	const ctx = useContext(BackgroundContext)
+	if (!ctx) throw new Error("useBackground must be used within a StandardPage")
+	return ctx
+}
 
 interface StandardPageProps extends React.PropsWithChildren {
 	backgroundImage: string
@@ -6,20 +18,30 @@ interface StandardPageProps extends React.PropsWithChildren {
 }
 
 const StandardPage: React.FC<StandardPageProps> = ({
-	backgroundImage,
+	backgroundImage: initialBackground,
 	title,
 	children,
 }) => {
+	const [backgroundImage, setBackgroundImage] = useState(initialBackground)
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+	const debouncedSetBackground = useCallback((bg: string) => {
+		if (timerRef.current) clearTimeout(timerRef.current)
+		timerRef.current = setTimeout(() => setBackgroundImage(bg), 0)
+	}, [])
+
 	return (
-		<div
-			className="background-image"
-			style={{ backgroundImage: `url(${backgroundImage})` }}
-		>
-			<div className="main-title">
-				<h1>{title}</h1>
+		<BackgroundContext.Provider value={{ setBackgroundImage: debouncedSetBackground }}>
+			<div
+				className="background-image"
+				style={{ backgroundImage: `url(${backgroundImage})` }}
+			>
+				<div className="main-title">
+					<h1>{title}</h1>
+				</div>
+				{children}
 			</div>
-			{children}
-		</div>
+		</BackgroundContext.Provider>
 	)
 }
 
