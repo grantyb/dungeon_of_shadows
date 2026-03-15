@@ -25,7 +25,7 @@ export const Orb = () => {
 					Inside you find a shiny orb pulsating with magical energy.
 				</p>
 				<p>
-					 You take the orb.
+					You take the orb.
 					<span className="conversation-controls">
 						
 						<Button

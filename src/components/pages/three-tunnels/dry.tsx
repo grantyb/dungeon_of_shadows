@@ -27,7 +27,7 @@ export const Dry = () => {
 					
 					<span className="conversation-controls">
 						<Button label="West" onClick={() => navigate("/tunnels/west/")} />
-							<Button label="East" onClick={() => navigate("/tunnels/east/")} />
+						<Button label="East" onClick={() => navigate("/tunnels/east/")} />
 					</span>
 				</p>
 			</Conversation>

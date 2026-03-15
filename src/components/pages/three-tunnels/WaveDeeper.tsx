@@ -21,7 +21,6 @@ export const WaveDeeper = () => {
 					you explore the cavern
 					<span className="conversation-controls">
 						<Button
-						
 							label="okay"
 							onClick={() => navigate("/tunnels/chest/")}
 						/>

@@ -24,7 +24,6 @@ export const East = () => {
 				
 					<span className="conversation-controls">
 						<Button label="continue" onClick={() => navigate("/tunnels/")} />
-							
 					</span>
 				</p>
 			</Conversation>

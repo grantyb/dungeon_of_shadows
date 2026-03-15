@@ -18,7 +18,7 @@ export const WaveDeeperII = () => {
 					another rocky shore within a vast cavern.
 				</p>
 				<p>
-					 you explore the cavern 
+					you explore the cavern 
 					<span className="conversation-controls">
 						<Button
 							label="okay"
