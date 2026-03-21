@@ -18,6 +18,7 @@ import humanMaleWarriorImage from "assets/character/human-male-warrior.png"
 import humanMaleWizardImage from "assets/character/human-male-wizard.png"
 import React, { createContext, useContext, type JSX } from "react"
 import type { DotEffect } from "./combat-data"
+import type { FoePortrait } from "./foe-data"
 import { InventoryItem } from "./inventory-items"
 
 export type InventoryItemType = {
@@ -142,7 +143,7 @@ export type CombatState = {
 	onPlayerDotsChange: (dots: DotEffect[]) => void
 	foe: {
 		name: string
-		portrait: string
+		portrait: FoePortrait
 		currentHp: number
 		maxHp: number
 		dots: DotEffect[]

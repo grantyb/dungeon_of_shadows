@@ -21,6 +21,7 @@
 		height: 200%;
 		object-fit: cover;
 		object-position: 50% 15%;
+		overflow: visible;
 	}
 
 	img.dead {

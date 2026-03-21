@@ -77,7 +77,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 			onPlayerDotsChange: setPlayerDots,
 			foe: {
 				name: foe.name,
-				portrait: foe.backgroundImage,
+				portrait: foe.portrait,
 				currentHp: foeHp,
 				maxHp: foe.hitpoints,
 				dots: foeDots,

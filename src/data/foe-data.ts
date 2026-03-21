@@ -15,12 +15,19 @@ export type FoeOutcome = {
 	image: string
 }
 
+export type FoePortrait = {
+	image: string
+	scale: number
+	position: string
+}
+
 export type Foe = {
 	name: string
 	description: string
 	hitpoints: number
 	defense: number
 	backgroundImage: string
+	portrait: FoePortrait
 	resistances: Resistances
 	attacks: FoeAttack[]
 	victory: FoeOutcome
@@ -33,6 +40,7 @@ export const Foes: Record<string, Foe> = {
 		name: "Gol-Ink the Wise",
 		description: "A powerful wizard with a staff and a long robe. Gol-Ink the Wise is a truly fearsome adversary!",
 		backgroundImage: wizard,
+		portrait: { image: wizard, scale: 72, position: "0px 12px" },
 		hitpoints: 1000,
 		defense: 5,
 		resistances: {
@@ -70,6 +78,7 @@ export const Foes: Record<string, Foe> = {
 		name: "Flaming Plasma Beast",
 		description: "A terrifying creature of pure plasma energy, crackling with searing heat and malice.",
 		backgroundImage: plasmaBeast,
+		portrait: { image: plasmaBeast, scale: 100, position: "-27px 5px" },
 		hitpoints: 100,
 		defense: 20,
 		resistances: {

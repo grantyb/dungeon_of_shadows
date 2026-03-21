@@ -234,7 +234,15 @@ export const FoeHud: React.FC = () => {
 	return (
 		<div className="character-hud">
 			<div className="character-portrait">
-				<img src={portrait} alt={name} />
+				<img
+					src={portrait.image}
+					alt={name}
+					style={{
+						width: `${portrait.scale}%`,
+						height: `${portrait.scale}%`,
+						objectPosition: portrait.position,
+					}}
+				/>
 			</div>
 			<div className="character-hud-info">
 				<div className="character-name">{name}</div>
