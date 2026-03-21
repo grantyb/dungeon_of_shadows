@@ -34,7 +34,7 @@ export const WizardFlee = () => {
 
 					<span className="conversation-controls">
 						<Button onClick={() => navigate("/proceed/")} label="Accept his offer" />
-						<Button onClick={() => navigate("/fight-wizard/")} label="Attack" />
+						<Button onClick={() => navigate("/attack-wizard/")} label="Attack" />
 					</span>
 				</p>
 			</Conversation>
