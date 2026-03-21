@@ -11,6 +11,7 @@ import bleedingIcon from "assets/character/status-icons/bleeding.png"
 import poisonedIcon from "assets/character/status-icons/poisoned.png"
 import freezingIcon from "assets/character/status-icons/freezing.png"
 import electrifiedIcon from "assets/character/status-icons/electrified.png"
+import deadIcon from "assets/character/status-icons/dead.png"
 
 const statusEffectTypes: DamageType[] = ["poison", "cold", "fire", "bleeding", "electricity"]
 
@@ -201,11 +202,15 @@ export const CharacterHud: React.FC<{ characterRecord: CharacterRecord }> = ({ c
 	const maxHp = getMaxHp(characterRecord)
 	const currentHp = characterRecord.hitPoints
 	const hpPercent = Math.max(0, Math.min(100, (currentHp / maxHp) * 100))
+	const isDead = currentHp <= 0
 
 	return (
 		<div className="character-hud">
 			<div className="character-portrait">
-				<img src={charImageDef.src} alt={displayName} style={{ filter: `brightness(${charImageDef.brightness})` }} />
+				{isDead
+					? <img src={deadIcon} alt="Dead" className="dead" />
+					: <img src={charImageDef.src} alt={displayName} style={{ filter: `brightness(${charImageDef.brightness})` }} />
+				}
 			</div>
 			<div className="character-hud-info">
 				<div className="character-name">{displayName}</div>
