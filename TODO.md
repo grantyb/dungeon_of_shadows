@@ -1,9 +1,6 @@
 ### Images
 
-* plasma-beast-flee.png (combat outcome)
 * wizard-victory.png (combat outcome)
-* wizard-death.png (combat outcome)
-* wizard-flee.png (combat outcome)
 
 ### dungeon pages
 
