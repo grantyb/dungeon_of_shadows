@@ -99,14 +99,26 @@
 .conversation {
 	margin-left: 5%;
 	margin-bottom: 5%;
-	background-color: rgba(20, 20, 20, 0.9);
+	background:
+		linear-gradient(
+			135deg,
+			#d4b896 0%,
+			#c4a67a 20%,
+			#dcc9a3 40%,
+			#c9a96e 60%,
+			#d4b896 80%,
+			#bfa264 100%
+		);
+	color: #2a1a0a;
 	padding: 1rem;
-	border-radius: 1rem;
-	box-shadow: 0 2px 8px #0008;
+	border-radius: 4px;
 	max-height: 80%;
 	overflow-y: scroll;
-	border: 1px solid slategrey;
-	box-shadow: 0 2px 10px #000a;
+	border: none;
+	box-shadow:
+		2px 3px 12px rgba(0, 0, 0, 0.5),
+		inset 0 0 30px rgba(139, 90, 43, 0.15);
+	position: relative;
 
 	&.combat-conversation {
 		max-width: 40%;
@@ -129,15 +141,15 @@
 		bottom: 0;
 		margin-top: 1.5rem;
 		padding-top: 1rem;
-		border-top: 1px solid slategrey;
-		background: rgb(0, 0, 0);
+		border-top: 1px solid rgba(139, 90, 43, 0.3);
+		background: #c9a96e;
 		margin-left: -1rem;
 		margin-right: -1rem;
 		margin-bottom: 0;
 		padding-left: 1rem;
 		padding-right: 1rem;
 		padding-bottom: 1rem;
-		border-radius: 0 0 1rem 1rem;
+		border-radius: 0 0 4px 4px;
 	}
 
 	.conversation-controls {
