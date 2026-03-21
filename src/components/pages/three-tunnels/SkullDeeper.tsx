@@ -2,6 +2,7 @@
 import img from "../../../assets/dungeon/tunnels/stairs.png"
 import img2 from "../../../assets/dungeon/tunnels/stairs-further.png"
 import img3 from "../../../assets/dungeon/tunnels/stairs-void.png"
+import img4 from "../../../assets/dungeon/tunnels/stairs-void-death.png"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";
@@ -38,6 +39,7 @@ export const SkullDeeper = () => {
 					You find yourself in a gray void there is nothing but endless grayness.
 				</p>
 				<p>
+					<BackgroundChange src={img4} />
 					You have perished in the void.
 					<span className="conversation-controls">
 						<Button label="Restart" onClick={() => navigate("/")} />
