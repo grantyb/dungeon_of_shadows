@@ -30,10 +30,10 @@ export const Orb = () => {
 						
 						<Button
 							label="Continue"
-							onClick={() =>
-								addToInventory("FireOrb") &&
+							onClick={() => {
+								addToInventory("FireOrb")
 								navigate("/tunnels/cavern/")
-							}
+							}}
 						/>
 					</span>
 				</p>

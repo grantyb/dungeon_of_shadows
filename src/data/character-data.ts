@@ -154,7 +154,7 @@ export type CharacterContextType = {
 	preview: CharacterRecord | null
 	setPreview: (preview: CharacterRecord | null) => void
 	saveCharacter: (record: CharacterRecord) => void
-	addToInventory: (itemId: InventoryItemId, quantity?: number) => boolean
+	addToInventory: (itemId: InventoryItemId, quantity?: number) => void
 	removeFromInventory: (itemId: InventoryItemId, quantity?: number) => boolean
 	inventoryContains: (itemId: InventoryItemId) => boolean
 	visit: (sceneId: string) => boolean

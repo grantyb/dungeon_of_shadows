@@ -40,10 +40,18 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 		setCharacter({ ...record })
 	}, [])
 
-	const addToInventory = useCallback((itemId: InventoryItemId, quantity = 1): boolean => {
+	const addToInventory = useCallback((itemId: InventoryItemId, quantity = 1): void => {
 		const prev = characterRef.current
-		if (!prev) return false
+		if (!prev) return
+		const item = InventoryItem[itemId]
 		const existing = prev.inventory.find((item) => item.id === itemId)
+		if (existing && !item.expendable) {
+			const name = existing.identified
+				? item.identified.name
+				: item.unidentified.name
+			toast.success(`${name} is already in your inventory.`)
+			return
+		}
 		let newInventory: typeof prev.inventory
 		let toastMessage: string
 		if (existing) {
@@ -51,19 +59,18 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 				i.id === itemId ? { ...i, quantity: i.quantity + quantity } : i
 			)
 			const name = existing.identified
-				? InventoryItem[itemId].identified.name
-				: InventoryItem[itemId].unidentified.name
+				? item.identified.name
+				: item.unidentified.name
 			toastMessage = `${name} x${quantity} added to inventory.`
 		} else {
 			newInventory = [...prev.inventory, { id: itemId, identified: false, quantity }]
-			toastMessage = `${InventoryItem[itemId].unidentified.name} added to inventory.`
+			toastMessage = `${item.unidentified.name} added to inventory.`
 		}
 		const next = { ...prev, inventory: newInventory }
 		persistCharacter(next)
 		characterRef.current = next
 		setCharacter(next)
 		toast.success(toastMessage)
-		return true
 	}, [])
 
 	const removeFromInventory = useCallback((itemId: InventoryItemId, quantity = 1): boolean => {

@@ -133,7 +133,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 									>
 										<img className="inventory-item-image" src={def.image} alt={info.name} />
 										<span className="inventory-item-name">{info.name}</span>
-										{item.quantity > 1 && (
+										{def.expendable && item.quantity > 1 && (
 											<span className="inventory-item-quantity">x{item.quantity}</span>
 										)}
 

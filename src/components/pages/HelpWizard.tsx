@@ -23,10 +23,10 @@ export const HelpWizard = () => {
 					<span className="conversation-controls">
 						<Button
 							label="Take the scroll"
-							onClick={() =>
-								addToInventory("Scroll") &&
+							onClick={() => {
+								addToInventory("Scroll")
 								navigate("/tunnels/")
-							}
+							}}
 						/>
 						<Button
 							label="Attack"
