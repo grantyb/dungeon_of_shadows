@@ -1,4 +1,6 @@
 import img from "assets/dungeon/tunnels/wave.png"
+import img2 from "assets/dungeon/tunnels/rocky-shore.png"
+import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
@@ -13,7 +15,11 @@ export const WaveDeeper = () => {
 				<p>You enter the rushing underground current.</p>
 				<p>
 					The current throws you throughout the small tunnel. You are
-					thrown against the rocky walls, After what felt like an
+					thrown against the rocky walls.
+				</p>
+				<p>
+					<BackgroundChange src={img2}/>
+					After what felt like an
 					eternity the current slows down, finally depositing you onto
 					a rocky shore within a vast cavern.
 				</p>

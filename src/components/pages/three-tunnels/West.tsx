@@ -1,4 +1,6 @@
-import img from "assets/dungeon/tunnels/wave-symbol.png"
+import img from "assets/dungeon/tunnels/west-2.png"
+import deadEndImg from "assets/dungeon/tunnels/dead-end.png"
+import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
@@ -8,7 +10,7 @@ export const West = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The orb">
+		<StandardPage backgroundImage={img} title="The Western approach">
 			<Conversation width={20}>
 				<p>you walk west through the tunnel.</p>
 				<p>
@@ -16,7 +18,8 @@ export const West = () => {
 					but you manage to keep your balance.
 				</p>
 				<p>
-					after walking for a while you come across an dead end.
+					<BackgroundChange src={deadEndImg}/>
+					after walking for a while you come across a dead end.
 				</p>
 				<p>
 					you turn back around and head East

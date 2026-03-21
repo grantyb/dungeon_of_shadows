@@ -1,4 +1,6 @@
-import img from "assets/dungeon/tunnels/portal.png"
+import img from "assets/dungeon/tunnels/climb-waterfall.png"
+import img2 from "assets/dungeon/tunnels/portal.png"
+import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
@@ -10,8 +12,6 @@ export const Cavern = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The Portal">
 			<Conversation width={20}>
-				<p>The orb pulsates in your hands
-					vibrating your whole body intensely.</p>
 				<p>
 					You pocket the orb and turn to leave the cavern.
 				</p>
@@ -24,6 +24,7 @@ export const Cavern = () => {
 					to think what to do next.
 				</p>
 				<p>
+					<BackgroundChange src={img2}/>
 					Suddenly a purple light glows in the corner of your eye,
 					you look up and see a massive hole in the floor of
 					the cavern filled with a swirling purple liquid.

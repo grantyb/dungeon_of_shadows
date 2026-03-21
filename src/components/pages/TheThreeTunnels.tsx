@@ -18,7 +18,7 @@ export const TheThreeTunnels = () => {
 					and a flame.
 				</p>
 				<p>
-					Which tunnel do you dare take?
+					Which tunnel do you dare to take?
 					<span className="conversation-controls">
 						<Button
 							label="Skull"

@@ -1,9 +1,11 @@
-import img from "assets/dungeon/tunnels/chest.png"
+import img from "assets/dungeon/tunnels/closed-chest.png"
+import img2 from "assets/dungeon/tunnels/chest.png"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
+import BackgroundChange from "components/BackgroundChange"
 
 export const Orb = () => {
 	const navigate = useNavigate()
@@ -22,10 +24,13 @@ export const Orb = () => {
 					lid open.
 				</p>
 				<p>
+					<BackgroundChange src={img2}/>
 					Inside you find a shiny orb pulsating with magical energy.
 				</p>
 				<p>
 					You take the orb.
+					It pulsates in your hands
+					vibrating your whole body intensely.
 					<span className="conversation-controls">
 						
 						<Button

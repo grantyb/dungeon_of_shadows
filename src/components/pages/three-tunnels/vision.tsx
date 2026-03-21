@@ -8,7 +8,7 @@ export const Vision = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The orb">
+		<StandardPage backgroundImage={img} title="A surprising vision">
 			<Conversation width={20}>
 				<p>as you jump in a figure forms in front of you.</p>
 				<p>

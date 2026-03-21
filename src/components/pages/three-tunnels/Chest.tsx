@@ -18,7 +18,7 @@ export const Chest = () => {
 				<p>
 					Do you dare open the chest?
 					<span className="conversation-controls">
-						<Button label="No" onClick={() => navigate("/tunnels/Wave-deeper/")} />
+						<Button label="No" onClick={() => navigate("/tunnels/wave-exit/")} />
 						<Button
 							label="Yes"
 							onClick={() => navigate("/tunnels/orb/")}

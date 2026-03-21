@@ -2,13 +2,15 @@ import img from "assets/dungeon/tunnels/dry.png"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
+import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
 
 export const Dry = () => {
 	const navigate = useNavigate()
+	const { identifyItem } = useCharacter()
 
 	return (
-		<StandardPage backgroundImage={img} title="The orb">
+		<StandardPage backgroundImage={img} title="After the dream">
 			<Conversation width={20}>
 				<p>You wake up in the same cavern as before.</p>
 				<p>
@@ -26,8 +28,8 @@ export const Dry = () => {
 					Which way would you like to explore?
 					
 					<span className="conversation-controls">
-						<Button label="West" onClick={() => navigate("/tunnels/west/")} />
-						<Button label="East" onClick={() => navigate("/tunnels/east/")} />
+						<Button label="West" onClick={() => identifyItem("FireOrb") && navigate("/tunnels/west/")} />
+						<Button label="East" onClick={() => identifyItem("FireOrb") && navigate("/tunnels/east/")} />
 					</span>
 				</p>
 			</Conversation>

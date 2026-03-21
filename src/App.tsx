@@ -39,10 +39,10 @@ import { SkullDeeper } from "components/pages/three-tunnels/SkullDeeper"
 import { Vision } from "components/pages/three-tunnels/vision"
 import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
-import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
 import { useCharacter } from "data/character-data"
 import { ToastContainer, Zoom } from "react-toastify"
+import { WaveExit } from "components/pages/three-tunnels/WaveExit"
 
 function App() {
 	const { character, preview, inventoryOpen, setInventoryOpen, combatState } = useCharacter()
@@ -111,7 +111,7 @@ function App() {
 			<Route path="/tunnels/" element={<TheThreeTunnels />} />
 			<Route path="/tunnels/wave/" element={<Wave />} />
 			<Route path="/tunnels/wave-deeper/" element={<WaveDeeper />} />
-			<Route path="/tunnels/wave-deeperII/" element={<WaveDeeperII />} />
+			<Route path="/tunnels/wave-exit/" element={<WaveExit />} />
 			<Route path="/tunnels/flame/" element={<Flame />} />
 			<Route path="/tunnels/chest/" element={<Chest />} />
 			<Route path="/tunnels/orb/" element={<Orb />} />

@@ -1,4 +1,6 @@
-import img from "assets/dungeon/tunnels/wave-symbol.png"
+import img from "assets/dungeon/tunnels/eastern-approach.png"
+import archwayImg from "assets/dungeon/tunnels/eastern-archway.png"
+import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
@@ -8,7 +10,7 @@ export const East = () => {
 	const navigate = useNavigate()
 
 	return (
-		<StandardPage backgroundImage={img} title="The orb">
+		<StandardPage backgroundImage={img} title="The Eastern approach">
 			<Conversation width={20}>
 				<p>you walk east through the tunnel.</p>
 				<p>
@@ -16,7 +18,8 @@ export const East = () => {
 					but you manage to keep your balance.
 				</p>
 				<p>
-					after walking for a while you come across an arc.
+					<BackgroundChange src={archwayImg}/>
+					After walking for a while you come across an archway.
 				</p>
 				<p>
 					you enter and it takes you back to the room where Gol-Ink
