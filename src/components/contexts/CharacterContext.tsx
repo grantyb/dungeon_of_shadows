@@ -12,6 +12,8 @@ import { toast } from "components/utils/toast"
 
 export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [character, setCharacter] = useState<CharacterRecord | undefined>(loadCharacterFromStorage)
+	const characterRef = useRef(character)
+	characterRef.current = character
 	const [preview, setPreview] = useState<CharacterRecord | null>(null)
 	const [inventoryOpen, setInventoryOpen] = useState(false)
 	const combatStateRef = useRef<CombatState | null>(null)
@@ -21,67 +23,73 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 		setCombatStateRaw(state)
 	}, [])
 
+	const applyUpdate = useCallback((updater: (prev: CharacterRecord) => CharacterRecord): CharacterRecord | undefined => {
+		const prev = characterRef.current
+		if (!prev) return undefined
+		const next = updater(prev)
+		if (next === prev) return prev
+		persistCharacter(next)
+		characterRef.current = next
+		setCharacter(next)
+		return next
+	}, [])
+
 	const saveCharacter = useCallback((record: CharacterRecord) => {
 		persistCharacter(record)
+		characterRef.current = record
 		setCharacter({ ...record })
 	}, [])
 
-	const updateCharacter = useCallback((updater: (prev: CharacterRecord) => CharacterRecord) => {
-		setCharacter((prev) => {
-			if (!prev) return prev
-			const next = updater(prev)
-			persistCharacter(next)
-			return next
-		})
+	const addToInventory = useCallback((itemId: InventoryItemId, quantity = 1): boolean => {
+		const prev = characterRef.current
+		if (!prev) return false
+		const existing = prev.inventory.find((item) => item.id === itemId)
+		let newInventory: typeof prev.inventory
+		let toastMessage: string
+		if (existing) {
+			newInventory = prev.inventory.map((i) =>
+				i.id === itemId ? { ...i, quantity: i.quantity + quantity } : i
+			)
+			const name = existing.identified
+				? InventoryItem[itemId].identified.name
+				: InventoryItem[itemId].unidentified.name
+			toastMessage = `${name} x${quantity} added to inventory.`
+		} else {
+			newInventory = [...prev.inventory, { id: itemId, identified: false, quantity }]
+			toastMessage = `${InventoryItem[itemId].unidentified.name} added to inventory.`
+		}
+		const next = { ...prev, inventory: newInventory }
+		persistCharacter(next)
+		characterRef.current = next
+		setCharacter(next)
+		toast.success(toastMessage)
+		return true
 	}, [])
 
-	const addToInventory = useCallback((itemId: InventoryItemId, quantity = 1): boolean => {
-		let added = false
-		updateCharacter((prev) => {
-			const existing = prev.inventory.find((item) => item.id === itemId)
-			let newInventory: typeof prev.inventory
-			if (existing) {
-				newInventory = prev.inventory.map((i) =>
-					i.id === itemId ? { ...i, quantity: i.quantity + quantity } : i
-				)
-				const name = existing.identified
-					? InventoryItem[itemId].identified.name
-					: InventoryItem[itemId].unidentified.name
-				toast.success(`${name} x${quantity} added to inventory.`)
-			} else {
-				newInventory = [...prev.inventory, { id: itemId, identified: false, quantity }]
-				toast.success(`${InventoryItem[itemId].unidentified.name} added to inventory.`)
-			}
-			added = true
-			return { ...prev, inventory: newInventory }
-		})
-		return added
-	}, [updateCharacter])
-
 	const removeFromInventory = useCallback((itemId: InventoryItemId, quantity = 1): boolean => {
-		let removed = false
-		updateCharacter((prev) => {
+		const result = applyUpdate((prev) => {
 			const item = prev.inventory.find((i) => i.id === itemId)
 			if (!item || item.quantity < quantity) return prev
 			const newQuantity = item.quantity - quantity
 			const newInventory = newQuantity <= 0
 				? prev.inventory.filter((i) => i.id !== itemId)
 				: prev.inventory.map((i) => i.id === itemId ? { ...i, quantity: newQuantity } : i)
-			removed = true
 			return { ...prev, inventory: newInventory }
 		})
-		return removed
-	}, [updateCharacter])
+		return result !== characterRef.current || result !== undefined
+	}, [applyUpdate])
 
 	const inventoryContains = useCallback((itemId: InventoryItemId): boolean => {
-		if (!character) return false
-		return character.inventory.some((item) => item.id === itemId)
-	}, [character])
+		const current = characterRef.current
+		if (!current) return false
+		return current.inventory.some((item) => item.id === itemId)
+	}, [])
 
 	const visit = useCallback((sceneId: string): boolean => {
-		if (!character) return false
-		if (character.currentScene === sceneId && character.visitedScenes.includes(sceneId)) return true
-		updateCharacter((prev) => {
+		const current = characterRef.current
+		if (!current) return false
+		if (current.currentScene === sceneId && current.visitedScenes.includes(sceneId)) return true
+		applyUpdate((prev) => {
 			if (prev.currentScene === sceneId && prev.visitedScenes.includes(sceneId)) return prev
 			const visited = prev.visitedScenes.includes(sceneId)
 				? prev.visitedScenes
@@ -89,20 +97,20 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 			return { ...prev, currentScene: sceneId, visitedScenes: visited }
 		})
 		return true
-	}, [character, updateCharacter])
+	}, [applyUpdate])
 
 	const identifyItem = useCallback((itemId: InventoryItemId): boolean => {
-		let identified = false
-		updateCharacter((prev) => {
-			const idx = prev.inventory.findIndex((item) => item.id === itemId)
-			if (idx === -1) return prev
-			const newInventory = [...prev.inventory]
+		const prev = characterRef.current
+		if (!prev) return false
+		const idx = prev.inventory.findIndex((item) => item.id === itemId)
+		if (idx === -1) return false
+		applyUpdate((p) => {
+			const newInventory = [...p.inventory]
 			newInventory[idx] = { ...newInventory[idx], identified: true }
-			identified = true
-			return { ...prev, inventory: newInventory }
+			return { ...p, inventory: newInventory }
 		})
-		return identified
-	}, [updateCharacter])
+		return true
+	}, [applyUpdate])
 
 	return (
 		<CharacterContext.Provider value={{
