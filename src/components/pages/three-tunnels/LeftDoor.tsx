@@ -17,7 +17,7 @@ export const LeftDoor = () => {
 				<p>
 					<BackgroundChange src={plasmaBeatImg}/>
 					You find yourself in a giant room filled with fire,
-					you look up and see a huge mouth seeming to be hungry for your flesh
+					you look up and see a huge mouth seeming to be hungry for your flesh.
 				</p>
 				<p>
 					The creature pounces at you, but you manage to dodge its attack

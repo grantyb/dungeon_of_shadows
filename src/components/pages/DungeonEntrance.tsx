@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
-import img from "assets/dungeon/wizard.png"
+import img from "assets/dungeon/tunnels/eastern-approach.png"
+import wizard from "assets/dungeon/wizard.png"
+import wizardStanding from "assets/dungeon/greet-wizard.png"
 import Button from "components/Button"
+import BackgroundChange from "components/BackgroundChange";
 
 export const DungeonEntrance = () => {
 	
@@ -20,6 +23,7 @@ export const DungeonEntrance = () => {
 					shadows that seem to move of their own accord.
 				</p>
 				<p>
+					<BackgroundChange src={wizard} />
 					You emerge from the winding tunnels of the dungeon entrance
 					into a dimly lit chamber. The faint sound of dripping water
 					echoes through the space.
@@ -32,6 +36,7 @@ export const DungeonEntrance = () => {
 					start, he looks up.
 				</p>
 				<p>
+					<BackgroundChange src={wizardStanding} />
 					As you step closer, the man slowly rises from his chair,
 					revealing a face marked by deep lines of sorrow and eyes
 					that hold a glimmer of hope amidst the despair.

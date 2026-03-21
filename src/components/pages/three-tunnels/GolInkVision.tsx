@@ -10,26 +10,26 @@ export const GolInkVision = () => {
 	return (
 		<StandardPage backgroundImage={img} title="A surprising vision">
 			<Conversation width={20}>
-				<p>as you jump in a figure forms in front of you.</p>
+				<p>As you jump in a figure forms in front of you.</p>
 				<p>
-					it is Gol-Ink, he looks at you with a sad expression.
+					It is Gol-Ink, he looks at you with a sad expression.
 				</p>
 				<p>
-					this world does not seem to exist,
+					This world does not seem to exist,
 					just merely an illusion.
 				</p>
 				<p>
-					a song seems to be sung from nowhere but all around
+					A song seems to be sung from nowhere but all around
 					at the same time.
 				</p>
 				<p>
-					the song speaks
+					The song speaks
 					"the tunnel really bright and warm-the path 
 					that lead to endless calm"
 				</p>
 				<p>
-					you feel a strange sensation as you are 
-					transported back to your phisycal body.
+					You feel a strange sensation as you are 
+					transported back to your physical body.
 					<span className="conversation-controls">
 						<Button label="Continue" onClick={() => navigate("/tunnels/dry")} />
 					</span>

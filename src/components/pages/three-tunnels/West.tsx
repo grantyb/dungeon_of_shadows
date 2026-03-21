@@ -12,17 +12,17 @@ export const West = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The Western approach">
 			<Conversation width={20}>
-				<p>you walk west through the tunnel.</p>
+				<p>You walk west through the tunnel.</p>
 				<p>
-					the tunnel is still damp and a bit slippery,
+					The tunnel is still damp and a bit slippery,
 					but you manage to keep your balance.
 				</p>
 				<p>
 					<BackgroundChange src={deadEndImg}/>
-					after walking for a while you come across a dead end.
+					After walking for a while you come across a dead end.
 				</p>
 				<p>
-					you turn back around and head East
+					You turn back around and head East
 				
 					<span className="conversation-controls">
 						<Button label="ok" onClick={() => navigate("/tunnels/east/")} />

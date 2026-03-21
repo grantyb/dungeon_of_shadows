@@ -12,9 +12,9 @@ export const East = () => {
 	return (
 		<StandardPage backgroundImage={img} title="The Eastern approach">
 			<Conversation width={20}>
-				<p>you walk east through the tunnel.</p>
+				<p>You walk east through the tunnel.</p>
 				<p>
-					the tunnel is still damp and a bit slippery,
+					The tunnel is still damp and a bit slippery,
 					but you manage to keep your balance.
 				</p>
 				<p>
@@ -22,7 +22,7 @@ export const East = () => {
 					After walking for a while you come across an archway.
 				</p>
 				<p>
-					you enter and it takes you back to the room where Gol-Ink
+					You enter and it takes you back to the room where Gol-Ink
 					is still muttering strange words on his small wooden chair.
 				
 					<span className="conversation-controls">

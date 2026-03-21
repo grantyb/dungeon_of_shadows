@@ -22,7 +22,7 @@ export const WizardFlee = () => {
 					You nod again, and he continues.
 				</p>
 				<p>
-					“I have been studying this text for years, hoping to unlock
+					“I have been studying this dungeon for years, hoping to unlock
 					its secrets. I fear to understand it fully, one must
 					completely explore this fearsome labyrinth.” He gestures
 					vaguely to the dark corridors behind him.
