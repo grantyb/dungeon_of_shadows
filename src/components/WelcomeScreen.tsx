@@ -15,7 +15,7 @@ const WelcomeScreen = () => {
 
 	const handleStartGame = () => {
 		if (character && character.hitPoints <= 0) {
-			toast.error(`${character.name} has fallen. Summon a new hero or load a living one to enter the dungeon.`)
+			toast.error(`${character.name} has perished. Summon a new hero or load a living one to enter the dungeon.`)
 			return
 		}
 		setShowIntroduction(true)
