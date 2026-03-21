@@ -5,7 +5,7 @@ import StandardPage from "components/StandardPage"
 import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
 
-export const Dry = () => {
+export const AfterTheDream = () => {
 	const navigate = useNavigate()
 	const { identifyItem } = useCharacter()
 

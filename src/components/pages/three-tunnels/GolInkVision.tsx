@@ -4,7 +4,7 @@ import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import { useNavigate } from "react-router-dom"
 
-export const Vision = () => {
+export const GolInkVision = () => {
 	const navigate = useNavigate()
 
 	return (

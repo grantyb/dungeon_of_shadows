@@ -6,7 +6,7 @@ import Button from "components/Button";
 import { useNavigate } from "react-router-dom";
 import BackgroundChange from "components/BackgroundChange";
 
-export const Skull = () => {
+export const SkullArchway = () => {
 	const navigate = useNavigate()
 	return (
 		<StandardPage backgroundImage={img} title="The Skull">

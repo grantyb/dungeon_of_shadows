@@ -6,7 +6,7 @@ import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
 import { useNavigate } from "react-router-dom"
 
-export const Cavern = () => {
+export const CavernPortal = () => {
 	const navigate = useNavigate()
 
 	return (

@@ -24,9 +24,9 @@ import { DungeonEntrance } from "components/pages/DungeonEntrance"
 import { GreetWizard } from "components/pages/GreetWizard"
 import { HelpWizard } from "components/pages/HelpWizard"
 import { TheThreeTunnels } from "components/pages/TheThreeTunnels"
-import { Cavern } from "components/pages/three-tunnels/cavern"
+import { CavernPortal } from "components/pages/three-tunnels/CavernPortal"
 import { Chest } from "components/pages/three-tunnels/Chest"
-import { Dry } from "components/pages/three-tunnels/dry"
+import { AfterTheDream } from "components/pages/three-tunnels/AfterTheDream"
 import { East } from "components/pages/three-tunnels/East"
 import { Flame } from "components/pages/three-tunnels/Flame"
 import { FlameDeeper } from "components/pages/three-tunnels/FlameDeeper"
@@ -34,9 +34,9 @@ import { LeftDoor } from "components/pages/three-tunnels/LeftDoor"
 import { Orb } from "components/pages/three-tunnels/Orb"
 import { RightOne } from "components/pages/three-tunnels/RightOne"
 import { RightTwo } from "components/pages/three-tunnels/RightTwo"
-import { Skull } from "components/pages/three-tunnels/skull"
+import { SkullArchway } from "components/pages/three-tunnels/SkullArchway"
 import { SkullDeeper } from "components/pages/three-tunnels/SkullDeeper"
-import { Vision } from "components/pages/three-tunnels/vision"
+import { GolInkVision } from "components/pages/three-tunnels/GolInkVision"
 import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { West } from "components/pages/three-tunnels/West"
@@ -115,11 +115,11 @@ function App() {
 			<Route path="/tunnels/flame/" element={<Flame />} />
 			<Route path="/tunnels/chest/" element={<Chest />} />
 			<Route path="/tunnels/orb/" element={<Orb />} />
-			<Route path="/tunnels/cavern/" element={<Cavern />} />
-			<Route path="/tunnels/vision/" element={<Vision />} />
-			<Route path="/tunnels/dry/" element={<Dry/>} />
+			<Route path="/tunnels/cavern/" element={<CavernPortal />} />
+			<Route path="/tunnels/vision/" element={<GolInkVision />} />
+			<Route path="/tunnels/dry/" element={<AfterTheDream/>} />
 			<Route path="/tunnels/east/" element={<East/>} />
-			<Route path="/tunnels/skull/" element={<Skull/>} />
+			<Route path="/tunnels/skull/" element={<SkullArchway/>} />
 			<Route path="/tunnels/skullDeeper/" element={<SkullDeeper/>} />
 			<Route path="/tunnels/west/" element={<West/>} />
 			<Route path="/tunnels/flame-deeper/" element={<FlameDeeper/>} />
