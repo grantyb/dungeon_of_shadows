@@ -3,6 +3,7 @@
 @import "./layout.css";
 @import "./character-creation.css";
 @import "./inventory.css";
+@import "./toast.css";
 
 :root {
 	font-family: "MedievalSharp", cursive, fantasy, serif;
