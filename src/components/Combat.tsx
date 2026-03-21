@@ -430,7 +430,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 				<h1>Combat: {foe.name}</h1>
 			</div>
 
-			<div className="conversation" style={{ maxWidth: "40%" }}>
+			<div className="conversation combat-conversation">
 				<div className="combat-log">
 					{log.map((entry, i) => (
 						entry.type === "round" ? (
