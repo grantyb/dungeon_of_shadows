@@ -127,7 +127,7 @@ const InventoryPanel: React.FC<InventoryPanelProps> = ({ characterRecord }) => {
 									<div
 										key={item.id}
 										className={`inventory-row ${disabled ? "inventory-row-disabled" : ""}`}
-										onClick={() => !disabled && consumeItem(item.id)}
+										onClick={() => consumeItem(item.id)}
 										onMouseEnter={() => setHoveredItem(item.id)}
 										onMouseLeave={() => setHoveredItem(null)}
 									>
