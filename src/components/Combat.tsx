@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { joinList } from "components/utils/join-list"
 import { toast } from "components/utils/toast"
 import Button from "components/Button"
 import { Foes, type FoeId } from "data/foe-data"
@@ -174,12 +175,18 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 			const blockText = foeBlocks ? " (partially blocked)" : ""
 			const capturedFoeHp = runningFoeHp
+			const immuneTypes = result.immunities
 			steps.push({
 				log: {
 					text: `You use ${attack.name}${blockText}: ${result.total} damage [${result.breakdown}]`,
 					type: "player",
 				},
-				apply: () => setFoeHp(capturedFoeHp),
+				apply: () => {
+					setFoeHp(capturedFoeHp)
+					if (immuneTypes.length > 0) {
+						toast.info(`${foe.name} is immune to ${joinList(immuneTypes)} damage!`)
+					}
+				},
 			})
 
 			if (result.dots.length > 0) {

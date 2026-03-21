@@ -156,10 +156,11 @@ export function calculateDamage(
 	resistances: Resistances,
 	blocked: boolean,
 	dotFalloff?: DotFalloff,
-): { total: number; dots: DotEffect[]; breakdown: string } {
+): { total: number; dots: DotEffect[]; breakdown: string; immunities: DamageType[] } {
 	let total = 0
 	const dots: DotEffect[] = []
 	const parts: string[] = []
+	const immunities: DamageType[] = []
 
 	for (const [type, fraction] of Object.entries(damageMix) as [DamageType, number][]) {
 		let typeDamage = Math.round(rawDamage * fraction)
@@ -178,6 +179,7 @@ export function calculateDamage(
 			}
 		} else if (resistance === 0) {
 			parts.push(`0 ${type} (immune)`)
+			immunities.push(type)
 		}
 
 		// Create DoT if this attack has a falloff defined for this damage type
@@ -191,7 +193,7 @@ export function calculateDamage(
 		}
 	}
 
-	return { total, dots, breakdown: parts.join(", ") }
+	return { total, dots, breakdown: parts.join(", "), immunities }
 }
 
 /** Tick all DoT effects. Rolls random damage up to each effect's ceiling, then decays. Resistance is already baked into the ceiling at creation time. */
