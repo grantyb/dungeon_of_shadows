@@ -43,7 +43,7 @@ export const Foes: Record<string, Foe> = {
 		attacks: [
 			{
 				name: "Arcane Bolt",
-				accuracy: 80,
+				accuracy: 100,
 				strength: 45,
 				damageMix: { electricity: 0.5, cold: 0.5 },
 				cooldown: 0,
@@ -51,7 +51,7 @@ export const Foes: Record<string, Foe> = {
 			},
 			{
 				name: "Meteor Strike",
-				accuracy: 60,
+				accuracy: 100,
 				strength: 65,
 				damageMix: { fire: 0.6, crushing: 0.4 },
 				cooldown: 2,
