@@ -66,9 +66,7 @@ const CharacterCreationScreen: React.FC = () => {
 			toast.error("Please enter a character name.")
 			return
 		}
-		const existingCharacterRecord = localStorage.getItem(
-			characterRecord.name
-		)
+		const existingCharacterRecord = localStorage.getItem(characterRecord.name)
 		if (existingCharacterRecord) {
 			if (
 				!confirm(
