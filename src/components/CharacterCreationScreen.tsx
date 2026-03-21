@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 
 import Button from "components/Button"
 import {
@@ -22,9 +22,9 @@ const CharacterCreationScreen: React.FC = () => {
 	const navigate = useNavigate()
 	const { saveCharacter, setPreview } = useCharacter()
 
-	useEffect(() => {
+	const newCharacter = useMemo(() => {
 		const startingItems = StartingInventory[characterRecord.characterClass]
-		setPreview({
+		return {
 			...characterRecord,
 			name: characterRecord.name || "New Character",
 			inventory: startingItems.map((item) => ({
@@ -33,9 +33,13 @@ const CharacterCreationScreen: React.FC = () => {
 				quantity: item.quantity,
 			})),
 			hitPoints: getMaxHp(characterRecord),
-		})
+		}
+	}, [characterRecord])
+
+	useEffect(() => {
+		setPreview(newCharacter)
 		return () => { setPreview(null) }
-	}, [characterRecord, setPreview])
+	}, [newCharacter, setPreview])
 
 	const selectRace = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setCharacterRecord((prev) => ({
@@ -76,16 +80,7 @@ const CharacterCreationScreen: React.FC = () => {
 				return
 			}
 		}
-		const startingItems = StartingInventory[characterRecord.characterClass]
-		const recordWithInventory = {
-			...characterRecord,
-			inventory: startingItems.map((item) => ({
-				id: item.id,
-				identified: true,
-				quantity: item.quantity,
-			})),
-		}
-		saveCharacter(recordWithInventory)
+		saveCharacter(newCharacter)
 		navigate("/")
 		toast.success("Character saved successfully!")
 	}
