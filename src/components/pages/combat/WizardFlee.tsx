@@ -9,11 +9,19 @@ export const WizardFlee = () => {
 	return (
 		<StandardPage backgroundImage={img} title="Escaped!">
 			<Conversation width={30}>
-				<p>You turn and sprint away from Gol-Ink the Wise. A bolt of energy crackles past you as you flee.</p>
+				<p>As you turn and flee from the undefeatable Gol-Ink the Wise, he stretches out his hand, placatingly.</p>
+				<p>“Friend!”, he calls. “There is no sense in this violence.” </p>
 				<p>
-					You retreat to the dungeon entrance, shaken but alive.
+					“Please, let us lower our weapons and talk.
+					I have great need of such brave souls such as yourself,
+					but I am certainly willing to snuff you out if need be!”
+				</p>
+				<p>
+					Cowed, humbled and terrified, you nod your agreement and lower your weapon.
+					Gol-Ink the Wise smiles warmly, and invites you to sit with him and share a cup of tea.
 					<span className="conversation-controls">
-						<Button onClick={() => navigate("/dungeon/")} label="Back to the entrance" />
+						<Button onClick={() => navigate("/proceed/")} label="Accept his offer" />
+						<Button onClick={() => navigate("/fight-wizard/")} label="Attack" />
 					</span>
 				</p>
 			</Conversation>

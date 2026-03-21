@@ -33,12 +33,16 @@ export const Foes: Record<string, Foe> = {
 		name: "Gol-Ink the Wise",
 		description: "A powerful wizard with a staff and a long robe. Gol-Ink the Wise is a truly fearsome adversary!",
 		backgroundImage: wizard,
-		hitpoints: 100,
+		hitpoints: 1000,
 		defense: 5,
 		resistances: {
-			...defaultResistances,
-			electricity: 50,
-			crushing: 130,
+			bleeding: 0,
+			crushing: 0,
+			fire: 0,
+			cold: 0,
+			electricity: 0,
+			poison: 0,
+			water: 0,
 		},
 		attacks: [
 			{
