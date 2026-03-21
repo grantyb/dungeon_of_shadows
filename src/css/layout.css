@@ -139,10 +139,7 @@
 	.combat-action-prompt {
 		position: sticky;
 		bottom: 0;
-		margin-top: 1.5rem;
 		padding-top: 1rem;
-		border-top: 1px solid rgba(139, 90, 43, 0.3);
-		background: #c9a96e;
 		margin-left: -1rem;
 		margin-right: -1rem;
 		margin-bottom: 0;
