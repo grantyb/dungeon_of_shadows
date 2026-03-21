@@ -66,8 +66,18 @@ export type CharacterRecord = {
 	hitPoints: number
 }
 
+export const GenderHpBonus: Record<CharacterGender, number> = {
+	male: 0,
+	female: -5,
+}
+
+export const GenderAccuracyBonus: Record<CharacterGender, number> = {
+	male: 0,
+	female: 5,
+}
+
 export function getMaxHp(record: CharacterRecord): number {
-	return Math.floor(RaceBaseHp[record.race] * ClassHpMultiplier[record.characterClass])
+	return Math.floor((RaceBaseHp[record.race] + GenderHpBonus[record.gender]) * ClassHpMultiplier[record.characterClass])
 }
 
 export const DefaultCharacterRecord: CharacterRecord = {

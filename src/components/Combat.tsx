@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "components/Button"
 import { Foes, type FoeId } from "data/foe-data"
-import { useCharacter, ClassDefense } from "data/character-data"
+import { useCharacter, ClassDefense, GenderAccuracyBonus } from "data/character-data"
 import {
 	ClassAttacks,
 	RaceResistances,
@@ -43,6 +43,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 	const classAttacks = charRecord ? ClassAttacks[charRecord.characterClass] : null
 	const classDefense = charRecord ? ClassDefense[charRecord.characterClass] : 0
 	const playerResistances = charRecord ? RaceResistances[charRecord.race] : null
+	const accuracyBonus = charRecord ? GenderAccuracyBonus[charRecord.gender] : 0
 
 	const playerHp = charRecord?.hitPoints ?? 0
 
@@ -158,7 +159,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 		})
 
 		// --- Player's attack ---
-		const playerHits = rollHitCheck(attack.accuracy)
+		const playerHits = rollHitCheck(attack.accuracy + accuracyBonus)
 		let runningFoeHp = foeHp
 		let newFoeDotsFromAttack: DotEffect[] = []
 
@@ -347,7 +348,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 		}
 
 		playSteps(steps)
-	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, saveCharacter, playSteps])
+	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, accuracyBonus, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, saveCharacter, playSteps])
 
 	const handleFlee = useCallback(() => {
 		if (combatOver || animatingRef.current || !charRecord || !playerResistances) return
