@@ -5,6 +5,7 @@ import Button from "components/Button"
 import Conversation from "components/Conversation"
 import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const WelcomeScreen = () => {
 	const { character } = useCharacter()
@@ -13,6 +14,10 @@ const WelcomeScreen = () => {
 	const [showIntroduction, setShowIntroduction] = React.useState(false)
 
 	const handleStartGame = () => {
+		if (character && character.hitPoints <= 0) {
+			toast.error(`${character.name} is dead. Create or load a living character to start the game.`)
+			return
+		}
 		setShowIntroduction(true)
 	}
 

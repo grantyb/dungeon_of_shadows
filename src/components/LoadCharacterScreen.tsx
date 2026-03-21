@@ -35,7 +35,11 @@ const LoadCharacterScreen: React.FC = () => {
 		const selectedCharacterRecord: CharacterRecord = characterRecordJSON ? JSON.parse(characterRecordJSON) : undefined
 		setCharacterRecord(selectedCharacterRecord)
 		if (selectedCharacterRecord) {
-			toast.success(`Selected ${selectedCharacterRecord.gender} ${selectedCharacterRecord.race} ${selectedCharacterRecord.characterClass}: ${selectedCharacterRecord.name}\nCurrent location: ${selectedCharacterRecord.currentScene}`)
+			const location = selectedCharacterRecord.currentScene
+				? `Current location: ${selectedCharacterRecord.currentScene}`
+				: `${selectedCharacterRecord.name} has not yet entered the dungeon.`
+			const dead = selectedCharacterRecord.hitPoints <= 0 ? `\n${selectedCharacterRecord.name} is dead.` : ""
+			toast.success(`Selected ${selectedCharacterRecord.gender} ${selectedCharacterRecord.race} ${selectedCharacterRecord.characterClass}: ${selectedCharacterRecord.name}\n${location}${dead}`)
 		}
 	}
 
@@ -43,6 +47,10 @@ const LoadCharacterScreen: React.FC = () => {
 		event.preventDefault()
 		if (!characterRecord) {
 			toast.error("Please select a character to load.")
+			return
+		}
+		if (characterRecord.hitPoints <= 0) {
+			toast.error(`${characterRecord.name} is dead and cannot be loaded.`)
 			return
 		}
 		saveCharacter(characterRecord)
