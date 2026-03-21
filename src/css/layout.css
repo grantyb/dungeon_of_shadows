@@ -99,25 +99,14 @@
 .conversation {
 	margin-left: 5%;
 	margin-bottom: 5%;
-	background:
-		linear-gradient(
-			135deg,
-			#d4b896 0%,
-			#c4a67a 20%,
-			#dcc9a3 40%,
-			#c9a96e 60%,
-			#d4b896 80%,
-			#bfa264 100%
-		);
+	background: url("../assets/parchment.png") center / cover no-repeat;
 	color: #2a1a0a;
-	padding: 1rem;
+	padding: 2.5rem;
 	border-radius: 4px;
 	max-height: 80%;
 	overflow-y: scroll;
 	border: none;
-	box-shadow:
-		2px 3px 12px rgba(0, 0, 0, 0.5),
-		inset 0 0 30px rgba(139, 90, 43, 0.15);
+	box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.5);
 	position: relative;
 
 	&.combat-conversation {
