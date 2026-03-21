@@ -29,7 +29,7 @@ export const GreetWizard = () => {
 					vaguely to the dark corridors behind him.
 				</p>
 				<p>
-					“Alas, I am grown too frail to face the dangers therein.
+					“Alas, I am forbidden by greater powers to face the dangers therein.
 					Perhaps thou art stout enough to succeed where I have
 					failed?”
 					<span className="conversation-controls">
