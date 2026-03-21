@@ -36,25 +36,25 @@ const LoadCharacterScreen: React.FC = () => {
 		setCharacterRecord(selectedCharacterRecord)
 		if (selectedCharacterRecord) {
 			const location = selectedCharacterRecord.currentScene
-				? `Current location: ${selectedCharacterRecord.currentScene}`
+				? `Last seen at: ${selectedCharacterRecord.currentScene}`
 				: `${selectedCharacterRecord.name} has not yet entered the dungeon.`
-			const dead = selectedCharacterRecord.hitPoints <= 0 ? `\n${selectedCharacterRecord.name} is dead.` : ""
-			toast.success(`Selected ${selectedCharacterRecord.gender} ${selectedCharacterRecord.race} ${selectedCharacterRecord.characterClass}: ${selectedCharacterRecord.name}\n${location}${dead}`)
+			const dead = selectedCharacterRecord.hitPoints <= 0 ? `\nAlas, ${selectedCharacterRecord.name} has fallen in battle.` : ""
+			toast.success(`${selectedCharacterRecord.name} the ${selectedCharacterRecord.race} ${selectedCharacterRecord.characterClass}\n${location}${dead}`)
 		}
 	}
 
 	const loadCharacter = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 		if (!characterRecord) {
-			toast.error("Please select a character to load.")
+			toast.error("You must choose a hero to summon.")
 			return
 		}
 		if (characterRecord.hitPoints <= 0) {
-			toast.error(`${characterRecord.name} is dead and cannot be loaded.`)
+			toast.error(`${characterRecord.name} has perished and cannot answer your call.`)
 			return
 		}
 		saveCharacter(characterRecord)
-		toast.success(`Loaded character: ${characterRecord.name}`)
+		toast.success(`${characterRecord.name} heeds the call to adventure!`)
 		navigate(characterRecord.currentScene || "/")
 	}
 
