@@ -4,7 +4,7 @@ import { images, type CharacterRecord, type InventoryItemId } from "data/charact
 import { InventoryItem, type ItemDefinition } from "data/inventory-items"
 import type { DamageType, DotEffect } from "data/combat-data"
 import classNames from "classnames"
-import { toast } from "react-toastify"
+import { toast } from "components/utils/toast"
 
 import burningIcon from "assets/character/status-icons/burning.png"
 import bleedingIcon from "assets/character/status-icons/bleeding.png"

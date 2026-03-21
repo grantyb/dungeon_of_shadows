@@ -48,6 +48,11 @@
 	}
 }
 
+/* Override react-toastify's stacked mode hiding all direct children of collapsed toasts */
+.Toastify__toast--stacked[data-collapsed='true']:not(:last-child) > * {
+	opacity: 1;
+}
+
 .Toastify__close-button {
 	color: #5a3a1a;
 	opacity: 0.6;
@@ -58,24 +63,60 @@
 }
 
 .Toastify__toast-icon {
-	width: 36px;
-	height: 36px;
+	width: 72px;
 	flex-shrink: 0;
-
-	/* hide the default SVG icons */
-	svg {
-		display: none;
-	}
+	margin-inline-end: 0.75rem;
 }
 
-.Toastify__toast--success .Toastify__toast-icon {
-	background: url("/src/assets/icons/toast-success.png") center / contain no-repeat;
+.toast-wax-seal {
+	width: 72px;
+	height: 72px;
 }
 
-.Toastify__toast--error .Toastify__toast-icon {
-	background: url("/src/assets/icons/toast-error.png") center / contain no-repeat;
+/*
+ * Repurpose the progress bar as a parchment-coloured overlay that fades in,
+ * visually fading out the toast content. The progress bar element already has
+ * the correct animation duration set inline by react-toastify.
+ */
+.Toastify__progress-bar--wrp {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	overflow: visible;
+	pointer-events: none;
 }
 
-.Toastify__toast--info .Toastify__toast-icon {
-	background: url("/src/assets/icons/toast-info.png") center / contain no-repeat;
+.Toastify__progress-bar {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	transform: none !important;
+	transform-origin: unset;
+	background: linear-gradient(
+		135deg,
+		#d4b896 0%,
+		#c4a67a 20%,
+		#dcc9a3 40%,
+		#c9a96e 60%,
+		#d4b896 80%,
+		#bfa264 100%
+	);
+	opacity: 0;
+}
+
+.Toastify__progress-bar--bg {
+	display: none;
+}
+
+.Toastify__progress-bar--animated {
+	animation: toast-overlay-fade-in linear 1 forwards;
+}
+
+@keyframes toast-overlay-fade-in {
+	0% { opacity: 0; }
+	70% { opacity: 0; }
+	100% { opacity: 1; }
 }

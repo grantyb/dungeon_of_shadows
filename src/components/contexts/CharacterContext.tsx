@@ -8,7 +8,7 @@ import {
 	type InventoryItemId,
 } from "data/character-data"
 import { InventoryItem } from "data/inventory-items"
-import { toast } from "react-toastify"
+import { toast } from "components/utils/toast"
 
 export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [character, setCharacter] = useState<CharacterRecord | undefined>(loadCharacterFromStorage)

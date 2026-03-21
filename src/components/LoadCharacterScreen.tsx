@@ -7,7 +7,7 @@ import {
 } from "data/character-data"
 import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+import { toast } from "components/utils/toast"
 import ButtonGroup from "./ButtonGroup"
 import dungeonEntrance from "assets/dungeon/entrance.png"
 

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+import { toast } from "components/utils/toast"
 import Button from "components/Button"
 import { Foes, type FoeId } from "data/foe-data"
 import { useCharacter, ClassDefense, GenderAccuracyBonus } from "data/character-data"

@@ -56,16 +56,19 @@ function generateClipPath(width: number, height: number): string {
 	].join(", ")})`
 }
 
-const applied = new WeakSet<Element>()
-
 function applyToToasts() {
 	const toasts = document.querySelectorAll<HTMLElement>(".Toastify__toast")
 	for (const toast of toasts) {
-		if (applied.has(toast)) continue
-		applied.add(toast)
+		if (toast.dataset.parchmentClip) {
+			// Re-apply previously generated clip-path (DOM may have been updated by react-toastify)
+			toast.style.clipPath = toast.dataset.parchmentClip
+			continue
+		}
 		const { width, height } = toast.getBoundingClientRect()
 		if (width > 0 && height > 0) {
-			toast.style.clipPath = generateClipPath(width, height)
+			const clip = generateClipPath(width, height)
+			toast.dataset.parchmentClip = clip
+			toast.style.clipPath = clip
 		}
 	}
 }

@@ -147,7 +147,6 @@ function App() {
 			<ToastContainer
 				position="top-center"
 				stacked
-				hideProgressBar
 				closeOnClick
 				pauseOnHover
 				theme="dark"

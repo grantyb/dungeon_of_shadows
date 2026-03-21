@@ -12,7 +12,7 @@ import {
 import { useCharacter } from "data/character-data"
 import { StartingInventory } from "data/inventory-items"
 import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+import { toast } from "components/utils/toast"
 import ButtonGroup from "./ButtonGroup"
 
 const CharacterCreationScreen: React.FC = () => {
