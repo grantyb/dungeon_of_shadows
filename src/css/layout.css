@@ -130,10 +130,6 @@
 
 	p {
 		margin-top: 0;
-
-		&:last-of-type {
-			margin-bottom: 0;
-		}
 	}
 
 	.combat-action-prompt {
@@ -147,6 +143,19 @@
 		padding-right: 1rem;
 		padding-bottom: 1rem;
 		border-radius: 0 0 4px 4px;
+	}
+
+	.conversation-child {
+		display: none;
+
+		&.-revealed {
+			display: block;
+			animation: conversation-fade-in 0.5s ease-in;
+		}
+
+		&.-instant {
+			animation: none;
+		}
 	}
 
 	.conversation-controls {
@@ -170,4 +179,13 @@
 		}
 	}
 
+}
+
+@keyframes conversation-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
