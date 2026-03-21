@@ -99,14 +99,12 @@
 .conversation {
 	margin-left: 5%;
 	margin-bottom: 5%;
-	background: url("../assets/parchment.png") center / cover no-repeat;
+	border: none;
+	border-image: url("../assets/parchment.png") 200 fill / 70px / 0 stretch;
 	color: #2a1a0a;
 	padding: 2.5rem;
-	border-radius: 4px;
 	max-height: 80%;
 	overflow-y: scroll;
-	border: none;
-	box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.5);
 	position: relative;
 
 	&.combat-conversation {

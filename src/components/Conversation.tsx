@@ -39,9 +39,7 @@ const Conversation: React.FC<ConversationProps> = ({
 		return next !== undefined ? next + 1 : childArray.length
 	}
 
-	const autoAdvanceTarget = alreadyVisited
-		? (stopIndices[0] ?? childArray.length)
-		: 1
+	const autoAdvanceTarget = 1 // alreadyVisited ? skipTarget(1) : 1
 	const effectiveCount = Math.max(revealedCount, autoAdvanceTarget)
 
 	const handleContinue = () => {

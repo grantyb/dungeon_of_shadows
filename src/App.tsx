@@ -1,7 +1,7 @@
 import Combat from "components/Combat"
 import { AnimatedRoutes } from "components/Routing/AnimatedRoute"
 import WelcomeScreen from "components/WelcomeScreen"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { Route } from "react-router-dom"
 
 import introductionMusic from "assets/dungeon/introduction.m4a"
@@ -42,11 +42,16 @@ import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
 import InventoryPanel, { CharacterHud, FoeHud } from "components/InventoryPanel"
 import { useCharacter } from "data/character-data"
-import { observeToasts } from "components/utils/parchment-clip"
-import { ToastContainer, Zoom } from "react-toastify"
+import { ToastContainer, Zoom, cssTransition } from "react-toastify"
+
+const SlowFadeOut = cssTransition({
+	enter: "Toastify__zoom-enter",
+	exit: "Toastify__zoom-exit",
+	collapseDuration: 300,
+	appendPosition: true,
+})
 function App() {
 	const { character, preview, inventoryOpen, setInventoryOpen, combatState } = useCharacter()
-	useEffect(observeToasts, [])
 	const [audioEnabled, setAudioEnabled] = useState(false)
 	const ctxRef = useRef<AudioContext | null>(null)
 	const sourceRef = useRef<AudioBufferSourceNode | null>(null)
@@ -148,6 +153,8 @@ function App() {
 				position="top-center"
 				stacked
 				closeOnClick
+				autoClose={3000}
+				
 				pauseOnHover
 				theme="dark"
 				transition={Zoom}

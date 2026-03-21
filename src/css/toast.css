@@ -1,51 +1,33 @@
 :root {
-	--toastify-toast-width: 50%;
+	--toastify-toast-width: 30%;
+	--toastify-color-light: transparent;
+	--toastify-color-dark: transparent;
+}
+
+.Toastify__toast-container--top-center {
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	transform: none;
+}
+
+.Toastify__toast--stacked {
+	transform: none !important;
+	top: var(--y);
 }
 
 .Toastify__toast {
 	font-family: "MedievalSharp", cursive, fantasy, serif;
-	background:
-		linear-gradient(
-			135deg,
-			#d4b896 0%,
-			#c4a67a 20%,
-			#dcc9a3 40%,
-			#c9a96e 60%,
-			#d4b896 80%,
-			#bfa264 100%
-		);
-	color: #2a1a0a;
+	background: transparent !important;
 	border: none;
-	border-radius: 4px;
-	box-shadow:
-		2px 3px 12px rgba(0, 0, 0, 0.5),
-		inset 0 0 30px rgba(139, 90, 43, 0.15);
+	border-image: url("../assets/parchment.png") 200 fill / 70px / 0 stretch;
+	color: #2a1a0a;
 	padding: 1rem 1.2rem;
 	font-size: 1rem;
 	line-height: 1.5;
 	white-space: pre-line;
 	position: relative;
-
-	/* torn edges applied dynamically by parchment-clip.ts */
-
-	/* subtle ink-stain texture via a pseudo-element */
-	&::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: radial-gradient(
-			ellipse at 30% 60%,
-			rgba(101, 67, 33, 0.08) 0%,
-			transparent 70%
-		),
-		radial-gradient(
-			ellipse at 75% 30%,
-			rgba(101, 67, 33, 0.06) 0%,
-			transparent 60%
-		);
-		pointer-events: none;
-		border-radius: inherit;
-	}
+	opacity: 0.95;
 }
 
 /* Override react-toastify's stacked mode hiding all direct children of collapsed toasts */
@@ -56,6 +38,7 @@
 .Toastify__close-button {
 	color: #5a3a1a;
 	opacity: 0.6;
+	padding: 0.5rem;
 
 	&:hover {
 		opacity: 1;
@@ -95,15 +78,7 @@
 	height: 100%;
 	transform: none !important;
 	transform-origin: unset;
-	background: linear-gradient(
-		135deg,
-		#d4b896 0%,
-		#c4a67a 20%,
-		#dcc9a3 40%,
-		#c9a96e 60%,
-		#d4b896 80%,
-		#bfa264 100%
-	);
+	background: none;
 	opacity: 0;
 }
 
@@ -118,5 +93,23 @@
 @keyframes toast-overlay-fade-in {
 	0% { opacity: 0; }
 	70% { opacity: 0; }
-	100% { opacity: 1; }
+	100% { opacity: 0.95; }
+}
+
+.Toastify__zoom-enter {
+	animation: toastify-zoom-in 0.3s ease both;
+}
+
+.Toastify__zoom-exit {
+	animation: toastify-zoom-out 0.7s ease-in both;
+}
+
+@keyframes toastify-zoom-in {
+	from { opacity: 0; transform: scale(0.6); }
+	to { opacity: 0.95; transform: scale(1); }
+}
+
+@keyframes toastify-zoom-out {
+	0% { opacity: 0.95; transform: scale(1); }
+	100% { opacity: 0; transform: scale(0.6); }
 }
