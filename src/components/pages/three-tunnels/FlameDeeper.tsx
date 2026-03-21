@@ -16,19 +16,19 @@ export const FlameDeeper = () => {
 				</p>
 				<p>
 					Which door do you pick?
+					<span className="conversation-controls">
+						<button 
+							onClick={() => navigate("/tunnels/left-door/")}>Left Door
+						</button>
+						<button
+							onClick={() => navigate("/tunnels/right-one/")}>Right Door 1
+						</button>
+						<button
+							onClick={() => navigate("/tunnels/right-two/")}>Right Door 2
+						</button>
+					</span>
 				</p>
 
-				<span className="conversation-controls">
-					<button 
-						onClick={() => navigate("/tunnels/left-door/")}>Left Door
-					</button>
-					<button
-						onClick={() => navigate("/tunnels/right-one/")}>Right Door 1
-					</button>
-					<button
-						onClick={() => navigate("/tunnels/right-two/")}>Right Door 2
-					</button>
-				</span>
 			</Conversation>
 		</StandardPage>
 	)
