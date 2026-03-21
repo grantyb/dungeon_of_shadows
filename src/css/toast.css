@@ -17,7 +17,7 @@
 }
 
 .Toastify__toast {
-	font-family: "MedievalSharp", cursive, fantasy, serif;
+	font-family: "PunctuationFix", "MedievalSharp", cursive, fantasy, serif;
 	background: transparent !important;
 	border: none;
 	border-image: url("../assets/parchment.png") 200 fill / 70px / 0 stretch;

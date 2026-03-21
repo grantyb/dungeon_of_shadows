@@ -5,8 +5,20 @@
 @import "./inventory.css";
 @import "./toast.css";
 
+/*
+ * MedievalSharp's exclamation mark is nearly identical to lowercase L.
+ * This @font-face uses Georgia just for "!" (U+0021) via unicode-range,
+ * and is placed first in the font stack so the browser picks it up
+ * before falling through to MedievalSharp for everything else.
+ */
+@font-face {
+	font-family: "PunctuationFix";
+	src: local("Georgia");
+	unicode-range: U+0021;
+}
+
 :root {
-	font-family: "MedievalSharp", cursive, fantasy, serif;
+	font-family: "PunctuationFix", "MedievalSharp", cursive, fantasy, serif;
 	line-height: 1.5;
 	font-weight: 400;
 
