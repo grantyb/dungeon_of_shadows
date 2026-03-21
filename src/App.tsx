@@ -12,6 +12,7 @@ import Button from "components/Button"
 import CharacterCreationScreen from "components/CharacterCreationScreen"
 import MuteIcon from "components/icons/MuteIcon"
 import UnmuteIcon from "components/icons/UnmuteIcon"
+import InventoryPanel, { CharacterHud, FoeHud } from "components/InventoryPanel"
 import LoadCharacterScreen from "components/LoadCharacterScreen"
 import { PlasmaBeastDeath } from "components/pages/combat/PlasmaBeastDeath"
 import { PlasmaBeastFlee } from "components/pages/combat/PlasmaBeastFlee"
@@ -40,16 +41,9 @@ import { Wave } from "components/pages/three-tunnels/Wave"
 import { WaveDeeper } from "components/pages/three-tunnels/WaveDeeper"
 import { WaveDeeperII } from "components/pages/three-tunnels/WavedeeperII"
 import { West } from "components/pages/three-tunnels/West"
-import InventoryPanel, { CharacterHud, FoeHud } from "components/InventoryPanel"
 import { useCharacter } from "data/character-data"
-import { ToastContainer, Zoom, cssTransition } from "react-toastify"
+import { ToastContainer, Zoom } from "react-toastify"
 
-const SlowFadeOut = cssTransition({
-	enter: "Toastify__zoom-enter",
-	exit: "Toastify__zoom-exit",
-	collapseDuration: 300,
-	appendPosition: true,
-})
 function App() {
 	const { character, preview, inventoryOpen, setInventoryOpen, combatState } = useCharacter()
 	const [audioEnabled, setAudioEnabled] = useState(false)
