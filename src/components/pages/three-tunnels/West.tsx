@@ -1,5 +1,5 @@
 import img from "assets/dungeon/tunnels/west-2.png"
-import deadEndImg from "assets/dungeon/tunnels/dead-end.png"
+import mushroomDescentImg from "assets/dungeon/tunnels/mushroom-descent.png"
 import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
@@ -18,14 +18,17 @@ export const West = () => {
 					but you manage to keep your balance.
 				</p>
 				<p>
-					<BackgroundChange src={deadEndImg}/>
-					After walking for a while you come across a dead end.
+					<BackgroundChange src={mushroomDescentImg}/>
+					After walking for a while you reach what first looks like a
+					dead end, but a cool blue glow seeps from a crack in the floor.
 				</p>
 				<p>
-					You turn back around and head East
+					Small mushrooms cluster around the opening. Beyond them, a
+					narrow stone shelf twists down into a hidden cavern.
 				
 					<span className="conversation-controls">
-						<Button label="ok" onClick={() => navigate("/tunnels/east/")} />
+						<Button label="Descend" onClick={() => navigate("/tunnels/mushroom-trail/")} />
+						<Button label="Return East" onClick={() => navigate("/tunnels/east/")} />
 					</span>
 				</p>
 			</Conversation>

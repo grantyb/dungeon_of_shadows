@@ -31,6 +31,10 @@ import { East } from "components/pages/three-tunnels/East"
 import { Flame } from "components/pages/three-tunnels/Flame"
 import { FlameDeeper } from "components/pages/three-tunnels/FlameDeeper"
 import { LeftDoor } from "components/pages/three-tunnels/LeftDoor"
+import { MushroomGrove } from "components/pages/three-tunnels/MushroomGrove"
+import { MushroomPuzzleFail } from "components/pages/three-tunnels/MushroomPuzzleFail"
+import { MushroomReward } from "components/pages/three-tunnels/MushroomReward"
+import { MushroomTrail } from "components/pages/three-tunnels/MushroomTrail"
 import { Orb } from "components/pages/three-tunnels/Orb"
 import { RightOne } from "components/pages/three-tunnels/RightOne"
 import { RightTwo } from "components/pages/three-tunnels/RightTwo"
@@ -122,6 +126,10 @@ function App() {
 			<Route path="/tunnels/skull/" element={<SkullArchway/>} />
 			<Route path="/tunnels/skullDeeper/" element={<SkullDeeper/>} />
 			<Route path="/tunnels/west/" element={<West/>} />
+			<Route path="/tunnels/mushroom-trail/" element={<MushroomTrail/>} />
+			<Route path="/tunnels/mushroom-grove/" element={<MushroomGrove/>} />
+			<Route path="/tunnels/mushroom-puzzle-fail/" element={<MushroomPuzzleFail/>} />
+			<Route path="/tunnels/mushroom-reward/" element={<MushroomReward/>} />
 			<Route path="/tunnels/flame-deeper/" element={<FlameDeeper/>} />
 			<Route path="/tunnels/right-one/" element={<RightOne/>} />
 			<Route path="/tunnels/right-two/" element={<RightTwo/>} />

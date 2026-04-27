@@ -7,6 +7,7 @@ import healingPotionImg from "assets/items/healing-potion.png"
 import cauterizingPotionImg from "assets/items/cauterizing-potion.png"
 import dowsingPotionImg from "assets/items/dowsing-potion.png"
 import antidotePotionImg from "assets/items/antidote-potion.png"
+import mooncapLanternImg from "assets/items/mooncap-lantern.png"
 
 export type ItemDefinition = {
 	unidentified: InventoryItemType
@@ -99,6 +100,22 @@ export const InventoryItem: Record<string, ItemDefinition> = {
 		identified: {
 			name: "Antidote Potion",
 			description: <p>A sharp, green tonic that neutralises all poison effects.</p>,
+		},
+	},
+	"MooncapLantern": {
+		image: mooncapLanternImg,
+		expendable: false,
+		combatOnly: false,
+		unidentified: {
+			name: "Mooncap Lantern",
+			description: <p>A silver-blue lantern grown from a glowing mushroom cap.</p>,
+		},
+		identified: {
+			name: "Mooncap Lantern",
+			description: <>
+				<p>A gift from the elder myconids.</p>
+				<p>It glows near hidden ways and kindred roots.</p>
+			</>,
 		},
 	},
 }
