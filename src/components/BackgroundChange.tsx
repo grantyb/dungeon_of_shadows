@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useBackground } from "./StandardPage"
+import { useBackground } from "./BackgroundContext"
 import { useReveal } from "./RevealContext"
 
 interface BackgroundChangeProps {

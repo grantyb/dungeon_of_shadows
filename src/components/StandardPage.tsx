@@ -1,16 +1,5 @@
-import React, { createContext, useCallback, useContext, useRef, useState } from "react"
-
-type BackgroundContextType = {
-	setBackgroundImage: (bg: string) => void
-}
-
-const BackgroundContext = createContext<BackgroundContextType | null>(null)
-
-export function useBackground() {
-	const ctx = useContext(BackgroundContext)
-	if (!ctx) throw new Error("useBackground must be used within a StandardPage")
-	return ctx
-}
+import { BackgroundContext } from "components/BackgroundContext"
+import React, { useCallback, useRef, useState } from "react"
 
 interface StandardPageProps extends React.PropsWithChildren {
 	backgroundImage: string
