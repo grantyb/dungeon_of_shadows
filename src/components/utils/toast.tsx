@@ -1,4 +1,3 @@
-import React from "react"
 import { toast as toastify } from "react-toastify"
 
 import toastSuccessIcon from "assets/icons/toast-success.png"

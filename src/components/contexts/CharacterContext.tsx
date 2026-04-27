@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import {
 	CharacterContext,
 	loadCharacterFromStorage,
@@ -13,15 +13,16 @@ import { toast } from "components/utils/toast"
 export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [character, setCharacter] = useState<CharacterRecord | undefined>(loadCharacterFromStorage)
 	const characterRef = useRef(character)
-	characterRef.current = character
 	const [preview, setPreview] = useState<CharacterRecord | null>(null)
 	const [inventoryOpen, setInventoryOpen] = useState(false)
-	const combatStateRef = useRef<CombatState | null>(null)
 	const [combatState, setCombatStateRaw] = useState<CombatState | null>(null)
 	const setCombatState = useCallback((state: CombatState | null) => {
-		combatStateRef.current = state
 		setCombatStateRaw(state)
 	}, [])
+
+	useEffect(() => {
+		characterRef.current = character
+	}, [character])
 
 	const applyUpdate = useCallback((updater: (prev: CharacterRecord) => CharacterRecord): CharacterRecord | undefined => {
 		const prev = characterRef.current

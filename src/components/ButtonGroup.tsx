@@ -1,7 +1,6 @@
 import React from "react"
 
-interface Props extends React.PropsWithChildren {
-}
+type Props = React.PropsWithChildren
 
 const ButtonGroup: React.FC<Props> = ({children}) => {
 	return (
