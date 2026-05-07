@@ -4,6 +4,7 @@ import WelcomeScreen from "components/WelcomeScreen"
 import React, { useRef, useState } from "react"
 import { Route } from "react-router-dom"
 
+import combatMusic from "assets/dungeon/combat.m4a"
 import introductionMusic from "assets/dungeon/introduction.m4a"
 import backpackClosed from "assets/items/backpack-closed.png"
 import backpackOpen from "assets/items/backpack-open.png"
@@ -48,60 +49,97 @@ import { useCharacter } from "data/character-data"
 import { ToastContainer, Zoom } from "react-toastify"
 import { WaveExit } from "components/pages/three-tunnels/WaveExit"
 
+const musicTracks = {
+	introduction: introductionMusic,
+	combat: combatMusic,
+} as const
+
+type MusicTrack = keyof typeof musicTracks
+
 function App() {
 	const { character, preview, inventoryOpen, setInventoryOpen, combatState } = useCharacter()
 	const [audioEnabled, setAudioEnabled] = useState(false)
+	const activeMusicTrack: MusicTrack = combatState?.inCombat ? "combat" : "introduction"
+	const [musicBuffers, setMusicBuffers] = useState<Partial<Record<MusicTrack, AudioBuffer>>>({})
+	const activeBuffer = musicBuffers[activeMusicTrack] ?? null
 	const ctxRef = useRef<AudioContext | null>(null)
 	const sourceRef = useRef<AudioBufferSourceNode | null>(null)
 	const gainNodeRef = useRef<GainNode | null>(null)
-	const bufferRef = useRef<AudioBuffer | null>(null)
 
-	// Load audio buffer once
+	const getAudioContext = () => {
+		if (!ctxRef.current || ctxRef.current.state === "closed") {
+			ctxRef.current = new window.AudioContext()
+			gainNodeRef.current = null
+		}
+		return ctxRef.current
+	}
+
+	const handleAudioToggle = () => {
+		if (!audioEnabled) void getAudioContext().resume()
+		setAudioEnabled((enabled) => !enabled)
+	}
+
+	// Load music buffers once
 	React.useEffect(() => {
-		fetch(introductionMusic)
-			.then((r) => r.arrayBuffer())
-			.then((b) => {
-				if (!ctxRef.current) ctxRef.current = new window.AudioContext()
-				return ctxRef.current.decodeAudioData(b)
-			})
-			.then((buffer) => {
-				bufferRef.current = buffer
-			})
+		let cancelled = false
+
+		const loadTrack = async (track: MusicTrack, musicSource: string) => {
+			try {
+				const response = await fetch(musicSource)
+				const data = await response.arrayBuffer()
+				if (cancelled) return
+				const buffer = await getAudioContext().decodeAudioData(data)
+				if (!cancelled) {
+					setMusicBuffers((buffers) => ({ ...buffers, [track]: buffer }))
+				}
+			} catch (error) {
+				if (!cancelled) console.error(`Failed to load ${track} music`, error)
+			}
+		}
+
+		;(Object.entries(musicTracks) as [MusicTrack, string][]).forEach(([track, musicSource]) => {
+			void loadTrack(track, musicSource)
+		})
+
 		return () => {
+			cancelled = true
 			try {
 				sourceRef.current?.stop()
 			} catch {
 				// Ignore errors on stop
 			}
 			if (ctxRef.current?.state !== "closed") ctxRef.current?.close()
+			ctxRef.current = null
+			sourceRef.current = null
+			gainNodeRef.current = null
 		}
 	}, [])
 
 	// Play or pause audio on toggle
 	React.useEffect(() => {
-		if (!audioEnabled) {
-			try {
-				sourceRef.current?.stop()
-			} catch {
-				// Ignore errors on stop
-			}
-			sourceRef.current = null
-			return
-		}
-		if (!bufferRef.current) return
-		if (!ctxRef.current) ctxRef.current = new window.AudioContext()
+		if (!audioEnabled || !activeBuffer) return
+		const ctx = getAudioContext()
 		if (!gainNodeRef.current) {
-			gainNodeRef.current = ctxRef.current.createGain()
+			gainNodeRef.current = ctx.createGain()
 			gainNodeRef.current.gain.value = 0.1
-			gainNodeRef.current.connect(ctxRef.current.destination)
+			gainNodeRef.current.connect(ctx.destination)
 		}
-		const source = ctxRef.current.createBufferSource()
-		source.buffer = bufferRef.current
+		if (ctx.state === "suspended") void ctx.resume()
+		const source = ctx.createBufferSource()
+		source.buffer = activeBuffer
 		source.loop = true
 		source.connect(gainNodeRef.current)
 		source.start()
 		sourceRef.current = source
-	}, [audioEnabled])
+		return () => {
+			try {
+				source.stop()
+			} catch {
+				// Ignore errors on stop
+			}
+			if (sourceRef.current === source) sourceRef.current = null
+		}
+	}, [audioEnabled, activeBuffer])
 
 	const routes = character ? (
 		<>
@@ -173,7 +211,7 @@ function App() {
 						label=""
 						className="music-toggle"
 						aria-label={audioEnabled ? "Pause music" : "Play music"}
-						onClick={() => setAudioEnabled((v) => !v)}
+						onClick={handleAudioToggle}
 					>
 						{audioEnabled ? (
 							<UnmuteIcon width={48} height={48} />
