@@ -469,7 +469,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 										/>
 									)
 								})}
-								<Button onClick={handleFlee} label="Flee" />
+								{foe.canFlee !== false && <Button onClick={handleFlee} label="Flee" />}
 							</span>
 						</p>
 					</>

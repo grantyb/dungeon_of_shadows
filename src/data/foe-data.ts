@@ -1,5 +1,6 @@
 import wizard from "assets/foes/wizard.png"
 import plasmaBeast from "assets/dungeon/tunnels/plasma-beast.png"
+import portAttack from "assets/dungeon/tunnels/port-attack.png"
 
 import wizardVictoryImg from "assets/combat/wizard-victory.png"
 import wizardDeathImg from "assets/combat/wizard-death.png"
@@ -7,6 +8,7 @@ import wizardFleeImg from "assets/combat/wizard-flee.png"
 import plasmaBeastVictoryImg from "assets/combat/plasma-beast-victory.png"
 import plasmaBeastDeathImg from "assets/combat/plasma-beast-death.png"
 import plasmaBeastFleeImg from "assets/combat/plasma-beast-flee.png"
+import portDefeatedImg from "assets/dungeon/tunnels/port-defeated.png"
 
 import { defaultResistances, type FoeAttack, type Resistances } from "./combat-data"
 
@@ -30,6 +32,7 @@ export type Foe = {
 	portrait: FoePortrait
 	resistances: Resistances
 	attacks: FoeAttack[]
+	canFlee?: boolean
 	victory: FoeOutcome
 	death: FoeOutcome
 	flee: FoeOutcome
@@ -109,6 +112,51 @@ export const Foes: Record<string, Foe> = {
 		victory: { route: "/combat/plasma-beast-victory", image: plasmaBeastVictoryImg },
 		death: { route: "/combat/plasma-beast-death", image: plasmaBeastDeathImg },
 		flee: { route: "/combat/plasma-beast-flee", image: plasmaBeastFleeImg },
+	},
+	"port": {
+		name: "The Port",
+		description: "A door-shaped horror with six crushing tentacles and a poisoned maw behind the threshold.",
+		backgroundImage: portAttack,
+		portrait: { image: portAttack, scale: 100, position: "-24px 4px" },
+		hitpoints: 180,
+		defense: 18,
+		resistances: {
+			...defaultResistances,
+			poison: 0,
+			fire: 130,
+			water: 70,
+			cold: 85,
+		},
+		attacks: [
+			{
+				name: "Venom-Slick Suckers",
+				accuracy: 70,
+				strength: 42,
+				damageMix: { poison: 0.7, bleeding: 0.3 },
+				cooldown: 0,
+				dotFalloff: { poison: 0.4, bleeding: 0.6 },
+			},
+			{
+				name: "Crushing Seal",
+				accuracy: 65,
+				strength: 58,
+				damageMix: { crushing: 0.8, bleeding: 0.2 },
+				cooldown: 1,
+				dotFalloff: { bleeding: 0.6 },
+			},
+			{
+				name: "Splintering Maw",
+				accuracy: 55,
+				strength: 70,
+				damageMix: { bleeding: 0.5, crushing: 0.3, poison: 0.2 },
+				cooldown: 3,
+				dotFalloff: { bleeding: 0.5, poison: 0.5 },
+			},
+		],
+		canFlee: false,
+		victory: { route: "/combat/port-victory", image: portDefeatedImg },
+		death: { route: "/combat/port-death", image: portAttack },
+		flee: { route: "/tunnels/port-fight/", image: portAttack },
 	},
 }
 

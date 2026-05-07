@@ -18,6 +18,8 @@ import LoadCharacterScreen from "components/LoadCharacterScreen"
 import { PlasmaBeastDeath } from "components/pages/combat/PlasmaBeastDeath"
 import { PlasmaBeastFlee } from "components/pages/combat/PlasmaBeastFlee"
 import { PlasmaBeastVictory } from "components/pages/combat/PlasmaBeastVictory"
+import { PortDeath } from "components/pages/combat/PortDeath"
+import { PortVictory } from "components/pages/combat/PortVictory"
 import { WizardDeath } from "components/pages/combat/WizardDeath"
 import { WizardFlee } from "components/pages/combat/WizardFlee"
 import { WizardVictory } from "components/pages/combat/WizardVictory"
@@ -37,6 +39,8 @@ import { MushroomPuzzleFail } from "components/pages/three-tunnels/MushroomPuzzl
 import { MushroomReward } from "components/pages/three-tunnels/MushroomReward"
 import { MushroomTrail } from "components/pages/three-tunnels/MushroomTrail"
 import { Orb } from "components/pages/three-tunnels/Orb"
+import { PortChamber } from "components/pages/three-tunnels/PortChamber"
+import { PortRiddle } from "components/pages/three-tunnels/PortRiddle"
 import { RightOne } from "components/pages/three-tunnels/RightOne"
 import { RightTwo } from "components/pages/three-tunnels/RightTwo"
 import { SkullArchway } from "components/pages/three-tunnels/SkullArchway"
@@ -171,11 +175,16 @@ function App() {
 			<Route path="/tunnels/flame-deeper/" element={<FlameDeeper/>} />
 			<Route path="/tunnels/right-one/" element={<RightOne/>} />
 			<Route path="/tunnels/right-two/" element={<RightTwo/>} />
+			<Route path="/tunnels/port-riddle/" element={<PortRiddle/>} />
+			<Route path="/tunnels/port-fight/" element={<Combat foe="port" />} />
+			<Route path="/tunnels/port-chamber/" element={<PortChamber/>} />
 			<Route path="/tunnels/left-door/" element={<LeftDoor/>} />
 			<Route path="/tunnels/plasma/" element={<Combat foe="plasma-beast" />} />
 			<Route path="/combat/plasma-beast-victory" element={<PlasmaBeastVictory/>} />
 			<Route path="/combat/plasma-beast-death" element={<PlasmaBeastDeath/>} />
 			<Route path="/combat/plasma-beast-flee" element={<PlasmaBeastFlee/>} />
+			<Route path="/combat/port-victory" element={<PortVictory/>} />
+			<Route path="/combat/port-death" element={<PortDeath/>} />
 			<Route path="/combat/wizard-victory" element={<WizardVictory/>} />
 			<Route path="/combat/wizard-death" element={<WizardDeath/>} />
 			<Route path="/combat/wizard-flee" element={<WizardFlee/>} />
