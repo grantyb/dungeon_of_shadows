@@ -129,7 +129,7 @@ export const Foes: Record<string, Foe> = {
 		},
 		attacks: [
 			{
-				name: "Venom-Slick Suckers",
+				name: "Venomous Bite",
 				accuracy: 70,
 				strength: 42,
 				damageMix: { poison: 0.7, bleeding: 0.3 },
@@ -137,7 +137,7 @@ export const Foes: Record<string, Foe> = {
 				dotFalloff: { poison: 0.4, bleeding: 0.6 },
 			},
 			{
-				name: "Crushing Seal",
+				name: "Crushing Tentacles",
 				accuracy: 65,
 				strength: 58,
 				damageMix: { crushing: 0.8, bleeding: 0.2 },
