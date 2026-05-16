@@ -18,7 +18,7 @@ import humanMaleWarriorImage from "assets/character/human-male-warrior.png"
 import humanMaleWizardImage from "assets/character/human-male-wizard.png"
 import React, { createContext, useContext, type JSX } from "react"
 import type { DotEffect } from "./combat-data"
-import type { FoePortrait } from "./foe-data"
+import type { FoeId, FoePortrait } from "./foe-data"
 import { InventoryItem } from "./inventory-items"
 
 export type InventoryItemType = {
@@ -56,6 +56,11 @@ export const ClassHpMultiplier: Record<CharacterClass, number> = {
 	wizard: 0.8,
 }
 
+export type FoeEncounter = {
+	defeated: boolean
+	remainingHitPoints: number
+}
+
 export type CharacterRecord = {
 	name: string
 	race: CharacterRace
@@ -65,6 +70,7 @@ export type CharacterRecord = {
 	currentScene?: string
 	visitedScenes: string[]
 	hitPoints: number
+	foesEncountered?: Partial<Record<FoeId, FoeEncounter>>
 }
 
 export const GenderHpBonus: Record<CharacterGender, number> = {
@@ -160,6 +166,9 @@ export type CharacterContextType = {
 	inventoryContains: (itemId: InventoryItemId) => boolean
 	visit: (sceneId: string) => boolean
 	identifyItem: (itemId: InventoryItemId) => boolean
+	updateHitPoints: (hp: number) => void
+	defeatFoe: (foeId: FoeId) => void
+	recordInjuredFoe: (foeId: FoeId, remainingHitPoints: number) => void
 	inventoryOpen: boolean
 	setInventoryOpen: React.Dispatch<React.SetStateAction<boolean>>
 	combatState: CombatState | null

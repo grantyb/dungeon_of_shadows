@@ -7,6 +7,7 @@ import {
 	type CombatState,
 	type InventoryItemId,
 } from "data/character-data"
+import type { FoeId } from "data/foe-data"
 import { InventoryItem } from "data/inventory-items"
 import { toast } from "components/utils/toast"
 
@@ -107,6 +108,24 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 		return true
 	}, [applyUpdate])
 
+	const updateHitPoints = useCallback((hp: number): void => {
+		applyUpdate((prev) => ({ ...prev, hitPoints: hp }))
+	}, [applyUpdate])
+
+	const defeatFoe = useCallback((foeId: FoeId): void => {
+		applyUpdate((prev) => ({
+			...prev,
+			foesEncountered: { ...prev.foesEncountered, [foeId]: { defeated: true, remainingHitPoints: 0 } },
+		}))
+	}, [applyUpdate])
+
+	const recordInjuredFoe = useCallback((foeId: FoeId, remainingHitPoints: number): void => {
+		applyUpdate((prev) => ({
+			...prev,
+			foesEncountered: { ...prev.foesEncountered, [foeId]: { defeated: false, remainingHitPoints } },
+		}))
+	}, [applyUpdate])
+
 	const identifyItem = useCallback((itemId: InventoryItemId): boolean => {
 		const prev = characterRef.current
 		if (!prev) return false
@@ -131,6 +150,9 @@ export const CharacterProvider: React.FC<React.PropsWithChildren> = ({ children 
 			inventoryContains,
 			visit,
 			identifyItem,
+			updateHitPoints,
+			defeatFoe,
+			recordInjuredFoe,
 			inventoryOpen,
 			setInventoryOpen,
 			combatState,

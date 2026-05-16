@@ -33,6 +33,14 @@ function rollHitCheck(accuracy: number): boolean {
 	return rollHit(accuracy)
 }
 
+function priorInjuryMessage(foeName: string, currentHp: number, maxHp: number): string | null {
+	const damageFraction = (maxHp - currentHp) / maxHp
+	if (damageFraction <= 0) return null
+	if (damageFraction < 0.25) return `${foeName} still bears the marks of your last encounter, with minor wounds visible.`
+	if (damageFraction < 0.5) return `${foeName} is badly injured from your previous battle, their movements betraying clear pain.`
+	return `${foeName} is grievously wounded from your last encounter, barely holding together.`
+}
+
 function rollDamage(strength: number): number {
 	return Math.floor(Math.random() * strength) + 1
 }
@@ -40,7 +48,7 @@ function rollDamage(strength: number): number {
 const Combat: React.FC<CombatProps> = (props) => {
 	const foe = Foes[props.foe]
 	const navigate = useNavigate()
-	const { character: charRecord, saveCharacter, setCombatState } = useCharacter()
+	const { character: charRecord, setCombatState, updateHitPoints, defeatFoe, recordInjuredFoe } = useCharacter()
 	const classAttacks = charRecord ? ClassAttacks[charRecord.characterClass] : null
 	const classDefense = charRecord ? ClassDefense[charRecord.characterClass] : 0
 	const playerResistances = charRecord ? RaceResistances[charRecord.race] : null
@@ -48,11 +56,17 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 	const playerHp = charRecord?.hitPoints ?? 0
 
-	const [foeHp, setFoeHp] = useState(foe.hitpoints)
-	const [log, setLog] = useState<CombatLogEntry[]>([
-		{ text: `You face ${foe.name}!`, type: "info" },
-		{ text: foe.description, type: "info" },
-	])
+	const initialFoeHp = charRecord?.foesEncountered?.[props.foe]?.remainingHitPoints ?? foe.hitpoints
+	const [foeHp, setFoeHp] = useState(initialFoeHp)
+	const [log, setLog] = useState<CombatLogEntry[]>(() => {
+		const entries: CombatLogEntry[] = [
+			{ text: `You face ${foe.name}!`, type: "info" },
+			{ text: foe.description, type: "info" },
+		]
+		const injuryMsg = priorInjuryMessage(foe.name, initialFoeHp, foe.hitpoints)
+		if (injuryMsg) entries.push({ text: injuryMsg, type: "info" })
+		return entries
+	})
 	const [combatOver, setCombatOver] = useState(false)
 	const [round, setRound] = useState(0)
 
@@ -85,6 +99,12 @@ const Combat: React.FC<CombatProps> = (props) => {
 		})
 		return () => { setCombatState(null) }
 	}, [combatOver, playerDots, foeHp, foeDots, foe, setCombatState])
+
+	useEffect(() => {
+		if (charRecord?.foesEncountered?.[props.foe]?.defeated) {
+			navigate(foe.victory.route)
+		}
+	}, [charRecord?.foesEncountered, props.foe, foe.victory.route, navigate])
 
 	useEffect(() => {
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -156,6 +176,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 			apply: () => {
 				setRound(nextRound)
 				setPlayerCooldowns(newPlayerCooldowns)
+				recordInjuredFoe(props.foe, foeHp)
 			},
 		})
 
@@ -183,6 +204,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 				},
 				apply: () => {
 					setFoeHp(capturedFoeHp)
+					recordInjuredFoe(props.foe, capturedFoeHp)
 					if (immuneTypes.length > 0) {
 						toast.info(`${foe.name} is immune to ${joinList(immuneTypes)} damage!`)
 					}
@@ -230,6 +252,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 					apply: () => {
 						setFoeHp(capturedFoeHp)
 						setFoeDots(finalFoeDots)
+						recordInjuredFoe(props.foe, capturedFoeHp)
 					},
 				})
 			} else {
@@ -288,7 +311,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 					},
 					apply: () => {
 						setFoeCooldowns(newFoeCooldowns)
-						saveCharacter({ ...charRecord, hitPoints: capturedPlayerHp })
+						updateHitPoints(capturedPlayerHp)
 					},
 				})
 
@@ -323,7 +346,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 						type: "foe",
 					},
 					apply: () => {
-						saveCharacter({ ...charRecord, hitPoints: capturedPlayerHp })
+						updateHitPoints(capturedPlayerHp)
 						setPlayerDots(finalPlayerDots)
 					},
 				})
@@ -344,18 +367,18 @@ const Combat: React.FC<CombatProps> = (props) => {
 				log: { text: "You have fallen in combat...", type: "info" },
 				apply: () => {
 					setCombatOver(true)
-					saveCharacter({ ...charRecord, hitPoints: 0 })
+					updateHitPoints(0)
 				},
 			})
 		} else {
 			const finalHp = runningPlayerHp
 			steps.push({
-				apply: () => saveCharacter({ ...charRecord, hitPoints: finalHp }),
+				apply: () => updateHitPoints(finalHp),
 			})
 		}
 
 		playSteps(steps)
-	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, accuracyBonus, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, saveCharacter, playSteps])
+	}, [combatOver, charRecord, playerResistances, classAttacks, classDefense, accuracyBonus, round, playerCooldowns, foeCooldowns, foeHp, playerHp, playerDots, foeDots, foe, pickFoeAttack, updateHitPoints, playSteps, recordInjuredFoe, props.foe])
 
 	const handleFlee = useCallback(() => {
 		if (combatOver || animatingRef.current || !charRecord || !playerResistances) return
@@ -365,7 +388,10 @@ const Combat: React.FC<CombatProps> = (props) => {
 
 		steps.push({
 			log: { text: `Round ${nextRound}`, type: "round" },
-			apply: () => setRound(nextRound),
+			apply: () => {
+				setRound(nextRound)
+				recordInjuredFoe(props.foe, foeHp)
+			},
 		})
 
 		steps.push({ log: { text: "You attempt to flee!", type: "player" } })
@@ -388,7 +414,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 						text: `${foe.name} strikes you as you flee: ${result.total} damage [${result.breakdown}]`,
 						type: "foe",
 					},
-					apply: () => saveCharacter({ ...charRecord, hitPoints: capturedHp }),
+					apply: () => updateHitPoints(capturedHp),
 				})
 			}
 		}
@@ -398,7 +424,7 @@ const Combat: React.FC<CombatProps> = (props) => {
 				log: { text: "You were struck down while fleeing...", type: "info" },
 				apply: () => {
 					setCombatOver(true)
-					saveCharacter({ ...charRecord, hitPoints: 0 })
+					updateHitPoints(0)
 				},
 			})
 		} else {
@@ -406,23 +432,26 @@ const Combat: React.FC<CombatProps> = (props) => {
 				log: { text: "You manage to escape!", type: "info" },
 				apply: () => {
 					setCombatOver(true)
-					saveCharacter({ ...charRecord, hitPoints: runningPlayerHp })
+					updateHitPoints(runningPlayerHp)
 				},
 			})
 		}
 
 		playSteps(steps)
-	}, [combatOver, charRecord, playerResistances, playerHp, foe, round, foeCooldowns, pickFoeAttack, saveCharacter, playSteps])
+	}, [combatOver, charRecord, playerResistances, playerHp, foeHp, foe, round, foeCooldowns, pickFoeAttack, updateHitPoints, playSteps, recordInjuredFoe, props.foe])
 
-	const handleContinue = () => {
+	const handleContinue = useCallback(() => {
 		if (playerHp <= 0) {
+			recordInjuredFoe(props.foe, foeHp)
 			navigate(foe.death.route)
 		} else if (foeHp <= 0) {
+			defeatFoe(props.foe)
 			navigate(foe.victory.route)
 		} else {
+			recordInjuredFoe(props.foe, foeHp)
 			navigate(foe.flee.route)
 		}
-	}
+	}, [playerHp, foeHp, props.foe, foe.death.route, foe.victory.route, foe.flee.route, navigate, defeatFoe, recordInjuredFoe])
 
 	if (!charRecord || !classAttacks || !playerResistances) {
 		return <p>No character loaded.</p>
