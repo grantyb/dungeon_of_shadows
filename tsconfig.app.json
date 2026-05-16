@@ -26,12 +26,11 @@
 		"exactOptionalPropertyTypes": true,
 
 		/* Path alias for absolute imports from src */
-		"baseUrl": "./src",
 		"paths": {
-			"*": ["*"],
-			"src/*": ["*"],
-			"@/*": ["*"],
-			"@src/*": ["*"]
+			"*": ["./src/*"],
+			"src/*": ["./src/*"],
+			"@/*": ["./src/*"],
+			"@src/*": ["./src/*"]
 		}
 	},
 	"include": ["src"]
