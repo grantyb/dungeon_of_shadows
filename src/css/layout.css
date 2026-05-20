@@ -102,17 +102,21 @@
 	border: none;
 	border-image: url("../assets/parchment.png") 200 fill / 70px / 0 stretch;
 	color: #2a1a0a;
-	padding: 2.5rem;
-	max-height: 80%;
-	overflow-y: scroll;
 	position: relative;
+	display: grid;
 
 	&.combat-conversation {
 		max-width: 40%;
 	}
 
-	&:has(.combat-action-prompt) {
+	&:has(.combat-action-prompt) .conversation-scroll {
 		padding-bottom: 0;
+	}
+
+	.conversation-scroll {
+		padding: 2.5rem;
+		max-height: 80vh;
+		overflow-y: scroll;
 	}
 
 	p {

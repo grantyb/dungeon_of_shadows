@@ -66,26 +66,28 @@ const Conversation: React.FC<ConversationProps> = ({
 	}
 	return (
 		<div className="conversation" style={style}>
-			{childArray.map((child, i) => {
-				const revealed = i < effectiveCount
-				const instant = alreadyVisited
-				const className = classNames("conversation-child", {
-					"-revealed": revealed,
-					"-instant": instant,
-				})
+			<div className="conversation-scroll">
+				{childArray.map((child, i) => {
+					const revealed = i < effectiveCount
+					const instant = alreadyVisited
+					const className = classNames("conversation-child", {
+						"-revealed": revealed,
+						"-instant": instant,
+					})
 
-				return (
-					<RevealContext.Provider key={i} value={{ revealed }}>
-						<div className={className}>{child}</div>
-					</RevealContext.Provider>
-				)
-			})}
-			{!allRevealed && (
-				<span className="conversation-controls">
-					<Button onClick={handleContinue} label="Continue" />
-					<Button onClick={handleSkip} label="Skip" />
-				</span>
-			)}
+					return (
+						<RevealContext.Provider key={i} value={{ revealed }}>
+							<div className={className}>{child}</div>
+						</RevealContext.Provider>
+					)
+				})}
+				{!allRevealed && (
+					<span className="conversation-controls">
+						<Button onClick={handleContinue} label="Continue" />
+						<Button onClick={handleSkip} label="Skip" />
+					</span>
+				)}
+			</div>
 		</div>
 	)
 }
