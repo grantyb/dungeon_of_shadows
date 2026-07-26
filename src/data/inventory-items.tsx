@@ -1,13 +1,13 @@
 import type { InventoryItemType } from "./character-data"
 import type { CharacterClass } from "./character-data"
 
-import scrollImg from "assets/items/scroll.png"
-import fireOrbImg from "assets/items/fire-orb.png"
-import healingPotionImg from "assets/items/healing-potion.png"
-import cauterizingPotionImg from "assets/items/cauterizing-potion.png"
-import dowsingPotionImg from "assets/items/dowsing-potion.png"
-import antidotePotionImg from "assets/items/antidote-potion.png"
-import mooncapLanternImg from "assets/items/mooncap-lantern.png"
+import scrollImg from "assets/items/scroll.webp"
+import fireOrbImg from "assets/items/fire-orb.webp"
+import healingPotionImg from "assets/items/healing-potion.webp"
+import cauterizingPotionImg from "assets/items/cauterizing-potion.webp"
+import dowsingPotionImg from "assets/items/dowsing-potion.webp"
+import antidotePotionImg from "assets/items/antidote-potion.webp"
+import mooncapLanternImg from "assets/items/mooncap-lantern.webp"
 
 export type ItemDefinition = {
 	unidentified: InventoryItemType

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import img from "assets/dungeon/tunnels/port-defeated.png"
+import img from "assets/dungeon/tunnels/port-defeated.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"

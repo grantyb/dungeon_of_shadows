@@ -6,8 +6,8 @@ import { Route } from "react-router-dom"
 
 import combatMusic from "assets/dungeon/combat.m4a"
 import introductionMusic from "assets/dungeon/introduction.m4a"
-import backpackClosed from "assets/items/backpack-closed.png"
-import backpackOpen from "assets/items/backpack-open.png"
+import backpackClosed from "assets/items/backpack-closed.webp"
+import backpackOpen from "assets/items/backpack-open.webp"
 
 import Button from "components/Button"
 import CharacterCreationScreen from "components/CharacterCreationScreen"

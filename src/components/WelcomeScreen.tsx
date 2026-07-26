@@ -1,6 +1,6 @@
 import React from "react"
 
-import dungeonEntrance from "assets/dungeon/entrance.png"
+import dungeonEntrance from "assets/dungeon/entrance.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import { useCharacter } from "data/character-data"

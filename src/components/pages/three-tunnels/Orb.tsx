@@ -1,5 +1,5 @@
-import img from "assets/dungeon/tunnels/closed-chest.png"
-import img2 from "assets/dungeon/tunnels/chest.png"
+import img from "assets/dungeon/tunnels/closed-chest.webp"
+import img2 from "assets/dungeon/tunnels/chest.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"

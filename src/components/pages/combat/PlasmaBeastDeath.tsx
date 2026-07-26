@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import img from "assets/combat/plasma-beast-death.png"
+import img from "assets/combat/plasma-beast-death.webp"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "../../Button"

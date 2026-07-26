@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/right.png";
-import deadEnd from "../../../assets/dungeon/tunnels/dead-end.png";
-import doorTrap from "../../../assets/dungeon/tunnels/door-trap.png";
-import portClosed from "../../../assets/dungeon/tunnels/port-closed.png";
+import img from "../../../assets/dungeon/tunnels/right.webp";
+import deadEnd from "../../../assets/dungeon/tunnels/dead-end.webp";
+import doorTrap from "../../../assets/dungeon/tunnels/door-trap.webp";
+import portClosed from "../../../assets/dungeon/tunnels/port-closed.webp";
 import Button from "../../Button";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";

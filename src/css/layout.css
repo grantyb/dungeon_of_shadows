@@ -100,7 +100,7 @@
 	margin-left: 5%;
 	margin-bottom: 5%;
 	border: none;
-	border-image: url("../assets/parchment.png") 200 fill / 70px / 0 stretch;
+	border-image: url("../assets/parchment.webp") 200 fill / 70px / 0 stretch;
 	color: #2a1a0a;
 	position: relative;
 	display: grid;

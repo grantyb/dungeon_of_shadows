@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
-import img from "assets/dungeon/tunnels/the-three-tunnels.png"
+import img from "assets/dungeon/tunnels/the-three-tunnels.webp"
 import Button from "components/Button"
 
 export const TheThreeTunnels = () => {

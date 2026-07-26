@@ -1,5 +1,5 @@
-import img from "assets/dungeon/tunnels/eastern-approach.png"
-import archwayImg from "assets/dungeon/tunnels/eastern-archway.png"
+import img from "assets/dungeon/tunnels/eastern-approach.webp"
+import archwayImg from "assets/dungeon/tunnels/eastern-archway.webp"
 import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"

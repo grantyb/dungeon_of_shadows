@@ -1,8 +1,8 @@
 
-import img from "../../../assets/dungeon/tunnels/stairs.png"
-import img2 from "../../../assets/dungeon/tunnels/stairs-further.png"
-import img3 from "../../../assets/dungeon/tunnels/stairs-void.png"
-import img4 from "../../../assets/dungeon/tunnels/stairs-void-death.png"
+import img from "../../../assets/dungeon/tunnels/stairs.webp"
+import img2 from "../../../assets/dungeon/tunnels/stairs-further.webp"
+import img3 from "../../../assets/dungeon/tunnels/stairs-void.webp"
+import img4 from "../../../assets/dungeon/tunnels/stairs-void-death.webp"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";

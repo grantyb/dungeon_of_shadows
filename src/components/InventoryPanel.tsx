@@ -6,12 +6,12 @@ import type { DamageType, DotEffect } from "data/combat-data"
 import classNames from "classnames"
 import { toast } from "components/utils/toast"
 
-import burningIcon from "assets/character/status-icons/burning.png"
-import bleedingIcon from "assets/character/status-icons/bleeding.png"
-import poisonedIcon from "assets/character/status-icons/poisoned.png"
-import freezingIcon from "assets/character/status-icons/freezing.png"
-import electrifiedIcon from "assets/character/status-icons/electrified.png"
-import deadIcon from "assets/character/status-icons/dead.png"
+import burningIcon from "assets/character/status-icons/burning.webp"
+import bleedingIcon from "assets/character/status-icons/bleeding.webp"
+import poisonedIcon from "assets/character/status-icons/poisoned.webp"
+import freezingIcon from "assets/character/status-icons/freezing.webp"
+import electrifiedIcon from "assets/character/status-icons/electrified.webp"
+import deadIcon from "assets/character/status-icons/dead.webp"
 
 const statusEffectTypes: DamageType[] = ["poison", "cold", "fire", "bleeding", "electricity"]
 

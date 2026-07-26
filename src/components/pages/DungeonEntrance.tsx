@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
-import img from "assets/dungeon/tunnels/eastern-approach.png"
-import wizard from "assets/dungeon/wizard.png"
-import wizardStanding from "assets/dungeon/greet-wizard.png"
+import img from "assets/dungeon/tunnels/eastern-approach.webp"
+import wizard from "assets/dungeon/wizard.webp"
+import wizardStanding from "assets/dungeon/greet-wizard.webp"
 import Button from "components/Button"
 import BackgroundChange from "components/BackgroundChange";
 

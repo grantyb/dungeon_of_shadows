@@ -1,5 +1,5 @@
-import img from "assets/dungeon/tunnels/west-2.png"
-import mushroomDescentImg from "assets/dungeon/tunnels/mushroom-descent.png"
+import img from "assets/dungeon/tunnels/west-2.webp"
+import mushroomDescentImg from "assets/dungeon/tunnels/mushroom-descent.webp"
 import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"

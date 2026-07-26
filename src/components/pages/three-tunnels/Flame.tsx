@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import archwayImage from "../../../assets/dungeon/tunnels/flame-symbol.png";
-import flameCavernImg from "../../../assets/dungeon/tunnels/flame-cavern.png";
-import explosionImg from "../../../assets/dungeon/tunnels/flame-cavern-explosion.png";
-import deadImage from "../../../assets/dungeon/tunnels/flame-deeper-dead.png";
-import survivedImage from "../../../assets/dungeon/tunnels/flame-deeper-survive.png";
+import archwayImage from "../../../assets/dungeon/tunnels/flame-symbol.webp";
+import flameCavernImg from "../../../assets/dungeon/tunnels/flame-cavern.webp";
+import explosionImg from "../../../assets/dungeon/tunnels/flame-cavern-explosion.webp";
+import deadImage from "../../../assets/dungeon/tunnels/flame-deeper-dead.webp";
+import survivedImage from "../../../assets/dungeon/tunnels/flame-deeper-survive.webp";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
 import { useCharacter } from "data/character-data";

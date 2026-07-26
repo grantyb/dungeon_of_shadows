@@ -1,5 +1,5 @@
-import img from "assets/dungeon/tunnels/wave.png"
-import img2 from "assets/dungeon/tunnels/rocky-shore.png"
+import img from "assets/dungeon/tunnels/wave.webp"
+import img2 from "assets/dungeon/tunnels/rocky-shore.webp"
 import BackgroundChange from "components/BackgroundChange"
 import Button from "components/Button"
 import Conversation from "components/Conversation"

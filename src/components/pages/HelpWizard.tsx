@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
-import img from "assets/dungeon/greet-wizard.png"
+import img from "assets/dungeon/greet-wizard.webp"
 import Button from "components/Button"
 import { useCharacter } from "data/character-data"
 

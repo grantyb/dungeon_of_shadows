@@ -1,14 +1,14 @@
-import wizard from "assets/foes/wizard.png"
-import plasmaBeast from "assets/dungeon/tunnels/plasma-beast.png"
-import portAttack from "assets/dungeon/tunnels/port-attack.png"
+import wizard from "assets/foes/wizard.webp"
+import plasmaBeast from "assets/dungeon/tunnels/plasma-beast.webp"
+import portAttack from "assets/dungeon/tunnels/port-attack.webp"
 
 import wizardVictoryImg from "assets/combat/wizard-victory.png"
-import wizardDeathImg from "assets/combat/wizard-death.png"
-import wizardFleeImg from "assets/combat/wizard-flee.png"
-import plasmaBeastVictoryImg from "assets/combat/plasma-beast-victory.png"
-import plasmaBeastDeathImg from "assets/combat/plasma-beast-death.png"
-import plasmaBeastFleeImg from "assets/combat/plasma-beast-flee.png"
-import portDefeatedImg from "assets/dungeon/tunnels/port-defeated.png"
+import wizardDeathImg from "assets/combat/wizard-death.webp"
+import wizardFleeImg from "assets/combat/wizard-flee.webp"
+import plasmaBeastVictoryImg from "assets/combat/plasma-beast-victory.webp"
+import plasmaBeastDeathImg from "assets/combat/plasma-beast-death.webp"
+import plasmaBeastFleeImg from "assets/combat/plasma-beast-flee.webp"
+import portDefeatedImg from "assets/dungeon/tunnels/port-defeated.webp"
 
 import { defaultResistances, type FoeAttack, type Resistances } from "./combat-data"
 

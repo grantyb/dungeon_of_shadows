@@ -1,4 +1,4 @@
-import portClosed from "assets/dungeon/tunnels/port-closed.png"
+import portClosed from "assets/dungeon/tunnels/port-closed.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"

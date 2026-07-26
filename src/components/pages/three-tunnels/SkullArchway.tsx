@@ -1,5 +1,5 @@
-import img from "../../../assets/dungeon/tunnels/skull-symbol.png"
-import skullTunnel from "../../../assets/dungeon/tunnels/skull-tunnel.png"
+import img from "../../../assets/dungeon/tunnels/skull-symbol.webp"
+import skullTunnel from "../../../assets/dungeon/tunnels/skull-tunnel.webp"
 import StandardPage from "../../StandardPage"
 import Conversation from "../../Conversation"
 import Button from "components/Button";

@@ -1,4 +1,4 @@
-import img from "assets/dungeon/tunnels/mushroom-reward.png"
+import img from "assets/dungeon/tunnels/mushroom-reward.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"

@@ -1,8 +1,8 @@
 import { toast as toastify } from "react-toastify"
 
-import toastSuccessIcon from "assets/icons/toast-success.png"
-import toastErrorIcon from "assets/icons/toast-error.png"
-import toastInfoIcon from "assets/icons/toast-info.png"
+import toastSuccessIcon from "assets/icons/toast-success.webp"
+import toastErrorIcon from "assets/icons/toast-error.webp"
+import toastInfoIcon from "assets/icons/toast-info.webp"
 
 const icons = {
 	success: toastSuccessIcon,

@@ -9,7 +9,7 @@ import { useCharacter } from "data/character-data"
 import { useNavigate } from "react-router-dom"
 import { toast } from "components/utils/toast"
 import ButtonGroup from "./ButtonGroup"
-import dungeonEntrance from "assets/dungeon/entrance.png"
+import dungeonEntrance from "assets/dungeon/entrance.webp"
 
 const LoadCharacterScreen: React.FC = () => {
 	const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import img from "../../../assets/dungeon/tunnels/door1.png";
-import plasmaBeatImg from "../../../assets/dungeon/tunnels/plasma-beast.png";
+import img from "../../../assets/dungeon/tunnels/door1.webp";
+import plasmaBeatImg from "../../../assets/dungeon/tunnels/plasma-beast.webp";
 import Conversation from "../../Conversation";
 import StandardPage from "../../StandardPage";
 import BackgroundChange from "components/BackgroundChange";

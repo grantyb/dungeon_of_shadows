@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import img from "assets/dungeon/tunnels/wave-symbol.png"
-import img2 from "assets/dungeon/tunnels/undergound-river.png"
+import img from "assets/dungeon/tunnels/wave-symbol.webp"
+import img2 from "assets/dungeon/tunnels/undergound-river.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"

@@ -1,4 +1,4 @@
-import img from "assets/dungeon/tunnels/vision.png"
+import img from "assets/dungeon/tunnels/vision.webp"
 import Button from "components/Button"
 import Conversation from "components/Conversation"
 import StandardPage from "components/StandardPage"
